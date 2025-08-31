@@ -15,6 +15,7 @@ import org.firstinspires.ftc.teamcode.Robot_Hardware;
 public class DualMotorLift extends SubsystemBase {
     Robot_Hardware robot;
 
+
     public enum liftState{DOWN, TRANSFER,OUT, RESET, RESET_COMPLETE}
     public static liftState lift_state=liftState.DOWN;
 
@@ -24,7 +25,7 @@ public class DualMotorLift extends SubsystemBase {
     private PIDFController controller;
 
     private int kp=0,ki=1,kd=2,kf=3;
-    public static double kp_new=0, ki_new=0, kd_new=0,kf_new=0;
+    public double kp_new=0, ki_new=0, kd_new=0,kf_new=0;
     double[] pidfCoeffs;//kp,ki,kd,kf
 
     private int currentPosition;
@@ -109,6 +110,7 @@ public class DualMotorLift extends SubsystemBase {
 
     private void state_updated(){
         //TODO: update
+        inRange=false;
         switch(lift_state){
             case DOWN: set_target(Globals.liftDownPos);
                 break;
@@ -116,6 +118,9 @@ public class DualMotorLift extends SubsystemBase {
                 break;
             case OUT:set_target(Globals.liftOutPos);
                 break;
+
+
+
             case RESET:set_target(0);
                 break;
             case RESET_COMPLETE:
@@ -125,6 +130,7 @@ public class DualMotorLift extends SubsystemBase {
                 break;
         }
     }
+
 
 
 

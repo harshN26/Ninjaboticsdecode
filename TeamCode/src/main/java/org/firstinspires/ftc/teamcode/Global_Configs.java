@@ -18,5 +18,7 @@ public class Global_Configs {
     public final static String clawServoName="m2Name";
     public final static DOFStatus clawServoStatus=DOFStatus.ACTIVE;
 
+    public final static String ledsName="leds";
+
 
 }

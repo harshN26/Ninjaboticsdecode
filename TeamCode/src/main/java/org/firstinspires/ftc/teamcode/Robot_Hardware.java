@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.arcrobotics.ftclib.command.CommandScheduler;
+import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -13,6 +14,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Commands.multipartCommands.ResetCommandFinished;
 import org.firstinspires.ftc.teamcode.Commands.multipartCommands.ResetCommandTrigger;
 import org.firstinspires.ftc.teamcode.utils.DualMotorLift;
+import org.firstinspires.ftc.teamcode.utils.LEDs;
 import org.firstinspires.ftc.teamcode.utils.ServoClaw;
 
 public class Robot_Hardware{
@@ -25,9 +27,18 @@ public class Robot_Hardware{
     public double voltage;
     ElapsedTime voltageTimer;
 
+
+    public RevBlinkinLedDriver leds;
+
+
     private static Robot_Hardware instance = null;
 
     public boolean enabled;
+
+    public enum GameState{AUTO,TELE}
+    public static GameState currGameState=GameState.AUTO;
+
+    public static boolean inReset=false;
 
 
     public static Robot_Hardware getInstance() {
@@ -57,13 +68,14 @@ public class Robot_Hardware{
 
 
 
-
         voltageSensor=hardwareMap.voltageSensor.iterator().next();
         voltage = voltageSensor.getVoltage();
 
+        leds=hardwareMap.get(RevBlinkinLedDriver.class, Global_Configs.ledsName);
+
     }
 
-    public void loop(ServoClaw claw, DualMotorLift lift){
+    public void loop(ServoClaw claw, DualMotorLift lift, LEDs leds){
 
         try {
             lift.loop();
@@ -73,6 +85,11 @@ public class Robot_Hardware{
         try {
             claw.loop();
         }catch(Exception ignored){
+
+        }
+        try{
+            leds.loop();
+        }catch (Exception ignored){
 
         }
 
@@ -105,5 +122,10 @@ public class Robot_Hardware{
 
     public double getVoltage(){
         return voltage;
+    }
+
+    public void floatMotors(){
+        liftM1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        liftM2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
     }
 }

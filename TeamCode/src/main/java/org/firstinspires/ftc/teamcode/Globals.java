@@ -6,6 +6,8 @@ import com.acmerobotics.dashboard.config.Config;
 public class Globals {
 
 
+
+
     public static final double clawOpenPos=0.0;
     public static final double clawClosePos=0.0;
 
@@ -16,5 +18,5 @@ public class Globals {
     public static final int liftTransferPos =0;
     public static final int liftOutPos =0;
 
-    public static final double[] PIDFCoeffs={0,0,0,0};
+    public static final double[] liftPIDFCoeffs ={0,0,0,0};
 }

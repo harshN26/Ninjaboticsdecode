@@ -20,7 +20,8 @@ public class ServoClaw extends SubsystemBase {
 
     public ServoClaw(Robot_Hardware hardware, Telemetry telemetry){
         robot=hardware;
-        pos=0.0;
+        pos=0.1;
+        robot.clawServo.setPosition(pos);
         telem=telemetry;
     }
 
@@ -38,7 +39,6 @@ public class ServoClaw extends SubsystemBase {
 
                 case CLOSED:
                     robot.clawServo.setPosition(Globals.clawClosePos);
-                    telem.addData("Claw state: ","Closed");
                     break;
                 case RESET:
                     robot.clawServo.setPosition(Globals.clawOpenPos);
