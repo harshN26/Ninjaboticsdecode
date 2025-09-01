@@ -2,14 +2,17 @@ package org.firstinspires.ftc.teamcode.OpModes.Autos;
 
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
-import com.arcrobotics.ftclib.command.CommandScheduler;
-import com.arcrobotics.ftclib.command.InstantCommand;
-import com.arcrobotics.ftclib.command.SequentialCommandGroup;
-import com.arcrobotics.ftclib.command.WaitUntilCommand;
-import com.pedropathing.follower.Follower;
 
+import com.pedropathing.*;
 import com.pedropathing.geometry.BezierCurve;
 import com.pedropathing.geometry.Pose;
+import com.seattlesolvers.solverslib.command.CommandScheduler;
+import com.seattlesolvers.solverslib.command.InstantCommand;
+import com.seattlesolvers.solverslib.command.SequentialCommandGroup;
+import com.seattlesolvers.solverslib.command.WaitUntilCommand;
+import com.pedropathing.follower.Follower;
+
+
 import com.pedropathing.paths.Path;
 import com.pedropathing.paths.PathChain;
 import com.pedropathing.util.Timer;
@@ -52,7 +55,7 @@ public class PracticeAuto extends OpMode {
     public void buildPaths(){
         path=new Path(new BezierCurve());
         newPath=follower.pathBuilder()
-                .addPath(new BezierCurve())
+                .addPath(new BezierCurve(new Pose(0,0)))
                 .build();
 
     }

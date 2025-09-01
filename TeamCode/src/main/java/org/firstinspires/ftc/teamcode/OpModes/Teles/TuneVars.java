@@ -2,7 +2,7 @@ package org.firstinspires.ftc.teamcode.OpModes.Teles;
 
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
-import com.arcrobotics.ftclib.command.CommandScheduler;
+import com.seattlesolvers.solverslib.command.CommandScheduler;
 import com.pedropathing.follower.Follower;
 
 import com.pedropathing.geometry.Pose;

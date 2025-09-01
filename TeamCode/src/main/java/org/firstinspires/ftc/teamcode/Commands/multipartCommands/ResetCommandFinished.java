@@ -1,6 +1,6 @@
 package org.firstinspires.ftc.teamcode.Commands.multipartCommands;
 
-import com.arcrobotics.ftclib.command.ParallelCommandGroup;
+import com.seattlesolvers.solverslib.command.ParallelCommandGroup;
 
 import org.firstinspires.ftc.teamcode.Commands.BasicCommands.LiftCommand;
 import org.firstinspires.ftc.teamcode.utils.DualMotorLift;

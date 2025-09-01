@@ -1,6 +1,6 @@
 package org.firstinspires.ftc.teamcode.Commands.BasicCommands;
 
-import com.arcrobotics.ftclib.command.InstantCommand;
+import com.seattlesolvers.solverslib.command.InstantCommand;
 
 import org.firstinspires.ftc.teamcode.utils.ServoClaw;
 
