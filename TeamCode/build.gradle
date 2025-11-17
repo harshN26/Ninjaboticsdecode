@@ -20,6 +20,8 @@ android {
 
     packagingOptions {
         jniLibs.useLegacyPackaging true
+
+
     }
 }
 repositories{
@@ -34,7 +36,9 @@ dependencies {
 
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.12.7'
     implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.4.21'
-    implementation "org.solverslib:core:SNAPSHOT-7cdcc66" // core
-    implementation "org.solverslib:pedroPathing:SNAPSHOT-7cdcc66" // pedroPathing
-    implementation 'org.psilynx:psikit:0.0.3'
+    implementation "org.solverslib:core:SNAPSHOT-7962e3e" // core
+    implementation "org.solverslib:pedroPathing:SNAPSHOT-7962e3e" // pedroPathing
+    implementation 'org.psilynx.psikit:core:0.1.0-beta1'
+    implementation 'org.psilynx.psikit:ftc:0.1.0-beta1'
+
 }
