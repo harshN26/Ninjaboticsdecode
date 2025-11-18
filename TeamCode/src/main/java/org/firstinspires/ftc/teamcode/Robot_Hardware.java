@@ -30,7 +30,7 @@ public class Robot_Hardware{
     public DcMotorEx intake;
 
     public CRServo sort1, sort2;
-    public Servo push, ramp, flick, hood1, hood2;
+    public Servo push, ramp, flickSide, flickUp, hood1, hood2;
 
     public VoltageSensor voltageSensor;
     public double voltage;
@@ -54,7 +54,7 @@ public class Robot_Hardware{
     public static boolean inReset=false;
 
 
-    Pose pose;
+    public Pose pose;
     Vector driveVector;
 
 
@@ -106,7 +106,8 @@ public class Robot_Hardware{
 
         push=hwMap.get(Servo.class, Global_Configs.pushName);
         ramp=hwMap.get(Servo.class, Global_Configs.rampName);
-        flick=hwMap.get(Servo.class, Global_Configs.flickName);
+        flickSide=hwMap.get(Servo.class, Global_Configs.flickSideName);
+        flickSide=hwMap.get(Servo.class, Global_Configs.flickUpName);
         hood1=hwMap.get(Servo.class, Global_Configs.hood1Name);
         hood2=hwMap.get(Servo.class, Global_Configs.hood2Name);
 

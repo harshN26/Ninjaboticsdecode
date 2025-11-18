@@ -28,7 +28,7 @@ public class TurretShooter extends SubsystemBase {
     private double currentRPM_shooter;
     private double targetRPM_shooter;
 
-    private boolean inRange;
+    public boolean inRange;
 
     private double hoodPos;
     private double targetHoodPos;
@@ -175,7 +175,7 @@ public class TurretShooter extends SubsystemBase {
 
 
     private double[] calculateShot(double xTarget, double yTarget) {
-
+    //FIXME: add turret angle loop around with banned angles to prevent wire pulling
         //Horizontal displacement with velocity compensation
         double dx = xTarget - robot.x - robot.xVelo;
         double dy = yTarget - robot.y - robot.yVelo;

@@ -22,8 +22,8 @@ public class Constants {
     public static final double hoodResetPos =0.5;
     public static final double hoodTolerance=0.02;
 
-    public static final double shooterMinAngle=30;//deg
-    public static final double shooterMaxAngle=60;//deg
+    public static final double shooterMinAngle=15;//deg
+    public static final double shooterMaxAngle=45;//deg
 
 
 
@@ -62,6 +62,22 @@ public class Constants {
     public static final double rampUp=0.0;
     public static final double rampDown=0.0;
 
+
+
+
+
+
+
+
+
+    public static final Pose redGoalStartingPose=new Pose(0,0,0);
+    public static final Pose redBackStartingPose=new Pose(0,0,0);
+    public static final Pose blueGoalStartingPose=new Pose(0,0,0);
+    public static final Pose blueBackStartingPose=new Pose(0,0,0);
+
+
+    public static final Pose blueResetPose=new Pose(0,0,0);
+    public static final Pose redResetPose=new Pose(0,0,0);
 
 
 

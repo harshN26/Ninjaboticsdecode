@@ -18,7 +18,7 @@ import org.firstinspires.ftc.teamcode.utils.Intake;
 import org.firstinspires.ftc.teamcode.utils.TurretShooter;
 
 
-@TeleOp
+@TeleOp(name="tele", group="P2")
 public class Practice extends OpMode{
     Robot_Hardware robot=Robot_Hardware.getInstance();
     ElapsedTime timer;
@@ -44,7 +44,7 @@ public class Practice extends OpMode{
         shooter=new TurretShooter(robot,telemetry);
 
         follower = org.firstinspires.ftc.teamcode.pedroPathing.Constants.createFollower(hardwareMap);
-        follower.setStartingPose(new Pose(0,0,0));
+        follower.setStartingPose(robot.pose);
 
 
     }
@@ -54,6 +54,7 @@ public class Practice extends OpMode{
 
     public void start(){
         follower.startTeleopDrive();
+        //TODO: schedule default commands
         timer.reset();
     }
     public void loop(){

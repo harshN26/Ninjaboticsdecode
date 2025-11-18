@@ -12,7 +12,7 @@ public class ChamberSort {
     Robot_Hardware robot;
     Telemetry telem;
 
-    public enum CHAMBER_STATE{IN,STOP,OUT, UP}
+    public enum CHAMBER_STATE{IN,STOP,OUT, UP, LAST}
 
     public CHAMBER_STATE state=CHAMBER_STATE.STOP;
     public ChamberSort(Robot_Hardware hardware, Telemetry telemetry){
@@ -24,25 +24,42 @@ public class ChamberSort {
         state=newState;
     }
 
+    public void setPowerAll(double pow){
+        robot.sort1.setPower(pow);
+        robot.sort2.setPower(pow);
+    }
+
     public void loop(){
         //TODO: make this use both CServo (the melonobotics servos)
         if(Global_Configs.intakeStatus== Global_Configs.DOFStatus.ACTIVE){
             switch(state){
-                case IN:robot.intake.setPower(1.0);
+                case IN:setPowerAll(1.0);
                     robot.ramp.setPosition(Constants.rampDown);
+                    robot.flickUp.setPosition(0.0);
                     break;
-                case OUT:robot.intake.setPower(-0.5);
+                case OUT:setPowerAll(-1.0);
                     robot.ramp.setPosition(Constants.rampUp);
+                    robot.flickUp.setPosition(0.0);
                     break;
-                case STOP:robot.intake.setPower(0);
-                    robot.ramp.setPosition(Constants.rampDown);
+                case STOP:setPowerAll(0);
+                    robot.ramp.setPosition(Constants.rampUp);
+                    robot.flickUp.setPosition(0.0);
                     break;
                 case UP:
+                    setPowerAll(1.0);
                     robot.ramp.setPosition(Constants.rampUp);
+                    robot.flickUp.setPosition(0.0);
+                    break;
+                case LAST:
+                    setPowerAll(1.0);
+                    robot.ramp.setPosition(Constants.rampUp);
+                    robot.flickUp.setPosition(1.0);
                     break;
             }
         }else{
-            robot.intake.setPower(0);
+            setPowerAll(1.0);
+            robot.ramp.setPosition(Constants.rampDown);
+            robot.flickUp.setPosition(0.0);
         }
     }
 }

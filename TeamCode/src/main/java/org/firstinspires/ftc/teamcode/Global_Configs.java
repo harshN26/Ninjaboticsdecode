@@ -25,8 +25,10 @@ public class Global_Configs {
     public final static String rampName="ramp";
     public final static DOFStatus rampStatus=DOFStatus.ACTIVE;
 
-    public final static String flickName="flick";
-    public final static DOFStatus flickStatus=DOFStatus.ACTIVE;
+    public final static String flickSideName="flickSide";
+    public final static DOFStatus flickSideStatus=DOFStatus.ACTIVE;
+    public final static String flickUpName="flickUp";
+    public final static DOFStatus flickUpStatus=DOFStatus.ACTIVE;
     public final static String hood1Name="hood1";
     public final static DOFStatus hood1Status=DOFStatus.ACTIVE;
     public final static String hood2Name="hood2";
