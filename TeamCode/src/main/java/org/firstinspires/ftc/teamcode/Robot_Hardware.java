@@ -29,7 +29,7 @@ public class Robot_Hardware{
     public DcMotorEx turret;
     public DcMotorEx intake;
 
-    public CRServo sort1, sort2;
+    public CRServo sort1;
     public Servo push, ramp, flickSide, flickUp, hood1, hood2;
 
     public VoltageSensor voltageSensor;
@@ -102,7 +102,7 @@ public class Robot_Hardware{
 
 
         sort1=hwMap.get(CRServo.class, Global_Configs.sort1Name);
-        sort2=hwMap.get(CRServo.class, Global_Configs.sort2Name);
+
 
         push=hwMap.get(Servo.class, Global_Configs.pushName);
         ramp=hwMap.get(Servo.class, Global_Configs.rampName);

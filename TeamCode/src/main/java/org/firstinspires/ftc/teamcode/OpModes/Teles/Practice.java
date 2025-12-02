@@ -23,7 +23,7 @@ import org.firstinspires.ftc.teamcode.utils.Intake;
 import org.firstinspires.ftc.teamcode.utils.TurretShooter;
 
 @Disabled
-@TeleOp(name="tele", group="P2")
+@TeleOp(name="tele", group="P3")
 public class Practice extends OpMode{
     Robot_Hardware robot=Robot_Hardware.getInstance();
     ElapsedTime timer;

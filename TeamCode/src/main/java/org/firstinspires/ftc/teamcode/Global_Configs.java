@@ -6,8 +6,8 @@ import com.qualcomm.robotcore.hardware.Servo;
 public class Global_Configs {
     public enum DOFStatus{ACTIVE,DISABLED}
 
-    public final static String shooterM1Name="m1Name";
-    public final static String shooterM2Name="m2Name";
+    public final static String shooterM1Name="shooterLeft";
+    public final static String shooterM2Name="shooterRight";
     public final static DOFStatus shooterM1Status=DOFStatus.ACTIVE; //TODO: should never be disabled - encoder pos uses this
     public final static DOFStatus shooterM2Status=DOFStatus.ACTIVE;
 
@@ -26,16 +26,17 @@ public class Global_Configs {
     public final static DOFStatus rampStatus=DOFStatus.ACTIVE;
 
     public final static String flickSideName="flickSide";
-    public final static DOFStatus flickSideStatus=DOFStatus.ACTIVE;
+    public final static DOFStatus flickSideStatus
+            =DOFStatus.DISABLED;
     public final static String flickUpName="flickUp";
     public final static DOFStatus flickUpStatus=DOFStatus.ACTIVE;
     public final static String hood1Name="hood1";
-    public final static DOFStatus hood1Status=DOFStatus.ACTIVE;
+    public final static DOFStatus hood1Status=DOFStatus.DISABLED;
     public final static String hood2Name="hood2";
-    public final static DOFStatus hood2Status=DOFStatus.ACTIVE;
+    public final static DOFStatus hood2Status=DOFStatus.DISABLED ;
 
 
-    public final static String ledsName="leds";
+//    public final static String ledsName="leds";
 
 
 }

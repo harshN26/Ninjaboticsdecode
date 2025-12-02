@@ -26,7 +26,6 @@ public class ChamberSort {
 
     public void setPowerAll(double pow){
         robot.sort1.setPower(pow);
-        robot.sort2.setPower(pow);
     }
 
     public void loop(){

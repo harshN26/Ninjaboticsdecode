@@ -62,7 +62,7 @@ public class TurretShooter extends SubsystemBase {
         tol_turret=Constants.tolerance_turret;
 
         telem = telemetry;
-
+        pidTurret=new PIDController(Constants.pidCoeffs_turret[0],Constants.pidCoeffs_turret[1],Constants.pidCoeffs_turret[2]);
         pidTurret.setPID(Constants.pidCoeffs_turret[0],Constants.pidCoeffs_turret[1],Constants.pidCoeffs_turret[2]);
 
     }
