@@ -132,17 +132,17 @@ public class Robot_Hardware{
         try {
             chamber.loop();
         }catch(Exception ignored){
-
+            telem.addLine("New Chamber error: "+ignored);
         }
         try {
             shooter.loop();
         }catch(Exception ignored){
-
+            telem.addLine("New Shooter error: "+ignored);
         }
         try{
             intakeSubsytem.loop();
         }catch (Exception ignored){
-
+            telem.addLine("New Intake error: "+ignored);
         }
         try{
             follower.update();
@@ -156,7 +156,7 @@ public class Robot_Hardware{
             headingVelo=follower.getAngularVelocity();
 
         }catch (Exception ignored){
-
+            telem.addLine("New General error: "+ignored);
         }
 
         if (voltageTimer.seconds() > 5) {
