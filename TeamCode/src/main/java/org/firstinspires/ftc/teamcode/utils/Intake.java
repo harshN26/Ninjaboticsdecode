@@ -35,5 +35,10 @@ public class Intake {
         }else{
             robot.intake.setPower(0);
         }
+        telem();
+    }
+    public void telem() {
+
+//        telem.addLine("intake state: " + state);
     }
 }

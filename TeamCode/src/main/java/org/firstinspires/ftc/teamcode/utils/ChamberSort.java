@@ -29,7 +29,6 @@ public class ChamberSort {
     }
 
     public void loop(){
-        //TODO: make this use both CServo (the melonobotics servos)
         if(Global_Configs.intakeStatus== Global_Configs.DOFStatus.ACTIVE){
             switch(state){
                 case IN:setPowerAll(1.0);
@@ -64,5 +63,12 @@ public class ChamberSort {
             robot.ramp.setPosition(Constants.rampUp);
             robot.flickUp.setPosition(0.0);
         }
+
+
+        telem();
+    }
+
+    public void telem(){
+//        telem.addLine("chamber state: "+ state);
     }
 }
