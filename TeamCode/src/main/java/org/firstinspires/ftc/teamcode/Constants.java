@@ -54,9 +54,9 @@ public class Constants {
 
     public static final double TICKS_PER_REV_Turret = 560; //TODO: change to match motor
 
-    public static final double turr_kp=0.0;
-    public static final double turr_kv=0.0;
-    public static final double turr_ks=0.0;
+    public static final double shooter_kp=0.0;
+    public static final double shooter_kv=0.0;
+    public static final double shooter_ks=0.0;
 
 
 
