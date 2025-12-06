@@ -16,9 +16,9 @@ import com.seattlesolvers.solverslib.command.WaitUntilCommand;
 
 import org.firstinspires.ftc.teamcode.Constants;
 import org.firstinspires.ftc.teamcode.Robot_Hardware;
-import org.firstinspires.ftc.teamcode.utils.ChamberSort;
-import org.firstinspires.ftc.teamcode.utils.Intake;
-import org.firstinspires.ftc.teamcode.utils.TurretShooter;
+import org.firstinspires.ftc.teamcode.Subsystems.ChamberSort;
+import org.firstinspires.ftc.teamcode.Subsystems.Intake;
+import org.firstinspires.ftc.teamcode.Subsystems.TurretShooter;
 @Disabled
 @Autonomous(name="GoalAuto12RED")
 public class ball_auto_12 extends OpMode {
