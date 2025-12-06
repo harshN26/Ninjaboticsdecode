@@ -127,7 +127,7 @@ public class Robot_Hardware{
 
     }
 
-    public void loop(ChamberSort chamber, TurretShooter shooter, Intake intakeSubsytem, Follower follower){
+    public void loop(ChamberSort chamber, TurretShooter shooter, Intake intakeSubsystem, Follower follower){
 
         try {
             chamber.loop();
@@ -140,7 +140,7 @@ public class Robot_Hardware{
             telem.addLine("New Shooter error: "+ignored);
         }
         try{
-            intakeSubsytem.loop();
+            intakeSubsystem.loop();
         }catch (Exception ignored){
             telem.addLine("New Intake error: "+ignored);
         }
