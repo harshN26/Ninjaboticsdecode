@@ -95,6 +95,7 @@ public class Robot_Hardware{
         if(Global_Configs.intakeStatus== Global_Configs.DOFStatus.ACTIVE) {
             intake=hwMap.get(DcMotorEx.class, Global_Configs.intakeName);
             intake.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
+            intake.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         }
 
 
