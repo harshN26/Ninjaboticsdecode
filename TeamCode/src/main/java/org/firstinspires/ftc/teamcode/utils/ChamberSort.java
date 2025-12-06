@@ -12,7 +12,7 @@ public class ChamberSort {
     Robot_Hardware robot;
     Telemetry telem;
 
-    public enum CHAMBER_STATE{IN,STOP,OUT, UP, LAST}
+    public enum CHAMBER_STATE{IN,STOP,OUT, UP, LAST, IDLE}
 
     public CHAMBER_STATE state=CHAMBER_STATE.STOP;
     public ChamberSort(Robot_Hardware hardware, Telemetry telemetry){
@@ -41,6 +41,10 @@ public class ChamberSort {
                     robot.flickUp.setPosition(0.0);
                     break;
                 case STOP:setPowerAll(0);
+                    robot.ramp.setPosition(Constants.rampDown);
+                    robot.flickUp.setPosition(0.0);
+                    break;
+                case IDLE:setPowerAll(0);
                     robot.ramp.setPosition(Constants.rampUp);
                     robot.flickUp.setPosition(0.0);
                     break;
@@ -57,7 +61,7 @@ public class ChamberSort {
             }
         }else{
             setPowerAll(1.0);
-            robot.ramp.setPosition(Constants.rampDown);
+            robot.ramp.setPosition(Constants.rampUp);
             robot.flickUp.setPosition(0.0);
         }
     }

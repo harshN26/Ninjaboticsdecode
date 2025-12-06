@@ -16,6 +16,8 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import com.seattlesolvers.solverslib.command.InstantCommand;
 
 
+import org.firstinspires.ftc.teamcode.Commands.BasicCommands.ResetCommand;
+import org.firstinspires.ftc.teamcode.Commands.BasicCommands.StartAll;
 import org.firstinspires.ftc.teamcode.Robot_Hardware;
 import org.firstinspires.ftc.teamcode.utils.ChamberSort;
 
@@ -60,19 +62,44 @@ public class Practice extends OpMode{
     public void start(){
         follower.startTeleopDrive();
         CommandScheduler.getInstance().schedule(
-                new InstantCommand(()->shooter.update(TurretShooter.shooterState.IDLE)),
-                new InstantCommand(()->sort.update(ChamberSort.CHAMBER_STATE.IN)),
-                new InstantCommand(()->intake.update(Intake.INTAKE_STATE.IN))
+                new StartAll(follower,shooter,intake,sort, telemetry)
         );
         //TODO: schedule default commands
+
         timer.reset();
     }
     public void loop(){
 
 
-        CommandScheduler.getInstance().schedule(
-                new InstantCommand(()->follower.setTeleOpDrive(-gamepad1.left_stick_y, -gamepad1.left_stick_x, -gamepad1.right_stick_x, true))
-        );
+
+        follower.setTeleOpDrive(-gamepad1.left_stick_y, -gamepad1.left_stick_x, -gamepad1.right_stick_x, true);
+
+
+        if(gamepad1.a){
+
+        }
+        if(gamepad1.b){
+
+
+        }
+        if(gamepad1.y){
+            CommandScheduler.getInstance().schedule(new ResetCommand(follower,shooter,intake,sort, telemetry));
+        }
+        if(gamepad1.left_bumper){
+            CommandScheduler.getInstance().schedule(new InstantCommand(()->intake.update(Intake.INTAKE_STATE.OUT)));
+            CommandScheduler.getInstance().schedule(new InstantCommand(()->sort.update(ChamberSort.CHAMBER_STATE.OUT)));
+        }
+        else if(gamepad1.right_bumper){
+            CommandScheduler.getInstance().schedule(new InstantCommand(()->intake.update(Intake.INTAKE_STATE.IN)));
+            CommandScheduler.getInstance().schedule(new InstantCommand(()->sort.update(ChamberSort.CHAMBER_STATE.IN)));
+        }
+        else if (intake.state != Intake.INTAKE_STATE.STOP){
+            CommandScheduler.getInstance().schedule(new InstantCommand(()->intake.update(Intake.INTAKE_STATE.STOP)));
+            CommandScheduler.getInstance().schedule(new InstantCommand(()->sort.update(ChamberSort.CHAMBER_STATE.STOP)));
+        }
+
+
+
 
 
 

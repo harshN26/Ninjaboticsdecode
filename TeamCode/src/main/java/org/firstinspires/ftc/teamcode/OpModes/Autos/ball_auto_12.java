@@ -20,10 +20,12 @@ import org.firstinspires.ftc.teamcode.utils.ChamberSort;
 import org.firstinspires.ftc.teamcode.utils.Intake;
 import org.firstinspires.ftc.teamcode.utils.TurretShooter;
 @Disabled
-@Autonomous(name="GoalAuto12")
+@Autonomous(name="GoalAuto12RED")
 public class ball_auto_12 extends OpMode {
     Robot_Hardware robot=Robot_Hardware.getInstance();
     ElapsedTime timer;
+
+    ElapsedTime gameTimer;
 
 
     Follower follower;
@@ -43,6 +45,7 @@ public class ball_auto_12 extends OpMode {
 
     public void init(){
         timer=new ElapsedTime();
+        gameTimer=new ElapsedTime();
 
         CommandScheduler.getInstance().reset();
         telemetry =  new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
@@ -55,6 +58,8 @@ public class ball_auto_12 extends OpMode {
 
         follower = org.firstinspires.ftc.teamcode.pedroPathing.Constants.createFollower(hardwareMap);
         follower.setStartingPose(Constants.redGoalStartingPose);
+
+        initPaths();
 
         CommandScheduler.getInstance().schedule(
                 new ParallelCommandGroup(
@@ -150,23 +155,26 @@ public class ball_auto_12 extends OpMode {
                             new WaitUntilCommand(()->!follower.isBusy()&&timer.milliseconds()>=5000),
                             new InstantCommand(()->timer.reset()),
                             new InstantCommand(()->sort.update(ChamberSort.CHAMBER_STATE.LAST)),
-                            new WaitUntilCommand(()->(robot.flickUp.getPosition()==1.0&&shooter.inRange))
+                            new WaitUntilCommand(()->(robot.flickUp.getPosition()==1.0&&shooter.inRange)),
+
+                            new WaitUntilCommand(()->timer.milliseconds()>=29000)
                     )
                 )
         );
+    }
+
+    public void initPaths(){
+
     }
     public void init_loop(){
         telemetry.update();
     }
 
     public void start(){
-        follower.startTeleopDrive();
-        //TODO: schedule default commands
+
         timer.reset();
     }
     public void loop(){
-
-        robot.loop(sort, shooter, intake, follower);
         CommandScheduler.getInstance().run();
         telemetry.update();
     }

@@ -20,8 +20,7 @@ public class TurretShooter extends SubsystemBase {
 
     public enum shooterState {FIRE, IDLE, STOP, RESET, RESET_COMPLETE}
 
-    public static shooterState state = shooterState.IDLE;
-
+    public shooterState state = shooterState.IDLE;
 
 
 
@@ -117,7 +116,7 @@ public class TurretShooter extends SubsystemBase {
     }
 
 
-    public void updateCurrentSpeedShooter() {
+    private void updateCurrentSpeedShooter() {
         double ticksPerSecond = robot.shooterM1.getVelocity();
         currentRPM_shooter = (ticksPerSecond / Constants.TICKS_PER_REV_Shooter) * 60.0;
     }
