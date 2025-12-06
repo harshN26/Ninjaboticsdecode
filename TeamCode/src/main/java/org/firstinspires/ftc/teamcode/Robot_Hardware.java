@@ -40,7 +40,7 @@ public class Robot_Hardware{
 
 
 
-    private static Robot_Hardware instance = null;
+
 
     public boolean enabled;
 
@@ -69,7 +69,7 @@ public class Robot_Hardware{
 
 
 
-
+    private static Robot_Hardware instance = null;
     public static Robot_Hardware getInstance() {
         if (instance == null) {
             instance = new Robot_Hardware();
