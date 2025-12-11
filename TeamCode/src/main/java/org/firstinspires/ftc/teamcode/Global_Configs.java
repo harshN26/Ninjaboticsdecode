@@ -18,8 +18,8 @@ public class Global_Configs {
 
     public final static String sort1Name="sort1";
     public final static DOFStatus sort1Status=DOFStatus.ACTIVE;
-    public final static String sort2Name="sort2";
-    public final static DOFStatus sort2Status=DOFStatus.ACTIVE;
+//    public final static String sort2Name="sort2";
+//    public final static DOFStatus sort2Status=DOFStatus.ACTIVE;
     public final static String pushName="push";
     public final static DOFStatus pushStatus=DOFStatus.ACTIVE;
     public final static String rampName="ramp";

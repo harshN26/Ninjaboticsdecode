@@ -96,6 +96,7 @@ public class Robot_Hardware{
             intake=hwMap.get(DcMotorEx.class, Global_Configs.intakeName);
             intake.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
             intake.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+            intake.setDirection(DcMotorEx.Direction.REVERSE);
         }
 
 
@@ -105,7 +106,7 @@ public class Robot_Hardware{
         push=hwMap.get(Servo.class, Global_Configs.pushName);
         ramp=hwMap.get(Servo.class, Global_Configs.rampName);
         flickSide=hwMap.get(Servo.class, Global_Configs.flickSideName);
-        flickSide=hwMap.get(Servo.class, Global_Configs.flickUpName);
+        flickUp=hwMap.get(Servo.class, Global_Configs.flickUpName);
         hood1=hwMap.get(Servo.class, Global_Configs.hood1Name);
         hood2=hwMap.get(Servo.class, Global_Configs.hood2Name);
 

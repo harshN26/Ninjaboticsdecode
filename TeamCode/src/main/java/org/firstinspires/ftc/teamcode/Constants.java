@@ -14,8 +14,8 @@ public class Constants {
 
 
     //TODO: add all positions and update
-    public static final int ShooterResetRPM =-100;
-    public static final int ShooterIdleRPM =3000;
+    public static final int ShooterResetRPM =0;
+    public static final int ShooterIdleRPM =0;
     public static final int ShooterStopRPM =0;
 
     public static final double hoodMaxPos =0.9;
@@ -50,18 +50,18 @@ public class Constants {
 
     public static final double tolerance_shooter=0;
 
-    public static final double TICKS_PER_REV_Shooter = 560; //TODO: change to match motor
+    public static final double TICKS_PER_REV_Shooter = 28; //TODO: change to match motor
 
     public static final double TICKS_PER_REV_Turret = 560; //TODO: change to match motor
 
-    public static final double shooter_kp=0.0;
-    public static final double shooter_kv=0.0;
+    public static final double shooter_kp=0.000;
+    public static final double shooter_kv=0.001;
     public static final double shooter_ks=0.0;
 
 
 
-    public static final double rampUp=0.0;
-    public static final double rampDown=0.0;
+    public static final double rampUp=0.5;
+    public static final double rampDown=0.6;
 
 
 

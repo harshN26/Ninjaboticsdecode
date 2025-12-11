@@ -32,7 +32,7 @@ public class TurretShooter extends SubsystemBase {
     private double hoodPos;
     private double targetHoodPos;
 
-
+    double shooterPow=0.0;
 
 
 
@@ -220,7 +220,8 @@ public class TurretShooter extends SubsystemBase {
             case FIRE:
                 // active tracking and everything, we are ready for shooting and waiting for balls to enter
                 double [] results= calculateShot(robot.goal.getX(),robot.goal.getY());
-                set_targetRPM_shooter(results[0]);
+//                set_targetRPM_shooter(results[0]);
+                set_targetRPM_shooter(300);
                 setHoodTarget(results[1]);
                 set_target_turret(results[3]);
                 break;
@@ -253,10 +254,10 @@ public class TurretShooter extends SubsystemBase {
 
 
 
-        double shooterPow, turretPow;
+        double turretPow;
 
         turretPow=pidTurret.calculate(turretCurrPos,turretTarget);
-        shooterPow=Constants.shooter_kp * (targetRPM_shooter-currentRPM_shooter) + Constants.shooter_kv * targetRPM_shooter + Math.signum(targetRPM_shooter-currentRPM_shooter) * Constants.shooter_ks;
+        shooterPow= Constants.shooter_kp * (targetRPM_shooter-currentRPM_shooter) + Constants.shooter_kv * targetRPM_shooter + Math.signum(targetRPM_shooter-currentRPM_shooter) * Constants.shooter_ks;
 
         robot.shooterM1.setPower(shooterPow);
 
