@@ -14,6 +14,7 @@ import com.seattlesolvers.solverslib.command.ParallelCommandGroup;
 import com.seattlesolvers.solverslib.command.SequentialCommandGroup;
 import com.seattlesolvers.solverslib.command.WaitUntilCommand;
 
+import org.firstinspires.ftc.teamcode.Commands.multipartCommands.ShootAll;
 import org.firstinspires.ftc.teamcode.Constants;
 import org.firstinspires.ftc.teamcode.Robot_Hardware;
 import org.firstinspires.ftc.teamcode.Subsystems.ChamberSort;
@@ -71,15 +72,7 @@ public class ball_auto_12 extends OpMode {
                             new InstantCommand(()->intake.update(Intake.INTAKE_STATE.STOP)),
                             new WaitUntilCommand(()->(robot.ramp.getPosition()==Constants.rampUp&&shooter.inRange)),
                             // first move back while firing 3 balls
-                            new InstantCommand(()->follower.followPath(path1)),
-                            new InstantCommand(()->sort.update(ChamberSort.CHAMBER_STATE.UP)),
-                            new InstantCommand(()->intake.update(Intake.INTAKE_STATE.IN)),
-
-                            //confirm 3rd ball is shot
-                            new WaitUntilCommand(()->!follower.isBusy()&&timer.milliseconds()>=5000),
-                            new InstantCommand(()->timer.reset()),
-                            new InstantCommand(()->sort.update(ChamberSort.CHAMBER_STATE.LAST)),
-                            new WaitUntilCommand(()->(robot.flickUp.getPosition()==1.0&&shooter.inRange)),
+                            new ShootAll(shooter,sort,intake),
 
                             //Collect balls1
                             new InstantCommand(()->follower.followPath(collectBalls1)),
@@ -101,15 +94,7 @@ public class ball_auto_12 extends OpMode {
 
                             //shoot
                             new WaitUntilCommand(()->(!follower.isBusy()&&shooter.inRange)),
-                            new InstantCommand(()->sort.update(ChamberSort.CHAMBER_STATE.UP)),
-                            new InstantCommand(()->intake.update(Intake.INTAKE_STATE.IN)),
-                            new InstantCommand(()->timer.reset()),
-
-                            //confirm 3rd ball is shot
-                            new WaitUntilCommand(()->!follower.isBusy()&&timer.milliseconds()>=5000),
-                            new InstantCommand(()->timer.reset()),
-                            new InstantCommand(()->sort.update(ChamberSort.CHAMBER_STATE.LAST)),
-                            new WaitUntilCommand(()->(robot.flickUp.getPosition()==1.0&&shooter.inRange)),
+                            new ShootAll(shooter,sort,intake),
 
                             //Collect balls 2
                             new InstantCommand(()->follower.followPath(collectBalls2)),
@@ -123,16 +108,7 @@ public class ball_auto_12 extends OpMode {
                             new InstantCommand(()->shooter.update(TurretShooter.shooterState.FIRE)),
 
                             //shoot
-                            new WaitUntilCommand(()->(!follower.isBusy()&&shooter.inRange)),
-                            new InstantCommand(()->sort.update(ChamberSort.CHAMBER_STATE.UP)),
-                            new InstantCommand(()->intake.update(Intake.INTAKE_STATE.IN)),
-                            new InstantCommand(()->timer.reset()),
-
-                            //confirm 3rd ball is shot
-                            new WaitUntilCommand(()->!follower.isBusy()&&timer.milliseconds()>=5000),
-                            new InstantCommand(()->timer.reset()),
-                            new InstantCommand(()->sort.update(ChamberSort.CHAMBER_STATE.LAST)),
-                            new WaitUntilCommand(()->(robot.flickUp.getPosition()==1.0&&shooter.inRange)),
+                            new ShootAll(shooter,sort,intake),
 
                             //Collect balls 3
                             new InstantCommand(()->follower.followPath(collectBalls3)),
@@ -147,15 +123,7 @@ public class ball_auto_12 extends OpMode {
 
                             //shoot
                             new WaitUntilCommand(()->(!follower.isBusy()&&shooter.inRange)),
-                            new InstantCommand(()->sort.update(ChamberSort.CHAMBER_STATE.UP)),
-                            new InstantCommand(()->intake.update(Intake.INTAKE_STATE.IN)),
-                            new InstantCommand(()->timer.reset()),
-
-                            //confirm 3rd ball is shot
-                            new WaitUntilCommand(()->!follower.isBusy()&&timer.milliseconds()>=5000),
-                            new InstantCommand(()->timer.reset()),
-                            new InstantCommand(()->sort.update(ChamberSort.CHAMBER_STATE.LAST)),
-                            new WaitUntilCommand(()->(robot.flickUp.getPosition()==1.0&&shooter.inRange)),
+                            new ShootAll(shooter,sort,intake),
 
                             new WaitUntilCommand(()->timer.milliseconds()>=29000)
                     )

@@ -19,6 +19,7 @@ import com.seattlesolvers.solverslib.gamepad.GamepadKeys;
 
 import org.firstinspires.ftc.teamcode.Commands.BasicCommands.ResetCommand;
 import org.firstinspires.ftc.teamcode.Commands.BasicCommands.StartAll;
+import org.firstinspires.ftc.teamcode.Commands.multipartCommands.ShootAll;
 import org.firstinspires.ftc.teamcode.Robot_Hardware;
 import org.firstinspires.ftc.teamcode.Subsystems.ChamberSort;
 
@@ -94,14 +95,14 @@ public class Practice extends OpMode{
         g2LBCurrent= gamepad2.left_bumper;
 
 //        follower.setTeleOpDrive(-gamepad1.left_stick_y, -gamepad1.left_stick_x, -gamepad1.right_stick_x, true);
-
-
-        if(gamepad1.a){
-
+        if(g1ACurrent&&!g1ALast){
+            CommandScheduler.getInstance().schedule(new ShootAll(shooter,sort,intake));
         }
-        if(g1BCurrent){
+
+
+        if(g1BCurrent&&!g1BLast){
             CommandScheduler.getInstance().schedule(new InstantCommand(()->shooter.update(TurretShooter.shooterState.FIRE)));
-        }else if(g1BLast){
+        }else if(g1BLast&&!g1BCurrent){
             CommandScheduler.getInstance().schedule(new InstantCommand(()->shooter.update(TurretShooter.shooterState.IDLE)));
         }
 

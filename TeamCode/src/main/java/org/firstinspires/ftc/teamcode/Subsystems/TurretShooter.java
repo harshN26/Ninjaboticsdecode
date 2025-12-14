@@ -28,21 +28,21 @@ public class TurretShooter extends SubsystemBase {
     TelemetryManager telemetry;
 
     private double currentRPM_shooter;
-    public static double targetRPM_shooter;
+    private double targetRPM_shooter;
 
     public boolean inRange;
 
     private double hoodPos;
-    private double targetHoodPos;
+    public static double targetHoodPos;
 
-    double shooterPow=0.0;
-
-
+    private double shooterPow=0.0;
 
 
 
-    private double tol_turret;
-    private int turretTarget;
+
+
+    public static double tol_turret;
+    public static int turretTarget;
     private int turretCurrPos;
     Telemetry telem;
     private final ElapsedTime timer = new ElapsedTime();
@@ -163,7 +163,8 @@ public class TurretShooter extends SubsystemBase {
         boolean rpmOK = (currentRPM_shooter >= targetRPM_shooter - Constants.tolerance_shooter && currentRPM_shooter <= targetRPM_shooter + Constants.tolerance_shooter);
         boolean hoodOK = Math.abs(targetHoodPos - hoodPos) <= Constants.hoodTolerance;
         boolean turretOK=Math.abs(turretTarget-turretCurrPos)<=Constants.tolerance_turret;
-        inRange = rpmOK && hoodOK && turretOK;
+        inRange = rpmOK;
+        //inRange=rpmOK&&hoodOK&&turretOK;
         return inRange;
     }
 
@@ -211,6 +212,71 @@ public class TurretShooter extends SubsystemBase {
 
 
 
+    private double closeRangeRPMBias(double distance) {
+        return Constants.CLOSE_RPM_BIAS *
+                Math.exp(-distance / Constants.CLOSE_BIAS_DECAY);
+    }
+
+    private double[] calculateShot1(double xTarget, double yTarget) {
+
+        double dx = xTarget - robot.x - robot.xVelo;
+        double dy = yTarget - robot.y - robot.yVelo;
+
+        double horizontalDistance = Math.hypot(dx, dy);
+
+        double turretAngleRad = Math.atan2(dy, dx);
+
+        // Initial angle guess
+        double theta = Math.atan(Constants.dZ / horizontalDistance);
+        double cosTheta = Math.cos(theta);
+        double tanTheta = Math.tan(theta);
+
+        double denom = 2.0 * cosTheta * cosTheta *
+                (horizontalDistance * tanTheta - Constants.dZ);
+        if (denom <= 0) denom = 1e-6;
+
+        double vBall = Math.sqrt(Constants.g * horizontalDistance * horizontalDistance / denom);
+
+        double rawRPM = (vBall / (2.0 * Math.PI * Constants.shooterWheelRadius)) * 60.0;
+
+        // Global tuning
+        rawRPM *= Constants.RPM_TUNING_FACTOR;
+
+        // Apply distance-based RPM bias
+        rawRPM += closeRangeRPMBias(horizontalDistance);
+
+        // Enforce RPM limits
+        rawRPM = Math.max(Constants.MIN_WHEEL_RPM,
+                Math.min(rawRPM, Constants.MAX_WHEEL_RPM));
+
+        // Recompute velocity from final RPM
+        vBall = (rawRPM / 60.0) * 2.0 * Math.PI * Constants.shooterWheelRadius;
+
+        // Solve angle with fixed velocity
+        double v2 = vBall * vBall;
+        double g = Constants.g;
+        double x = horizontalDistance;
+        double z = Constants.dZ;
+
+        double underSqrt = v2 * v2 - g * (g * x * x + 2.0 * z * v2);
+        if (underSqrt < 0) underSqrt = 0;
+
+        theta = Math.atan((v2 - Math.sqrt(underSqrt)) / (g * x));
+
+        // Hood position (normalized 0-1)
+        double hoodPos = Math.max(0.0,
+                Math.min(1.0,
+                        (theta - Math.toRadians(15.0)) / Math.toRadians(30.0)));
+
+        double effectiveRPM = Math.min(rawRPM * Constants.EFFECTIVE_RPM_FACTOR,
+                Constants.MAX_WHEEL_RPM);
+
+        return new double[]{rawRPM, effectiveRPM, hoodPos, turretAngleRad};
+    }
+
+
+
+
     public void loop() {
 
         updateCurrentSpeedShooter();
@@ -226,7 +292,7 @@ public class TurretShooter extends SubsystemBase {
                 // active tracking and everything, we are ready for shooting and waiting for balls to enter
                 double [] results= calculateShot(robot.goal.getX(),robot.goal.getY());
 //                set_targetRPM_shooter(results[0]);
-                set_targetRPM_shooter(3000);
+                set_targetRPM_shooter(5000);
                 setHoodTarget(results[1]);
                 set_target_turret(results[3]);
                 break;
