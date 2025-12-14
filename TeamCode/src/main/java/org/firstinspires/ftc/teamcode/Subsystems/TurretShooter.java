@@ -2,6 +2,9 @@ package org.firstinspires.ftc.teamcode.Subsystems;
 
 
 import com.acmerobotics.dashboard.config.Config;
+import com.bylazar.configurables.annotations.Configurable;
+import com.bylazar.telemetry.PanelsTelemetry;
+import com.bylazar.telemetry.TelemetryManager;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.seattlesolvers.solverslib.command.SubsystemBase;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -13,7 +16,7 @@ import org.firstinspires.ftc.teamcode.Global_Configs;
 import org.firstinspires.ftc.teamcode.Constants;
 import org.firstinspires.ftc.teamcode.Robot_Hardware;
 
-@Config
+@Configurable
 public class TurretShooter extends SubsystemBase {
     Robot_Hardware robot;
 
@@ -22,10 +25,10 @@ public class TurretShooter extends SubsystemBase {
 
     public shooterState state = shooterState.IDLE;
 
-
+    TelemetryManager telemetry;
 
     private double currentRPM_shooter;
-    private double targetRPM_shooter;
+    public static double targetRPM_shooter;
 
     public boolean inRange;
 
@@ -61,10 +64,12 @@ public class TurretShooter extends SubsystemBase {
         tol_turret=Constants.tolerance_turret;
 
         telem = telemetry;
+        this.telemetry=PanelsTelemetry.INSTANCE.getTelemetry();
         pidTurret=new PIDController(Constants.pidCoeffs_turret[0],Constants.pidCoeffs_turret[1],Constants.pidCoeffs_turret[2]);
         pidTurret.setPID(Constants.pidCoeffs_turret[0],Constants.pidCoeffs_turret[1],Constants.pidCoeffs_turret[2]);
 
     }
+
 
 
 
@@ -221,7 +226,7 @@ public class TurretShooter extends SubsystemBase {
                 // active tracking and everything, we are ready for shooting and waiting for balls to enter
                 double [] results= calculateShot(robot.goal.getX(),robot.goal.getY());
 //                set_targetRPM_shooter(results[0]);
-                set_targetRPM_shooter(300);
+                set_targetRPM_shooter(3000);
                 setHoodTarget(results[1]);
                 set_target_turret(results[3]);
                 break;
@@ -258,11 +263,11 @@ public class TurretShooter extends SubsystemBase {
 
         turretPow=pidTurret.calculate(turretCurrPos,turretTarget);
         shooterPow= Constants.shooter_kp * (targetRPM_shooter-currentRPM_shooter) + Constants.shooter_kv * targetRPM_shooter + Math.signum(targetRPM_shooter-currentRPM_shooter) * Constants.shooter_ks;
-
         robot.shooterM1.setPower(shooterPow);
-
+//        robot.shooterM1.setPower(0.9);
         if (Global_Configs.shooterM2Status == Global_Configs.DOFStatus.ACTIVE)
             robot.shooterM2.setPower(shooterPow);
+//            robot.shooterM2.setPower(0.9);
         else {
             robot.shooterM2.setPower(0);
         }
@@ -286,7 +291,7 @@ public class TurretShooter extends SubsystemBase {
         }
 
         telem(); 
-
+        telemP();
     }
 
     public void telem() {
@@ -299,6 +304,20 @@ public class TurretShooter extends SubsystemBase {
         telem.addLine("current hood Pos: " + targetHoodPos);
 
         telem.addLine("shooter in range: " + inRange);
+
+//        telem.addLine("shooter state: " + state);
+    }
+    public void telemP() {
+
+        telemetry.addLine("target RPM: "+targetRPM_shooter);
+        telemetry.addLine("current RPM: " + currentRPM_shooter);
+        telemetry.addLine("target turret Pos: " + turretTarget);
+        telemetry.addLine("current turret Pos: " + turretTarget);
+        telemetry.addLine("target hood Pos: " + targetHoodPos);
+        telemetry.addLine("current hood Pos: " + targetHoodPos);
+
+        telemetry.addLine("shooter in range: " + inRange);
+        telemetry.update(telem);
 
 //        telem.addLine("shooter state: " + state);
     }

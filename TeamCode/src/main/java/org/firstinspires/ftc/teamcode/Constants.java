@@ -1,10 +1,11 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.acmerobotics.dashboard.config.Config;
+import com.bylazar.configurables.annotations.Configurable;
 import com.pedropathing.geometry.Pose;
 
 
-@Config
+@Configurable
 public class Constants {
 
 
@@ -39,29 +40,29 @@ public class Constants {
 
     public static final double g = 386.09; // in/s^2
     public static final double dZ = zGoal - shooterHeight;
-    public static final double MAX_WHEEL_RPM = 6000;
+    public static final double MAX_WHEEL_RPM = 4700;
     public static final double EFFECTIVE_RPM_FACTOR = 0.97;
 
 
 
 
     public static final double[] pidCoeffs_turret ={0,0,0};
-    public static final int tolerance_turret=0;
+    public static final int tolerance_turret=5;
 
-    public static final double tolerance_shooter=0;
+    public static final double tolerance_shooter=100;
 
     public static final double TICKS_PER_REV_Shooter = 28; //TODO: change to match motor
 
-    public static final double TICKS_PER_REV_Turret = 560; //TODO: change to match motor
+    public static final double TICKS_PER_REV_Turret = 384.5; //TODO: change to match motor
 
-    public static final double shooter_kp=0.000;
-    public static final double shooter_kv=0.001;
-    public static final double shooter_ks=0.0;
+    public static double shooter_kp=0.0003;
+    public static double shooter_kv=0.00024;
+    public static double shooter_ks=0.0;
 
 
 
-    public static final double rampUp=0.5;
-    public static final double rampDown=0.6;
+    public static final double rampUp=0.6;
+    public static final double rampDown=0.5;
 
 
 

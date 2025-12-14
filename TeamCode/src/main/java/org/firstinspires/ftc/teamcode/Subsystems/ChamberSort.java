@@ -31,29 +31,29 @@ public class ChamberSort {
             switch(state){
                 case IN:setPowerAll(1.0);
                     robot.ramp.setPosition(Constants.rampDown);
-                    robot.flickUp.setPosition(0.0);
+                    robot.flickUp.setPosition(0.5);
                     break;
                 case OUT:setPowerAll(-1.0);
                     robot.ramp.setPosition(Constants.rampUp);
-                    robot.flickUp.setPosition(0.0);
+                    robot.flickUp.setPosition(0.5);
                     break;
                 case STOP:setPowerAll(0);
                     robot.ramp.setPosition(Constants.rampDown);
-                    robot.flickUp.setPosition(0.0);
+                    robot.flickUp.setPosition(0.5);
                     break;
                 case IDLE:setPowerAll(0);
                     robot.ramp.setPosition(Constants.rampUp);
-                    robot.flickUp.setPosition(0.0);
+                    robot.flickUp.setPosition(0.5);
                     break;
                 case UP:
                     setPowerAll(1.0);
                     robot.ramp.setPosition(Constants.rampUp);
-                    robot.flickUp.setPosition(0.0);
+                    robot.flickUp.setPosition(0.5);
                     break;
                 case LAST:
                     setPowerAll(1.0);
                     robot.ramp.setPosition(Constants.rampUp);
-                    robot.flickUp.setPosition(1.0);
+                    robot.flickUp.setPosition(0.5);
                     break;
             }
         }else{

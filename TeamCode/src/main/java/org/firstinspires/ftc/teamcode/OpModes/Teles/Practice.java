@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.OpModes.Teles;
 
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
+import com.bylazar.telemetry.PanelsTelemetry;
 import com.pedropathing.geometry.Pose;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.seattlesolvers.solverslib.command.Command;
@@ -12,6 +13,8 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.seattlesolvers.solverslib.command.InstantCommand;
+import com.seattlesolvers.solverslib.gamepad.GamepadEx;
+import com.seattlesolvers.solverslib.gamepad.GamepadKeys;
 
 
 import org.firstinspires.ftc.teamcode.Commands.BasicCommands.ResetCommand;
@@ -29,7 +32,6 @@ public class Practice extends OpMode{
     Robot_Hardware robot=Robot_Hardware.getInstance();
     ElapsedTime timer;
 
-
     Follower follower;
 
     ChamberSort sort;
@@ -37,6 +39,10 @@ public class Practice extends OpMode{
 
     TurretShooter shooter;
 
+    boolean g1XLast=false,g1YLast=false,g1BLast=false,g1ALast=false, g1LBLast=false, g1RBLast=false;
+    boolean g1XCurrent,g1YCurrent,g1BCurrent,g1ACurrent, g1LBCurrent, g1RBCurrent;
+    boolean g2XLast=false,g2YLast=false,g2BLast=false,g2ALast=false, g2LBLast=false, g2RBLast=false;
+    boolean g2XCurrent,g2YCurrent,g2BCurrent,g2ACurrent, g2LBCurrent, g2RBCurrent;
 
     public void init(){
         timer=new ElapsedTime();
@@ -44,18 +50,19 @@ public class Practice extends OpMode{
         CommandScheduler.getInstance().reset();
         telemetry =  new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
         robot.init(hardwareMap, telemetry);
-        robot.flickSide.setPosition(0.1);
+//        robot.flickSide.setPosition(0.005);
         robot.currGameState= Robot_Hardware.GameState.TELE;
         sort=new ChamberSort(robot, telemetry);
         intake=new Intake(robot, telemetry);
-        shooter=new TurretShooter(robot,telemetry);
+        shooter=new TurretShooter(robot, telemetry);
 
         follower = Constants.createFollower(hardwareMap);
-//        follower.setStartingPose(robot.pose);
-        follower.setStartingPose(new Pose(0,0,0));
+        if (robot.pose != null) {
+           follower.setStartingPose(robot.pose);
+        }else {
+            follower.setStartingPose(new Pose(0, 0, 0));
+        }
         follower.update();
-
-
 
     }
     public void init_loop(){
@@ -72,8 +79,19 @@ public class Practice extends OpMode{
         timer.reset();
     }
     public void loop(){
+        g1ACurrent= gamepad1.a;
+        g1XCurrent= gamepad1.x;
+        g1BCurrent= gamepad1.b;
+        g1YCurrent= gamepad1.y;
+        g1RBCurrent= gamepad1.right_bumper;
+        g1LBCurrent= gamepad1.left_bumper;
 
-
+        g2ACurrent= gamepad2.a;
+        g2XCurrent= gamepad2.x;
+        g2BCurrent= gamepad2.b;
+        g2YCurrent= gamepad2.y;
+        g2RBCurrent= gamepad2.right_bumper;
+        g2LBCurrent= gamepad2.left_bumper;
 
 //        follower.setTeleOpDrive(-gamepad1.left_stick_y, -gamepad1.left_stick_x, -gamepad1.right_stick_x, true);
 
@@ -81,28 +99,28 @@ public class Practice extends OpMode{
         if(gamepad1.a){
 
         }
-        if(gamepad2.b){
+        if(g1BCurrent){
             CommandScheduler.getInstance().schedule(new InstantCommand(()->shooter.update(TurretShooter.shooterState.FIRE)));
-        }else{
+        }else if(g1BLast){
             CommandScheduler.getInstance().schedule(new InstantCommand(()->shooter.update(TurretShooter.shooterState.IDLE)));
         }
 
-        if(gamepad1.y){
+        if(g1YCurrent&&!g1YLast){
             CommandScheduler.getInstance().schedule(new ResetCommand(follower,shooter,intake,sort, telemetry));
         }
-        if(gamepad1.left_bumper){
+        if(g1LBCurrent&&!g1LBLast){
             CommandScheduler.getInstance().schedule(new InstantCommand(()->intake.update(Intake.INTAKE_STATE.OUT)));
             CommandScheduler.getInstance().schedule(new InstantCommand(()->sort.update(ChamberSort.CHAMBER_STATE.OUT)));
         }
-        else if(gamepad1.right_bumper){
+        else if(g1RBCurrent&&!g1RBLast){
             CommandScheduler.getInstance().schedule(new InstantCommand(()->intake.update(Intake.INTAKE_STATE.IN)));
             CommandScheduler.getInstance().schedule(new InstantCommand(()->sort.update(ChamberSort.CHAMBER_STATE.IN)));
         }
-        else if(gamepad2.x){
+        else if(g2XCurrent&&!g2XLast){
             CommandScheduler.getInstance().schedule(new InstantCommand(()->intake.update(Intake.INTAKE_STATE.IN)));
             CommandScheduler.getInstance().schedule(new InstantCommand(()->sort.update(ChamberSort.CHAMBER_STATE.UP)));
         }
-        else if (intake.state != Intake.INTAKE_STATE.STOP){
+        else if (intake.state != Intake.INTAKE_STATE.STOP&&!(g1RBCurrent||g2XCurrent||g1LBCurrent)){
             CommandScheduler.getInstance().schedule(new InstantCommand(()->intake.update(Intake.INTAKE_STATE.STOP)));
             CommandScheduler.getInstance().schedule(new InstantCommand(()->sort.update(ChamberSort.CHAMBER_STATE.STOP)));
         }
@@ -118,6 +136,20 @@ public class Practice extends OpMode{
 
         CommandScheduler.getInstance().run();
         telemetry.update();
+
+        g1ALast=  g1ACurrent;
+        g1XLast=  g1XCurrent;
+        g1BLast=  g1BCurrent;
+        g1YLast=  g1YCurrent;
+        g1RBLast=  g1RBCurrent;
+        g1LBLast=  g1LBCurrent;
+
+        g2ALast=  g2ACurrent;
+        g2XLast=  g2XCurrent;
+        g2BLast=  g2BCurrent;
+        g2YLast=  g2YCurrent;
+        g2RBLast=  g2RBCurrent;
+        g2LBLast=  g2LBCurrent;
     }
     public void end(){
 
