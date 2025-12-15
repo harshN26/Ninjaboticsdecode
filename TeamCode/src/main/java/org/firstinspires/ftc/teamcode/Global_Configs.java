@@ -27,7 +27,7 @@ public class Global_Configs {
 
     public final static String flickSideName="flickSide";
     public final static DOFStatus flickSideStatus
-            =DOFStatus.DISABLED;
+            =DOFStatus.ACTIVE;
     public final static String flickUpName="flickUp";
     public final static DOFStatus flickUpStatus=DOFStatus.ACTIVE;
     public final static String hood1Name="hood1";

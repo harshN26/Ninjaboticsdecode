@@ -105,9 +105,11 @@ public class Robot_Hardware{
 
 
         push=hwMap.get(Servo.class, Global_Configs.pushName);
+        push.setDirection(Servo.Direction.REVERSE);
+        push.setPosition(0.05);
         ramp=hwMap.get(Servo.class, Global_Configs.rampName);
         flickSide=hwMap.get(Servo.class, Global_Configs.flickSideName);
-        flickSide.setDirection(Servo.Direction.REVERSE);
+        flickSide.setPosition(0.5);
         flickUp=hwMap.get(Servo.class, Global_Configs.flickUpName);
         hood1=hwMap.get(Servo.class, Global_Configs.hood1Name);
         hood2=hwMap.get(Servo.class, Global_Configs.hood2Name);
