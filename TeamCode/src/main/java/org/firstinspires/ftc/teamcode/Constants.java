@@ -15,25 +15,25 @@ public class Constants {
 
 
     //TODO: add all positions and update
-    public static final int ShooterResetRPM =-150;
-    public static final int ShooterIdleRPM =500;
+    public static final int ShooterResetRPM =0;
+    public static final int ShooterIdleRPM =0;
     public static final int ShooterStopRPM =0;
 
-    public static final double hoodMaxPos =0.9;
+    public static final double hoodMaxPos =0.8;
     public static double hoodMinPos =0.1;
     public static final double hoodResetPos =0.5;
     public static final double hoodTolerance=0.02;
 
-    public static double shooterMinAngle=15;//deg
+    public static double shooterMinAngle=20;//deg
     public static double shooterMaxAngle=45;//deg
 
 
 
 
 
-    public static final Pose redGoal=new Pose(0,0);
-    public static final Pose blueGoal=new Pose(0,0);
-    public static double zGoal=60; //in
+    public static final Pose redGoal=new Pose(135,137);
+    public static final Pose blueGoal=new Pose(9,137);
+    public static double zGoal=45; //in
 
     public static double shooterHeight=15;//in
     public static final double shooterWheelRadius=1.5;//in
@@ -57,10 +57,10 @@ public class Constants {
 
 
 
-    public static double[] pidCoeffs_turret ={0,0,0};
-    public static final int tolerance_turret=5;
+    public static double[] pidCoeffs_turret ={0.035,0.001,0.0005};
+    public static final int tolerance_turret=10;
 
-    public static final double tolerance_shooter=1000;
+    public static final double tolerance_shooter=500;
 
     public static final double TICKS_PER_REV_Shooter = 28;
 
@@ -83,14 +83,14 @@ public class Constants {
 
 
 
-    public static final Pose redGoalStartingPose=new Pose(0,0,0);
-    public static final Pose redBackStartingPose=new Pose(0,0,0);
-    public static final Pose blueGoalStartingPose=new Pose(0,0,0);
-    public static final Pose blueBackStartingPose=new Pose(0,0,0);
+    public static final Pose redGoalStartingPose=new Pose(122,124,37);
+    public static final Pose redBackStartingPose=new Pose(89,9,90);
+    public static final Pose blueGoalStartingPose=new Pose(22,124,143);
+    public static final Pose blueBackStartingPose=new Pose(55,9,90);
 
 
-    public static final Pose blueResetPose=new Pose(0,0,0);
-    public static final Pose redResetPose=new Pose(0,0,0);
+    public static final Pose blueResetPose=new Pose(136,9,90);
+    public static final Pose redResetPose=new Pose(9,9,90);
 
 
 

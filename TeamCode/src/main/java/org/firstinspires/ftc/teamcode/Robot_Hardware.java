@@ -6,6 +6,7 @@ import com.pedropathing.math.Vector;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.VoltageSensor;
@@ -91,6 +92,7 @@ public class Robot_Hardware{
         if(Global_Configs.turretStatus== Global_Configs.DOFStatus.ACTIVE) {
             turret=hwMap.get(DcMotorEx.class, Global_Configs.turretName);
             turret.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
+            turret.setDirection(DcMotorSimple.Direction.REVERSE);
             turret.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         }
         if(Global_Configs.intakeStatus== Global_Configs.DOFStatus.ACTIVE) {
@@ -113,6 +115,7 @@ public class Robot_Hardware{
         flickUp=hwMap.get(Servo.class, Global_Configs.flickUpName);
         hood1=hwMap.get(Servo.class, Global_Configs.hood1Name);
         hood2=hwMap.get(Servo.class, Global_Configs.hood2Name);
+        hood2.setDirection(Servo.Direction.REVERSE);
 
 
         telem=telemetry;
@@ -122,17 +125,18 @@ public class Robot_Hardware{
         voltageSensor=hardwareMap.voltageSensor.iterator().next();
 
 
-        if(alliance==AllianceColor.RED){
-            goal= Constants.redGoal;
-        }else{
-            goal= Constants.blueGoal;
-        }
-
 //        leds=hardwareMap.get(RevBlinkinLedDriver.class, Global_Configs.ledsName);
 
     }
 
     public void loop(ChamberSort chamber, TurretShooter shooter, Intake intakeSubsystem, Follower follower){
+        if(alliance==AllianceColor.RED){
+            goal= Constants.redGoal;
+            telem.addLine("red goal");
+        }else{
+            goal= Constants.blueGoal;
+            telem.addLine("blue goal");
+        }
 
         try {
             chamber.loop();
