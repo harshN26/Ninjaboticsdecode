@@ -163,7 +163,7 @@ public class TurretShooter extends SubsystemBase {
         boolean rpmOK = (currentRPM_shooter >= targetRPM_shooter - Constants.tolerance_shooter && currentRPM_shooter <= targetRPM_shooter + Constants.tolerance_shooter);
         boolean hoodOK = Math.abs(targetHoodPos - hoodPos) <= Constants.hoodTolerance;
         boolean turretOK=Math.abs(turretTarget-turretCurrPos)<=Constants.tolerance_turret;
-        inRange = rpmOK;
+        inRange = rpmOK&&hoodOK&&turretOK&&state==shooterState.FIRE;
         //inRange=rpmOK&&hoodOK&&turretOK;
         return inRange;
     }
@@ -254,6 +254,83 @@ public class TurretShooter extends SubsystemBase {
     private double closeRangeRPMBias(double distance) {
         return Constants.CLOSE_RPM_BIAS *
                 Math.exp(-distance / Constants.CLOSE_BIAS_DECAY);
+    }
+
+    private double[] calculateShot2(double xTarget, double yTarget){
+        double dy = yTarget - robot.y-robot.yVelo;
+        double dx = xTarget - robot.x-robot.xVelo;
+        double horizontalDistance = Math.hypot(dy, dx);
+
+        double fieldAngle = Math.atan2(dy, dx);
+        double robotdAngle = (fieldAngle - robot.heading);
+
+        double turretCurrAngle = fieldAngle - robotdAngle - Math.PI;
+        if (turretCurrAngle < Math.toRadians(-180)) {
+            turretCurrAngle += 2 * Math.PI;
+        }
+
+        double dtheta1 = (turretCurrAngle - fieldAngle) % (2 * Math.PI);
+        double dtheta2 = ((turretCurrAngle + 2 * Math.PI) - fieldAngle) % (2 * Math.PI);
+        double dtheta = Math.abs(dtheta1) > Math.abs(dtheta2) ? dtheta2 : dtheta1;
+
+        double motorRevs = (dtheta / (2.0 * Math.PI)) * 3.0;
+        int targetTicks = (int)(motorRevs * Constants.TICKS_PER_REV_Turret);
+        targetTicks = Math.max(-600, Math.min(600, targetTicks));
+
+        // ---------------- BALLISTICS (RAW RPM FIXED) ----------------
+
+        double theta = Math.toRadians(25.0);
+        double cosTheta = Math.cos(theta);
+        double tanTheta = Math.tan(theta);
+
+        double term = horizontalDistance * tanTheta - Constants.dZ;
+
+        double rawRPM;
+
+        if (term > 0.05) {
+            // valid projectile solution
+            double denom = 2.0 * cosTheta * cosTheta * term;
+            double vBall = Math.sqrt(Constants.g * horizontalDistance * horizontalDistance / denom);
+            rawRPM = (vBall / (2.0 * Math.PI * Constants.shooterWheelRadius)) * 60.0;
+        } else {
+            // close range fallback (physically correct)
+            rawRPM =
+                    Constants.MIN_WHEEL_RPM +
+                            horizontalDistance * Constants.CLOSE_RANGE_RPM_SLOPE;
+        }
+
+        rawRPM *= Constants.RPM_TUNING_FACTOR;
+        rawRPM += closeRangeRPMBias(horizontalDistance);
+
+        telem.addLine("rpm: " + rawRPM);
+
+        rawRPM = Math.max(Constants.MIN_WHEEL_RPM,
+                Math.min(rawRPM, Constants.MAX_WHEEL_RPM));
+
+        // ---------------- REMAINDER UNCHANGED ----------------
+
+        double vBall =
+                (rawRPM / 60.0) * 2.0 * Math.PI * Constants.shooterWheelRadius;
+
+        double v2 = vBall * vBall;
+        double g = Constants.g;
+        double x = horizontalDistance;
+        double z = Constants.dZ;
+
+        double underSqrt = v2 * v2 - g * (g * x * x + 2.0 * z * v2);
+        if (underSqrt < 0) underSqrt = 0;
+
+        theta = Math.atan((v2 - Math.sqrt(underSqrt)) / (g * x));
+
+        double hoodPos = Math.max(0.0,
+                Math.min(1.0,
+                        (theta - Math.toRadians(15.0)) / Math.toRadians(30.0)));
+
+        double effectiveRPM =
+                Math.min(rawRPM * Constants.EFFECTIVE_RPM_FACTOR,
+                        Constants.MAX_WHEEL_RPM);
+
+        return new double[]{rawRPM, effectiveRPM, hoodPos, targetTicks};
     }
 
     private double[] calculateShot1(double xTarget, double yTarget) {
@@ -368,15 +445,15 @@ public class TurretShooter extends SubsystemBase {
 
         pidTurret.setPID(Constants.pidCoeffs_turret[0],Constants.pidCoeffs_turret[1],Constants.pidCoeffs_turret[2]);
 
-        double [] results= calculateShot1(robot.goal.getX(),robot.goal.getY());
+        double [] results= calculateShot2(robot.goal.getX(),robot.goal.getY());
         switch (state) {
             case FIRE:
                 // active tracking and everything, we are ready for shooting and waiting for balls to enter
 
 //                set_targetRPM_shooter(results[0]);
-                set_targetRPM_shooter(5000);
+                set_targetRPM_shooter((int)results[0]);
 //                setHoodTarget(results[2]);
-                setHoodTarget(Constants.hoodMaxPos);
+                setHoodTarget((int)results[2]);
 //                set_target_turret((int)results[3]);
                 set_target_turret((int)results[3]);
 

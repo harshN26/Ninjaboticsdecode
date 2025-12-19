@@ -114,8 +114,10 @@ public class Robot_Hardware{
         flickSide.setPosition(0.5);
         flickUp=hwMap.get(Servo.class, Global_Configs.flickUpName);
         hood1=hwMap.get(Servo.class, Global_Configs.hood1Name);
+
         hood2=hwMap.get(Servo.class, Global_Configs.hood2Name);
         hood2.setDirection(Servo.Direction.REVERSE);
+
 
 
         telem=telemetry;

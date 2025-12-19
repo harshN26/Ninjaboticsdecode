@@ -22,6 +22,7 @@ public class Constants {
             .centripetalScaling(0.0005);
 
     public static MecanumConstants driveConstants = new MecanumConstants()
+            .maxPower(1)
             .leftFrontMotorName("frontLeft")
             .leftRearMotorName("backLeft")
             .rightFrontMotorName("frontRight")
@@ -35,14 +36,14 @@ public class Constants {
 
     public static ThreeWheelConstants localizerConstants =
             new ThreeWheelConstants()
-                    .forwardTicksToInches(.001989436789)
-                    .strafeTicksToInches(.001989436789)
-                    .turnTicksToInches(.001989436789)
-                    .leftPodY(1)
-                    .rightPodY(-1)
-                    .strafePodX(-2.5)
+                    .forwardTicksToInches(1/(4096/(Math.PI*(35/25.4))))
+                    .strafeTicksToInches(1/(4096/(Math.PI*(35/25.4))))
+                    .turnTicksToInches(1/(4096/(Math.PI*(35/25.4))))
+                    .leftPodY(2.75)
+                    .rightPodY(-3.625)
+                    .strafePodX(-7)
                     .leftEncoder_HardwareMapName("frontLeft")
-                    .rightEncoder_HardwareMapName("backLeft")
+                    .rightEncoder_HardwareMapName("backRight")
                     .strafeEncoder_HardwareMapName("frontRight")
                     .leftEncoderDirection(Encoder.REVERSE)
                     .rightEncoderDirection(Encoder.REVERSE)
