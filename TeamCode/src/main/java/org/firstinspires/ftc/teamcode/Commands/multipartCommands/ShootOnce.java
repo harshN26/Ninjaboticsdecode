@@ -11,14 +11,13 @@ import org.firstinspires.ftc.teamcode.Subsystems.TurretShooter;
 public class ShootOnce extends SequentialCommandGroup {
     public ShootOnce(TurretShooter shooter, ChamberSort chamber, Intake in){
         addCommands(
-                new WaitUntilCommand(()->shooter.isInRange()),
+                new WaitUntilCommand(shooter::isInRange),
                 new InstantCommand(()->chamber.update(ChamberSort.CHAMBER_STATE.UP)),
                 new InstantCommand(()->in.update(Intake.INTAKE_STATE.IN)),
-                new WaitUntilCommand(()-> !shooter.isInRange())
-//                new InstantCommand(()->chamber.update(ChamberSort.CHAMBER_STATE.IDLE)),
-//                new InstantCommand(()->in.update(Intake.INTAKE_STATE.STOP))
-
-
+                new WaitUntilCommand(()-> !shooter.isInRange()),
+                new InstantCommand(()->chamber.update(ChamberSort.CHAMBER_STATE.IDLE)),
+                new InstantCommand(()->in.update(Intake.INTAKE_STATE.STOP))
         );
+        addRequirements(shooter,chamber,in);
     }
 }

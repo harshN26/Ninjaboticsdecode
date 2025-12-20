@@ -31,6 +31,8 @@ public class ResetCommand extends CommandBase {
             resetPose=Constants.blueResetPose;
         }
 
+        addRequirements(turretShooter);
+
     }
 
     public void execute(){

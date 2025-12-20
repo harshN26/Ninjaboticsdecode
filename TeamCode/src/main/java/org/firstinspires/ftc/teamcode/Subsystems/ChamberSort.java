@@ -1,11 +1,13 @@
 package org.firstinspires.ftc.teamcode.Subsystems;
 
+import com.seattlesolvers.solverslib.command.SubsystemBase;
+
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Constants;
 import org.firstinspires.ftc.teamcode.Global_Configs;
 import org.firstinspires.ftc.teamcode.Robot_Hardware;
 
-public class ChamberSort {
+public class ChamberSort extends SubsystemBase {
 
     Robot_Hardware robot;
     Telemetry telem;

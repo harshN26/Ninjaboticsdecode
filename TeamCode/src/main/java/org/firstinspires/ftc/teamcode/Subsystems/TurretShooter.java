@@ -475,7 +475,7 @@ public class TurretShooter extends SubsystemBase {
                 set_targetRPM_shooter(Constants.ShooterResetRPM);
                 setHoodTarget(Constants.hoodResetPos);
                 set_target_turret(0);
-                if(inRange){
+                if(robot.turretZero.getState()){
                     update(shooterState.RESET_COMPLETE);
                 }
                 break;

@@ -7,6 +7,8 @@ import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.DigitalChannel;
+import com.qualcomm.robotcore.hardware.DigitalChannelImpl;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.VoltageSensor;
@@ -31,6 +33,9 @@ public class Robot_Hardware{
     public Servo push, ramp, flickSide, flickUp, hood1, hood2;
 
     public VoltageSensor voltageSensor;
+
+    public DigitalChannel turretZero;
+
     public double voltage;
     ElapsedTime voltageTimer;
 
@@ -117,7 +122,8 @@ public class Robot_Hardware{
 
         hood2=hwMap.get(Servo.class, Global_Configs.hood2Name);
         hood2.setDirection(Servo.Direction.REVERSE);
-
+        turretZero=hardwareMap.get(DigitalChannel.class,Global_Configs.turretZeroName);
+        turretZero.setMode(DigitalChannel.Mode.INPUT);
 
 
         telem=telemetry;

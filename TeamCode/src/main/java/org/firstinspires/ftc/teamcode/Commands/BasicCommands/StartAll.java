@@ -5,6 +5,7 @@ package org.firstinspires.ftc.teamcode.Commands.BasicCommands;
 import com.pedropathing.follower.Follower;
 import com.pedropathing.geometry.Pose;
 import com.seattlesolvers.solverslib.command.CommandBase;
+import com.seattlesolvers.solverslib.command.SubsystemBase;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.*;
@@ -33,6 +34,7 @@ public class StartAll extends CommandBase {
         }catch(Exception e){
             resetPose=Constants.blueResetPose;
         }
+        addRequirements(turretShooter,in,chamber);
 
     }
 
