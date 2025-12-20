@@ -43,18 +43,13 @@ public class Constants {
 
 
 
-    public static final double MIN_WHEEL_RPM = 4000.0;
-    public static final double MAX_WHEEL_RPM = 5500.0;
+    public static final double MIN_WHEEL_RPM = 3000.0;
+    public static final double MAX_WHEEL_RPM = 5000.0;
 
-    // Close-shot RPM bias tuning
-    public static double CLOSE_RPM_BIAS = 1.9;   // extra RPM at zero distance
-    public static double CLOSE_BIAS_DECAY = 0.2;   // meters (larger = fades slower)
 
-    // Optional global tuning
-    public static double RPM_TUNING_FACTOR = 2.1;
     public static double EFFECTIVE_RPM_FACTOR = 0.97;
 
-    public static double CLOSE_RANGE_RPM_SLOPE=-100;
+    public static double ShooterDistanceSlope=(double)2000/144;
 
 
 
@@ -62,7 +57,7 @@ public class Constants {
     public static double[] pidCoeffs_turret ={0.032,0.057,0.0005};
     public static final int tolerance_turret=10;
 
-    public static final double tolerance_shooter=100;
+    public static final double tolerance_shooter=200;
 
     public static final double TICKS_PER_REV_Shooter = 28;
 

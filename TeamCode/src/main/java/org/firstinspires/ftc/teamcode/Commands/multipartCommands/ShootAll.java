@@ -10,15 +10,17 @@ import org.firstinspires.ftc.teamcode.Subsystems.TurretShooter;
 public class ShootAll extends SequentialCommandGroup {
 
     public ShootAll(TurretShooter shooter, ChamberSort chamberSort, Intake intake){
-        addCommands(
-                new InstantCommand(()->shooter.update(TurretShooter.shooterState.FIRE)),
-                new InstantCommand(()-> chamberSort.update(ChamberSort.CHAMBER_STATE.UP)),
-                new ShootOnce(shooter,chamberSort,intake),
-                new ShootOnce(shooter,chamberSort,intake),
-                new ShootOnce(shooter,chamberSort,intake),
-                new InstantCommand(()->shooter.update(TurretShooter.shooterState.STOP)),
-                new InstantCommand(()->intake.update(Intake.INTAKE_STATE.STOP)),
-                new InstantCommand(()->chamberSort.update(ChamberSort.CHAMBER_STATE.STOP))
+        super(
+                new SequentialCommandGroup(
+                    new InstantCommand(()->shooter.update(TurretShooter.shooterState.FIRE)),
+                    new InstantCommand(()-> chamberSort.update(ChamberSort.CHAMBER_STATE.UP)),
+                    new ShootOnce(shooter,chamberSort,intake),
+                    new ShootOnce(shooter,chamberSort,intake),
+                    new ShootOnce(shooter,chamberSort,intake),
+                    new InstantCommand(()->shooter.update(TurretShooter.shooterState.STOP)),
+                    new InstantCommand(()->intake.update(Intake.INTAKE_STATE.STOP)),
+                    new InstantCommand(()->chamberSort.update(ChamberSort.CHAMBER_STATE.STOP))
+                )
         );
 
 

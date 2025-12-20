@@ -53,11 +53,11 @@ public class Robot_Hardware{
 
     public static AllianceColor alliance=AllianceColor.RED;
 
-    public Pose goal;
+    public Pose goal,pose,resetPose;
     public static boolean inReset=false;
 
 
-    public Pose pose;
+
     Vector driveVector;
 
 

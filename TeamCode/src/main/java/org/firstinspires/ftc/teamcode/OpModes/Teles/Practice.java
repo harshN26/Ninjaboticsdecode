@@ -50,7 +50,7 @@ public class Practice extends OpMode{
 
         CommandScheduler.getInstance().reset();
         telemetry =  new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
-        robot.init(hardwareMap, telemetry);
+
 //        robot.flickSide.setPosition(0.005);
         robot.currGameState= Robot_Hardware.GameState.TELE;
         sort=new ChamberSort(robot, telemetry);
@@ -60,6 +60,7 @@ public class Practice extends OpMode{
         follower = Constants.createFollower(hardwareMap);
         if (robot.pose != null) {
            follower.setStartingPose(robot.pose);
+           robot.init(hardwareMap,telemetry);
         }else {
             follower.setStartingPose(new Pose(0, 0, 0));
         }
@@ -71,12 +72,11 @@ public class Practice extends OpMode{
     }
 
     public void start(){
-//        follower.startTeleopDrive();
         CommandScheduler.getInstance().schedule(
                 new StartAll(follower,shooter,intake,sort, telemetry)
         );
         //TODO: schedule default commands
-
+        CommandScheduler.getInstance().run();
         timer.reset();
     }
     public void loop(){
@@ -94,20 +94,19 @@ public class Practice extends OpMode{
         g2RBCurrent= gamepad2.right_bumper;
         g2LBCurrent= gamepad2.left_bumper;
 
-//        follower.setTeleOpDrive(-gamepad1.left_stick_y, -gamepad1.left_stick_x, -gamepad1.right_stick_x, true);
         if(g1ACurrent&&!g1ALast){
             CommandScheduler.getInstance().schedule(new ShootAll(shooter,sort,intake));
         }
 
 
-        if(g1BCurrent&&!g1BLast){
+        if(g2BCurrent&&!g2BLast){
             CommandScheduler.getInstance().schedule(new InstantCommand(()->shooter.update(TurretShooter.shooterState.FIRE)));
-        }else if(g1BLast&&!g1BCurrent){
+        }else if(g2BLast&&!g2BCurrent){
             CommandScheduler.getInstance().schedule(new InstantCommand(()->shooter.update(TurretShooter.shooterState.IDLE)));
         }
 
         if(g1YCurrent&&!g1YLast){
-            CommandScheduler.getInstance().schedule(new ResetCommand(follower,shooter,intake,sort, telemetry));
+            CommandScheduler.getInstance().schedule(new ResetCommand(follower,shooter,intake,sort,robot));
         }
         if(g1LBCurrent&&!g1LBLast){
             CommandScheduler.getInstance().schedule(new InstantCommand(()->intake.update(Intake.INTAKE_STATE.OUT)));
@@ -126,13 +125,21 @@ public class Practice extends OpMode{
             CommandScheduler.getInstance().schedule(new InstantCommand(()->sort.update(ChamberSort.CHAMBER_STATE.STOP)));
         }
 
-
-        follower.setTeleOpDrive(
-                -gamepad1.left_stick_y,
-                -gamepad1.left_stick_x,
-                -gamepad1.right_stick_x,
-                false
-        );
+        if(robot.alliance== Robot_Hardware.AllianceColor.RED) {
+            CommandScheduler.getInstance().schedule(new InstantCommand(() -> follower.setTeleOpDrive(
+                    -gamepad1.left_stick_y,
+                    -gamepad1.left_stick_x,
+                    -gamepad1.right_stick_x,
+                    false
+            )));
+        }else{
+            CommandScheduler.getInstance().schedule(new InstantCommand(() -> follower.setTeleOpDrive(
+                    gamepad1.left_stick_y,
+                    gamepad1.left_stick_x,
+                    -gamepad1.right_stick_x,
+                    false
+            )));
+        }
 
 
         robot.loop(sort, shooter, intake, follower);

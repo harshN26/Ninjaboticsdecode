@@ -40,7 +40,7 @@ public class StartAll extends CommandBase {
 
     public void execute(){
         try {
-            drive.startTeleOpDrive();
+            drive.startTeleOpDrive(true);
             intake.update(Intake.INTAKE_STATE.IN);
             shooter.update(TurretShooter.shooterState.IDLE);
             chamberSort.update(ChamberSort.CHAMBER_STATE.IN);

@@ -13,14 +13,15 @@ public class Switchboard extends LinearOpMode {
     Robot_Hardware robot=Robot_Hardware.getInstance();
     @Override
     public void runOpMode() {
-        robot=Robot_Hardware.getInstance();
         waitForStart();
         while(opModeIsActive()) {
             if (gamepad1.a) {
                 robot.alliance = Robot_Hardware.AllianceColor.RED;
+                robot.resetPose=Constants.redResetPose;
             }
             if (gamepad1.b) {
                 robot.alliance = Robot_Hardware.AllianceColor.BLUE;
+                robot.resetPose=Constants.blueResetPose;
             }
             if(gamepad1.dpad_left){
                 robot.pose= Constants.blueBackStartingPose;

@@ -3,6 +3,9 @@ package org.firstinspires.ftc.teamcode.OpModes.Autos;
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.pedropathing.follower.Follower;
+import com.pedropathing.geometry.BezierCurve;
+import com.pedropathing.geometry.BezierLine;
+import com.pedropathing.geometry.Pose;
 import com.pedropathing.paths.PathChain;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
@@ -40,7 +43,7 @@ public class ball_auto_12 extends OpMode {
 
     PathChain path1;
     PathChain collectBalls1, collectBalls2, collectBalls3;
-    PathChain openGate;
+    PathChain openGate, nextToGate;
     PathChain shoot1, shoot2, shoot3;
 
 
@@ -51,14 +54,17 @@ public class ball_auto_12 extends OpMode {
         CommandScheduler.getInstance().reset();
         telemetry =  new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
         robot.currGameState= Robot_Hardware.GameState.AUTO;
-        robot.init(hardwareMap, telemetry);
+
 
         sort=new ChamberSort(robot, telemetry);
         intake=new Intake(robot, telemetry);
         shooter=new TurretShooter(robot,telemetry);
 
         follower = org.firstinspires.ftc.teamcode.pedroPathing.Constants.createFollower(hardwareMap);
-        follower.setStartingPose(Constants.redGoalStartingPose);
+        follower.setStartingPose(robot.pose);
+        robot.init(hardwareMap,telemetry);
+
+
 
         initPaths();
 
@@ -72,6 +78,7 @@ public class ball_auto_12 extends OpMode {
                             new InstantCommand(()->intake.update(Intake.INTAKE_STATE.STOP)),
                             new WaitUntilCommand(()->(robot.ramp.getPosition()==Constants.rampUp&&shooter.inRange)),
                             // first move back while firing 3 balls
+                            new InstantCommand(()->follower.followPath(path1)),
                             new ShootAll(shooter,sort,intake),
 
                             //Collect balls1
@@ -124,6 +131,7 @@ public class ball_auto_12 extends OpMode {
                             //shoot
                             new WaitUntilCommand(()->(!follower.isBusy()&&shooter.inRange)),
                             new ShootAll(shooter,sort,intake),
+                            new InstantCommand(()->follower.followPath(nextToGate)),
 
                             new WaitUntilCommand(()->timer.milliseconds()>=29000)
                     )
@@ -132,6 +140,93 @@ public class ball_auto_12 extends OpMode {
     }
 
     public void initPaths(){
+//        PathChain path1;
+//        PathChain collectBalls1, collectBalls2, collectBalls3;
+//        PathChain openGate,nextToGate;
+//        PathChain shoot1, shoot2, shoot3;
+        path1 = follower
+                .pathBuilder()
+                .addPath(
+                        new BezierLine(new Pose(22.000, 124.000), new Pose(57.000, 83.000))
+                )
+                .setLinearHeadingInterpolation(Math.toRadians(143), Math.toRadians(180))
+                .build();
+
+        collectBalls1 = follower
+                .pathBuilder()
+                .addPath(
+                        new BezierLine(new Pose(57.000, 83.000), new Pose(20.000, 83.000))
+                )
+                .setConstantHeadingInterpolation(Math.toRadians(180))
+                .build();
+
+        openGate = follower
+                .pathBuilder()
+                .addPath(
+                        new BezierCurve(
+                                new Pose(20.000, 83.000),
+                                new Pose(25.000, 75.000),
+                                new Pose(15.000, 70.000)
+                        )
+                )
+                .setLinearHeadingInterpolation(Math.toRadians(180), Math.toRadians(-90))
+                .build();
+
+        shoot1 = follower
+                .pathBuilder()
+                .addPath(
+                        new BezierLine(new Pose(15.000, 70.000), new Pose(57.000, 83.000))
+                )
+                .setLinearHeadingInterpolation(Math.toRadians(-90), Math.toRadians(180))
+                .build();
+
+        collectBalls2 = follower
+                .pathBuilder()
+                .addPath(
+                        new BezierCurve(
+                                new Pose(57.000, 83.000),
+                                new Pose(58.000, 55.000),
+                                new Pose(20.000, 60.000)
+                        )
+                )
+                .setConstantHeadingInterpolation(Math.toRadians(180))
+                .build();
+
+        shoot2 = follower
+                .pathBuilder()
+                .addPath(
+                        new BezierLine(new Pose(20.000, 60.000), new Pose(57.000, 83.000))
+                )
+                .setLinearHeadingInterpolation(Math.toRadians(-180), Math.toRadians(-90))
+                .build();
+
+        collectBalls3 = follower
+                .pathBuilder()
+                .addPath(
+                        new BezierCurve(
+                                new Pose(57.000, 83.000),
+                                new Pose(56.800, 32.000),
+                                new Pose(20.000, 35.000)
+                        )
+                )
+                .setTangentHeadingInterpolation()
+                .build();
+
+        shoot3 = follower
+                .pathBuilder()
+                .addPath(
+                        new BezierLine(new Pose(20.000, 35.000), new Pose(57.000, 83.000))
+                )
+                .setConstantHeadingInterpolation(Math.toRadians(180))
+                .build();
+
+        nextToGate = follower
+                .pathBuilder()
+                .addPath(
+                        new BezierLine(new Pose(57.000, 83.000), new Pose(20.000, 70.000))
+                )
+                .setConstantHeadingInterpolation(Math.toRadians(180))
+                .build();
 
     }
     public void init_loop(){

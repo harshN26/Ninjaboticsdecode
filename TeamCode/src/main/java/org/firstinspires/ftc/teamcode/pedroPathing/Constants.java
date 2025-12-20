@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.pedroPathing;
 
+import com.pedropathing.control.FilteredPIDFCoefficients;
+import com.pedropathing.control.PIDFCoefficients;
 import com.pedropathing.follower.Follower;
 import com.pedropathing.follower.FollowerConstants;
 
@@ -17,12 +19,16 @@ public class Constants {
 
     public static FollowerConstants followerConstants = new FollowerConstants()
             .mass(13)
-            .forwardZeroPowerAcceleration(-41.278)
-            .lateralZeroPowerAcceleration(-59.7819)
-            .centripetalScaling(0.0005);
+            .forwardZeroPowerAcceleration(-35.7)
+            .lateralZeroPowerAcceleration(-59.94349)
+            .centripetalScaling(0.0003)
+            .translationalPIDFCoefficients(new PIDFCoefficients(0.07,0.000075,0.002,0.02))
+            .headingPIDFCoefficients(new PIDFCoefficients(1.5,0.2,0.05,0.01))
+            .drivePIDFCoefficients(new FilteredPIDFCoefficients(0.0018,0,0.00001,0.6,0));
+
 
     public static MecanumConstants driveConstants = new MecanumConstants()
-            .maxPower(1)
+            .maxPower(0.9)
             .leftFrontMotorName("frontLeft")
             .leftRearMotorName("backLeft")
             .rightFrontMotorName("frontRight")
@@ -31,23 +37,23 @@ public class Constants {
             .leftRearMotorDirection(DcMotorSimple.Direction.REVERSE)
             .rightFrontMotorDirection(DcMotorSimple.Direction.FORWARD)
             .rightRearMotorDirection(DcMotorSimple.Direction.FORWARD)
-            .xVelocity(57.8741)
-            .yVelocity(52.295);
+            .xVelocity(53.92097787589588)
+            .yVelocity(49.29183977);
 
     public static ThreeWheelConstants localizerConstants =
             new ThreeWheelConstants()
-                    .forwardTicksToInches(1/(4096/(Math.PI*(35/25.4))))
-                    .strafeTicksToInches(1/(4096/(Math.PI*(35/25.4))))
-                    .turnTicksToInches(1/(4096/(Math.PI*(35/25.4))))
+                    .forwardTicksToInches(0.0010609088278141003)
+                    .strafeTicksToInches(0.0010486712643076903)
+                    .turnTicksToInches(0.001428505931999635)
                     .leftPodY(2.75)
                     .rightPodY(-3.625)
                     .strafePodX(-7)
                     .leftEncoder_HardwareMapName("frontLeft")
-                    .rightEncoder_HardwareMapName("backRight")
-                    .strafeEncoder_HardwareMapName("frontRight")
+                    .rightEncoder_HardwareMapName("frontRight")
+                    .strafeEncoder_HardwareMapName("backRight")
                     .leftEncoderDirection(Encoder.REVERSE)
                     .rightEncoderDirection(Encoder.REVERSE)
-                    .strafeEncoderDirection(Encoder.FORWARD);
+                    .strafeEncoderDirection(Encoder.REVERSE);
 
     public static PathConstraints pathConstraints = new PathConstraints(
             0.995,

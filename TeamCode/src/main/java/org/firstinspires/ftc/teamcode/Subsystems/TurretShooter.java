@@ -179,82 +179,7 @@ public class TurretShooter extends SubsystemBase {
 
 
 
-    private double[] calculateShot(double xTarget, double yTarget) {
-        // Horizontal displacement with velocity compensation
-        double dx = xTarget - robot.x - robot.xVelo;
-        double dy = yTarget - robot.y - robot.yVelo;
 
-        // Distance to target
-        double horizontalDistance = Math.hypot(dx, dy);
-
-        // Turret target angle in radians (0 = back, π = front)
-        double targetAngleRad = Math.atan2(dy, dx) + Math.PI;
-
-        // Convert turret angle to motor ticks with gear ratio (3:1)
-        double motorRevs = (targetAngleRad / (2.0 * Math.PI)) * 3.0; // 3 motor revs per turret rev
-        int targetTicks = (int)(motorRevs * Constants.TICKS_PER_REV_Turret);
-
-        // Shortest-path turret rotation
-        int deltaTicks = targetTicks - turretCurrPos;
-        int fullTurretTicks = (int)(Constants.TICKS_PER_REV_Turret * 3.0); // full turret rotation in motor ticks
-        if (deltaTicks > fullTurretTicks / 2) {
-            deltaTicks -= fullTurretTicks;
-        } else if (deltaTicks < -fullTurretTicks / 2) {
-            deltaTicks += fullTurretTicks;
-        }
-
-        int finalTurretTarget = turretCurrPos + deltaTicks;
-
-        // Initial launch angle guess
-        double theta = Math.atan(Constants.dZ / horizontalDistance);
-        double cosTheta = Math.cos(theta);
-        double tanTheta = Math.tan(theta);
-
-        // Ball velocity using projectile equation
-        double denom = 2.0 * cosTheta * cosTheta * (horizontalDistance * tanTheta - Constants.dZ);
-        if (denom <= 0) denom = 1e-6; // prevent division by zero
-        double vBall = Math.sqrt(Constants.g * horizontalDistance * horizontalDistance / denom);
-
-        // Convert velocity to RPM
-        double rawRPM = (vBall / (2.0 * Math.PI * Constants.shooterWheelRadius)) * 60.0;
-
-        // Apply global tuning factor
-        rawRPM *= Constants.RPM_TUNING_FACTOR;
-
-        // Apply distance-based RPM bias
-        rawRPM += closeRangeRPMBias(horizontalDistance);
-
-        // Enforce minimum and maximum RPM
-        rawRPM = Math.max(Constants.MIN_WHEEL_RPM, Math.min(rawRPM, Constants.MAX_WHEEL_RPM));
-
-        // Recompute velocity from final RPM for accurate hood calculation
-        vBall = (rawRPM / 60.0) * 2.0 * Math.PI * Constants.shooterWheelRadius;
-
-        // Solve launch angle with final velocity
-        double v2 = vBall * vBall;
-        double g = Constants.g;
-        double x = horizontalDistance;
-        double z = Constants.dZ;
-        double underSqrt = v2 * v2 - g * (g * x * x + 2.0 * z * v2);
-        if (underSqrt < 0) underSqrt = 0;
-        theta = Math.atan((v2 - Math.sqrt(underSqrt)) / (g * x));
-
-        // Hood position normalized (0–1)
-        double hoodPos = Math.max(0.0, Math.min(1.0, (theta - Math.toRadians(15.0)) / Math.toRadians(30.0)));
-
-        // Effective RPM after factoring system efficiency
-        double effectiveRPM = Math.min(rawRPM * Constants.EFFECTIVE_RPM_FACTOR, Constants.MAX_WHEEL_RPM);
-
-        // Return: raw RPM, effective RPM, hood position, turret target (motor ticks)
-        return new double[]{rawRPM, effectiveRPM, hoodPos, finalTurretTarget};
-    }
-
-
-
-    private double closeRangeRPMBias(double distance) {
-        return Constants.CLOSE_RPM_BIAS *
-                Math.exp(-distance / Constants.CLOSE_BIAS_DECAY);
-    }
 
     private double[] calculateShot2(double xTarget, double yTarget){
         double dy = yTarget - robot.y-robot.yVelo;
@@ -279,33 +204,9 @@ public class TurretShooter extends SubsystemBase {
 
         // ---------------- BALLISTICS (RAW RPM FIXED) ----------------
 
-        double theta = Math.toRadians(25.0);
-        double cosTheta = Math.cos(theta);
-        double tanTheta = Math.tan(theta);
 
-        double term = horizontalDistance * tanTheta - Constants.dZ;
-
-        double rawRPM;
-
-        if (term > 0.05) {
-            // valid projectile solution
-            double denom = 2.0 * cosTheta * cosTheta * term;
-            double vBall = Math.sqrt(Constants.g * horizontalDistance * horizontalDistance / denom);
-            rawRPM = (vBall / (2.0 * Math.PI * Constants.shooterWheelRadius)) * 60.0;
-        } else {
-            // close range fallback (physically correct)
-            rawRPM =
-                    Constants.MIN_WHEEL_RPM +
-                            horizontalDistance * Constants.CLOSE_RANGE_RPM_SLOPE;
-        }
-
-        rawRPM *= Constants.RPM_TUNING_FACTOR;
-        rawRPM += closeRangeRPMBias(horizontalDistance);
-
-        telem.addLine("rpm: " + rawRPM);
-
-        rawRPM = Math.max(Constants.MIN_WHEEL_RPM,
-                Math.min(rawRPM, Constants.MAX_WHEEL_RPM));
+        double rawRPM=Constants.MIN_WHEEL_RPM;
+        rawRPM+=Constants.ShooterDistanceSlope*horizontalDistance;
 
         // ---------------- REMAINDER UNCHANGED ----------------
 
@@ -320,7 +221,7 @@ public class TurretShooter extends SubsystemBase {
         double underSqrt = v2 * v2 - g * (g * x * x + 2.0 * z * v2);
         if (underSqrt < 0) underSqrt = 0;
 
-        theta = Math.atan((v2 - Math.sqrt(underSqrt)) / (g * x));
+        double theta = Math.atan((v2 - Math.sqrt(underSqrt)) / (g * x));
 
         double hoodPos = Math.max(0.0,
                 Math.min(1.0,
@@ -333,102 +234,7 @@ public class TurretShooter extends SubsystemBase {
         return new double[]{rawRPM, effectiveRPM, hoodPos, targetTicks};
     }
 
-    private double[] calculateShot1(double xTarget, double yTarget) {
-        // ---------------- DISPLACEMENT ----------------
-        double dx = xTarget - robot.x - robot.xVelo;
-        double dy = yTarget - robot.y - robot.yVelo;
-        double horizontalDistance = Math.hypot(dx, dy);
 
-        // ---------------- CONSTANTS ----------------
-        final double GEAR = 3.0; // motor revs per turret rev
-        final double TICKS_PER_REV_MOTOR = Constants.TICKS_PER_REV_Turret; // 384.5
-        final double FULL_MOTOR_TICKS = TICKS_PER_REV_MOTOR * GEAR;
-        final double HALF_FULL_TICKS = FULL_MOTOR_TICKS / 2.0;
-
-        // ---------------- TURRET ANGLE (radians) ----------------
-        // Field angle: absolute angle from robot to target in field coordinates
-        double fieldAngle = Math.atan2(dy, dx);
-
-        // Robot forward is initially at 90° (π/2), so robot.heading starts at π/2
-        // Turret angle relative to robot forward (0 = forward, positive = CCW)
-        double turretAngleRelative = fieldAngle - robot.heading;
-
-        // Normalize to [-π, π]
-        while (turretAngleRelative > Math.PI) turretAngleRelative -= 2.0 * Math.PI;
-        while (turretAngleRelative < -Math.PI) turretAngleRelative += 2.0 * Math.PI;
-
-        // Convert to encoder ticks
-        // When turret is at 0° relative (pointing forward with robot), it's physically at 270° + robot.heading
-        // Encoder zero is at physical 270° (robot's initial backward position)
-        // So: encoder_position = (turret_relative_angle) * (gear_ratio) * (ticks_per_motor_rev) / (2π)
-        // But we need to account for the fact that encoder=0 when turret points backward (180° from forward)
-
-        // Turret relative angle where 0 = forward, π = backward
-        // Encoder 0 = backward position
-        // So encoder reading = (turret_relative - π) converted to ticks
-        double turretAngleForEncoder = turretAngleRelative - Math.PI;
-
-        // Convert to motor ticks
-        double motorRevsRaw = turretAngleForEncoder / (2.0 * Math.PI) * GEAR;
-        double rawTicks = motorRevsRaw * TICKS_PER_REV_MOTOR;
-
-        // Shortest-path delta (signed) relative to current encoder position
-        double deltaTicks = rawTicks - turretCurrPos;
-
-        // Wrap delta into [-HALF_FULL_TICKS, +HALF_FULL_TICKS]
-        if (deltaTicks > HALF_FULL_TICKS) {
-            deltaTicks -= FULL_MOTOR_TICKS;
-        } else if (deltaTicks < -HALF_FULL_TICKS) {
-            deltaTicks += FULL_MOTOR_TICKS;
-        }
-
-        int finalTargetTicks = (int) Math.round(turretCurrPos + deltaTicks);
-
-        // Clamp to soft limits [-600, +600]
-        if (finalTargetTicks > 600) finalTargetTicks = 600;
-        if (finalTargetTicks < -600) finalTargetTicks = -600;
-
-        telem.addData("Field Angle (deg)", Math.toDegrees(fieldAngle));
-        telem.addData("Robot Heading (deg)", Math.toDegrees(robot.heading));
-        telem.addData("Turret Relative (deg)", Math.toDegrees(turretAngleRelative));
-        telem.addData("Target Ticks", finalTargetTicks);
-        telem.addData("Current Ticks", turretCurrPos);
-        telem.addData("Delta Ticks", deltaTicks);
-
-        // ---------------- BALLISTICS (unchanged) ----------------
-        double theta = Math.atan(Constants.dZ / horizontalDistance);
-        double cosTheta = Math.cos(theta);
-        double tanTheta = Math.tan(theta);
-
-        double denom = 2.0 * cosTheta * cosTheta * (horizontalDistance * tanTheta - Constants.dZ);
-        if (denom <= 0) denom = 1e-6;
-
-        double vBall = Math.sqrt(Constants.g * horizontalDistance * horizontalDistance / denom);
-        double rawRPM = (vBall / (2.0 * Math.PI * Constants.shooterWheelRadius)) * 60.0;
-
-        rawRPM *= Constants.RPM_TUNING_FACTOR;
-        rawRPM += closeRangeRPMBias(horizontalDistance);
-        rawRPM = Math.max(Constants.MIN_WHEEL_RPM, Math.min(rawRPM, Constants.MAX_WHEEL_RPM));
-
-        vBall = (rawRPM / 60.0) * 2.0 * Math.PI * Constants.shooterWheelRadius;
-
-        double v2 = vBall * vBall;
-        double g = Constants.g;
-        double x = horizontalDistance;
-        double z = Constants.dZ;
-
-        double underSqrt = v2 * v2 - g * (g * x * x + 2.0 * z * v2);
-        if (underSqrt < 0) underSqrt = 0;
-
-        theta = Math.atan((v2 - Math.sqrt(underSqrt)) / (g * x));
-
-        double hoodPos = Math.max(0.0,
-                Math.min(1.0, (theta - Math.toRadians(15.0)) / Math.toRadians(30.0)));
-
-        double effectiveRPM = Math.min(rawRPM * Constants.EFFECTIVE_RPM_FACTOR, Constants.MAX_WHEEL_RPM);
-
-        return new double[]{rawRPM, effectiveRPM, hoodPos, finalTargetTicks};
-    }
 
 
 
@@ -474,8 +280,9 @@ public class TurretShooter extends SubsystemBase {
                 // something has gone wrong, try to fix
                 set_targetRPM_shooter(Constants.ShooterResetRPM);
                 setHoodTarget(Constants.hoodResetPos);
-                set_target_turret(0);
                 if(robot.turretZero.getState()){
+                    robot.turret.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                    robot.turret.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
                     update(shooterState.RESET_COMPLETE);
                 }
                 break;
