@@ -1,7 +1,7 @@
 package org.firstinspires.ftc.teamcode.Subsystems;
 
 
-import com.acmerobotics.dashboard.config.Config;
+
 import com.bylazar.configurables.annotations.Configurable;
 import com.bylazar.telemetry.PanelsTelemetry;
 import com.bylazar.telemetry.TelemetryManager;
@@ -21,8 +21,8 @@ public class TurretShooter extends SubsystemBase {
     Robot_Hardware robot;
 
 
-    public enum shooterState {FIRE, IDLE, STOP, RESET, RESET_COMPLETE}
-
+    public enum shooterState {FIRE, IDLE, STOP, RESET, AUTOCLOSE, AUTOFAR}
+    public int offsetConstant;
     public shooterState state = shooterState.IDLE;
 
     TelemetryManager telemetry;
@@ -34,6 +34,7 @@ public class TurretShooter extends SubsystemBase {
 
     private double hoodPos;
     public static double targetHoodPos;
+    public double hoodOffset=0.0;
 
     private double shooterPow=0.0;
 
@@ -59,7 +60,7 @@ public class TurretShooter extends SubsystemBase {
 
 
 
-
+        offsetConstant=0;
         turretTarget=0;
         tol_turret=Constants.tolerance_turret;
 
@@ -259,35 +260,55 @@ public class TurretShooter extends SubsystemBase {
 //                set_targetRPM_shooter(results[0]);
                 set_targetRPM_shooter((int)results[0]);
 //                setHoodTarget(results[2]);
-                setHoodTarget((int)results[2]);
+                setHoodTarget((int)results[2]+hoodOffset);
 //                set_target_turret((int)results[3]);
-                set_target_turret((int)results[3]);
+                set_target_turret((int)results[3]+offsetConstant);
 
                 break;
             case IDLE:
                 // get turret to be as close to 0 as possible and shooter to current-appropriate speed
                 set_targetRPM_shooter(Constants.ShooterIdleRPM);
-                setHoodTarget(Constants.hoodResetPos);
-                set_target_turret(0);
+                setHoodTarget(Constants.hoodResetPos+hoodOffset);
+                set_target_turret(offsetConstant);
                 break;
             case STOP:
                 // complete standstill, analysing if something is wrong or on low voltage
                 set_targetRPM_shooter(Constants.ShooterStopRPM);
-                setHoodTarget(Constants.hoodMaxPos);
-                set_target_turret(0);
+                setHoodTarget(Constants.hoodMaxPos+hoodOffset);
+                set_target_turret(offsetConstant);
                 break;
             case RESET:
                 // something has gone wrong, try to fix
                 set_targetRPM_shooter(Constants.ShooterResetRPM);
                 setHoodTarget(Constants.hoodResetPos);
-                if(robot.turretZero.getState()){
+                set_target_turret(offsetConstant);
+                hoodOffset=0.0;
+
+                if(robot.turretZero.isPressed()){
                     robot.turret.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                     robot.turret.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-                    update(shooterState.RESET_COMPLETE);
+                    offsetConstant=0;
+                    update(shooterState.IDLE);
                 }
                 break;
-            case RESET_COMPLETE:
+            case AUTOCLOSE:
+                set_targetRPM_shooter(3500);
+//                setHoodTarget(results[2]);
+                setHoodTarget((int)results[2]+hoodOffset);
+//                set_target_turret((int)results[3]);
+                set_target_turret((int)results[3]+offsetConstant);
                 break;
+            case AUTOFAR:
+                set_targetRPM_shooter(5000);
+//                setHoodTarget(results[2]);
+                setHoodTarget((int)results[2]+hoodOffset);
+//                set_target_turret((int)results[3]);
+                set_target_turret((int)results[3]+offsetConstant);
+
+                break;
+            default:
+                update(shooterState.IDLE);
+
         }
 
 
@@ -298,6 +319,7 @@ public class TurretShooter extends SubsystemBase {
 
         turretPow=pidTurret.calculate(turretCurrPos,turretTarget);
         shooterPow= Constants.shooter_kp * (targetRPM_shooter-currentRPM_shooter) + Constants.shooter_kv * targetRPM_shooter + Math.signum(targetRPM_shooter-currentRPM_shooter) * Constants.shooter_ks;
+        shooterPow*=12/robot.voltage;
         robot.shooterM1.setPower(shooterPow);
 //        robot.shooterM1.setPower(0.9);
         if (Global_Configs.shooterM2Status == Global_Configs.DOFStatus.ACTIVE)
@@ -338,7 +360,7 @@ public class TurretShooter extends SubsystemBase {
         telem.addLine("current turret Pos: " + turretTarget);
         telem.addLine("target hood Pos: " + targetHoodPos);
         telem.addLine("current hood Pos: " + targetHoodPos);
-
+        telem.addLine("tstate"+ robot.turretZero.isPressed());
         telem.addLine("shooter in range: " + inRange);
 
 //        telem.addLine("shooter state: " + state);

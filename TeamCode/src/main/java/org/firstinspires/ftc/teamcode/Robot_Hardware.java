@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode;
 import com.pedropathing.follower.Follower;
 import com.pedropathing.geometry.Pose;
 import com.pedropathing.math.Vector;
+import com.qualcomm.hardware.rev.RevTouchSensor;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
@@ -11,6 +12,7 @@ import com.qualcomm.robotcore.hardware.DigitalChannel;
 import com.qualcomm.robotcore.hardware.DigitalChannelImpl;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.hardware.TouchSensor;
 import com.qualcomm.robotcore.hardware.VoltageSensor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
@@ -34,7 +36,7 @@ public class Robot_Hardware{
 
     public VoltageSensor voltageSensor;
 
-    public DigitalChannel turretZero;
+    public RevTouchSensor turretZero;
 
     public double voltage;
     ElapsedTime voltageTimer;
@@ -96,6 +98,7 @@ public class Robot_Hardware{
         }
         if(Global_Configs.turretStatus== Global_Configs.DOFStatus.ACTIVE) {
             turret=hwMap.get(DcMotorEx.class, Global_Configs.turretName);
+            turret.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             turret.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
             turret.setDirection(DcMotorSimple.Direction.REVERSE);
             turret.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -122,8 +125,8 @@ public class Robot_Hardware{
 
         hood2=hwMap.get(Servo.class, Global_Configs.hood2Name);
         hood2.setDirection(Servo.Direction.REVERSE);
-        turretZero=hardwareMap.get(DigitalChannel.class,Global_Configs.turretZeroName);
-        turretZero.setMode(DigitalChannel.Mode.INPUT);
+        turretZero=hardwareMap.get(RevTouchSensor.class,Global_Configs.turretZeroName);
+
 
 
         telem=telemetry;
@@ -171,6 +174,8 @@ public class Robot_Hardware{
             xVelo=driveVector.getXComponent();
             yVelo=driveVector.getYComponent();
             headingVelo=follower.getAngularVelocity();
+//            telem.addLine("goal"+ y);
+//            telem.addLine("pose"+ x);
 
         }catch (Exception ignored){
             telem.addLine("New General error: "+ignored);

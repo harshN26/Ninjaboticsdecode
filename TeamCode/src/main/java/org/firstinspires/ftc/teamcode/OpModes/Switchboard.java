@@ -2,19 +2,23 @@ package org.firstinspires.ftc.teamcode.OpModes;
 
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.Constants;
 import org.firstinspires.ftc.teamcode.Robot_Hardware;
 
 @TeleOp(name="Switchboard", group="1")
-public class Switchboard extends LinearOpMode {
+public class Switchboard extends OpMode {
 
     Robot_Hardware robot=Robot_Hardware.getInstance();
+    public void init(){
+
+    }
     @Override
-    public void runOpMode() {
-        waitForStart();
-        while(opModeIsActive()) {
+    public void loop() {
+
+
             if (gamepad1.a) {
                 robot.alliance = Robot_Hardware.AllianceColor.RED;
                 robot.resetPose=Constants.redResetPose;
@@ -41,7 +45,8 @@ public class Switchboard extends LinearOpMode {
             }
             telemetry.addLine("Alliance Color: " + robot.alliance);
             telemetry.update();
-        }
+
 
     }
+
 }

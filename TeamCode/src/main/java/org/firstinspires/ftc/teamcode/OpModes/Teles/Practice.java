@@ -5,6 +5,7 @@ import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.bylazar.telemetry.PanelsTelemetry;
 import com.pedropathing.geometry.Pose;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.seattlesolvers.solverslib.command.Command;
 import com.seattlesolvers.solverslib.command.CommandScheduler;
 import com.pedropathing.follower.Follower;
@@ -58,9 +59,10 @@ public class Practice extends OpMode{
         shooter=new TurretShooter(robot, telemetry);
 
         follower = Constants.createFollower(hardwareMap);
+
+        robot.init(hardwareMap,telemetry);
         if (robot.pose != null) {
            follower.setStartingPose(robot.pose);
-           robot.init(hardwareMap,telemetry);
         }else {
             follower.setStartingPose(new Pose(0, 0, 0));
         }
@@ -105,7 +107,7 @@ public class Practice extends OpMode{
             CommandScheduler.getInstance().schedule(new InstantCommand(()->shooter.update(TurretShooter.shooterState.IDLE)));
         }
 
-        if(g1YCurrent&&!g1YLast){
+        if(g2YCurrent&&!g2YLast){
             CommandScheduler.getInstance().schedule(new ResetCommand(follower,shooter,intake,sort,robot));
         }
         if(g1LBCurrent&&!g1LBLast){
@@ -141,11 +143,32 @@ public class Practice extends OpMode{
             )));
         }
 
+        if(gamepad2.dpad_left){
+            shooter.offsetConstant-=3;
+        }else if(gamepad2.dpad_right){
+            shooter.offsetConstant+=3;
+        }
+
+        if(gamepad2.dpad_up&&shooter.hoodOffset<1.0){
+            shooter.hoodOffset+=0.1;
+        }else if(gamepad2.dpad_down&&shooter.hoodOffset>0.0){
+            shooter.hoodOffset-=0.1;
+        }
+
+        if(g2LBCurrent&&!g2LBLast){
+            robot.turret.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            robot.turret.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            shooter.update(TurretShooter.shooterState.IDLE);
+            shooter.offsetConstant=0;
+        }
+
 
         robot.loop(sort, shooter, intake, follower);
 
 
-
+        if (g1BCurrent&&!g1BLast) {
+            follower.setPose(robot.resetPose);
+        }
         CommandScheduler.getInstance().run();
         telemetry.update();
 

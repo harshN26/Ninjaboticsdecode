@@ -14,17 +14,20 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import com.seattlesolvers.solverslib.command.CommandScheduler;
 import com.seattlesolvers.solverslib.command.InstantCommand;
 import com.seattlesolvers.solverslib.command.ParallelCommandGroup;
+import com.seattlesolvers.solverslib.command.ParallelDeadlineGroup;
+import com.seattlesolvers.solverslib.command.ParallelRaceGroup;
 import com.seattlesolvers.solverslib.command.SequentialCommandGroup;
 import com.seattlesolvers.solverslib.command.WaitUntilCommand;
 
 import org.firstinspires.ftc.teamcode.Commands.multipartCommands.ShootAll;
+import org.firstinspires.ftc.teamcode.Commands.multipartCommands.ShootAllAUTOCLOSE;
 import org.firstinspires.ftc.teamcode.Constants;
 import org.firstinspires.ftc.teamcode.Robot_Hardware;
 import org.firstinspires.ftc.teamcode.Subsystems.ChamberSort;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake;
 import org.firstinspires.ftc.teamcode.Subsystems.TurretShooter;
-@Disabled
-@Autonomous(name="GoalAuto12RED")
+//@Disabled
+@Autonomous(name="GoalAuto12BLUE")
 public class ball_auto_12 extends OpMode {
     Robot_Hardware robot=Robot_Hardware.getInstance();
     ElapsedTime timer;
@@ -60,27 +63,30 @@ public class ball_auto_12 extends OpMode {
         intake=new Intake(robot, telemetry);
         shooter=new TurretShooter(robot,telemetry);
 
-        follower = org.firstinspires.ftc.teamcode.pedroPathing.Constants.createFollower(hardwareMap);
-        follower.setStartingPose(robot.pose);
         robot.init(hardwareMap,telemetry);
 
+        follower = org.firstinspires.ftc.teamcode.pedroPathing.Constants.createFollower(hardwareMap);
+        follower.setStartingPose(robot.pose);
+        follower.update();
 
 
         initPaths();
 
         CommandScheduler.getInstance().schedule(
-                new ParallelCommandGroup(
-                    new InstantCommand(()->robot.loop(sort,shooter,intake,follower)),
+
                     new SequentialCommandGroup(
                             //get everything in position
                             new InstantCommand(()->sort.update(ChamberSort.CHAMBER_STATE.STOP)),
                             new InstantCommand(()->shooter.update(TurretShooter.shooterState.FIRE)),
                             new InstantCommand(()->intake.update(Intake.INTAKE_STATE.STOP)),
-                            new WaitUntilCommand(()->(robot.ramp.getPosition()==Constants.rampUp&&shooter.inRange)),
                             // first move back while firing 3 balls
                             new InstantCommand(()->follower.followPath(path1)),
-                            new ShootAll(shooter,sort,intake),
-
+                            new WaitUntilCommand(()->!follower.isBusy()),
+                            new InstantCommand(()->timer.reset()),
+                            new ParallelRaceGroup(
+                                    new ShootAllAUTOCLOSE(shooter,sort,intake),
+                                    new WaitUntilCommand(()->timer.milliseconds()>3000)
+                            ),
                             //Collect balls1
                             new InstantCommand(()->follower.followPath(collectBalls1)),
                             new InstantCommand(()->sort.update(ChamberSort.CHAMBER_STATE.IN)),
@@ -101,7 +107,11 @@ public class ball_auto_12 extends OpMode {
 
                             //shoot
                             new WaitUntilCommand(()->(!follower.isBusy()&&shooter.inRange)),
-                            new ShootAll(shooter,sort,intake),
+                            new InstantCommand(()->timer.reset()),
+                            new ParallelRaceGroup(
+                                    new ShootAllAUTOCLOSE(shooter,sort,intake),
+                                    new WaitUntilCommand(()->timer.milliseconds()>3000)
+                            ),
 
                             //Collect balls 2
                             new InstantCommand(()->follower.followPath(collectBalls2)),
@@ -115,7 +125,11 @@ public class ball_auto_12 extends OpMode {
                             new InstantCommand(()->shooter.update(TurretShooter.shooterState.FIRE)),
 
                             //shoot
-                            new ShootAll(shooter,sort,intake),
+                            new InstantCommand(()->timer.reset()),
+                            new ParallelRaceGroup(
+                                    new ShootAllAUTOCLOSE(shooter,sort,intake),
+                                    new WaitUntilCommand(()->timer.milliseconds()>3000)
+                            ),
 
                             //Collect balls 3
                             new InstantCommand(()->follower.followPath(collectBalls3)),
@@ -130,12 +144,19 @@ public class ball_auto_12 extends OpMode {
 
                             //shoot
                             new WaitUntilCommand(()->(!follower.isBusy()&&shooter.inRange)),
-                            new ShootAll(shooter,sort,intake),
+                            new InstantCommand(()->timer.reset()),
+                            new ParallelRaceGroup(
+                                    new ShootAllAUTOCLOSE(shooter,sort,intake),
+                                    new WaitUntilCommand(()->timer.milliseconds()>3000)
+                            ),
                             new InstantCommand(()->follower.followPath(nextToGate)),
-
+                            new WaitUntilCommand(()->!follower.isBusy()),
+                            new InstantCommand(()-> shooter.update(TurretShooter.shooterState.IDLE)),
+                            new InstantCommand(()->intake.update(Intake.INTAKE_STATE.IN)),
+                            new InstantCommand(()->sort.update(ChamberSort.CHAMBER_STATE.IN)),
                             new WaitUntilCommand(()->timer.milliseconds()>=29000)
                     )
-                )
+
         );
     }
 
@@ -165,8 +186,8 @@ public class ball_auto_12 extends OpMode {
                 .addPath(
                         new BezierCurve(
                                 new Pose(20.000, 83.000),
-                                new Pose(25.000, 75.000),
-                                new Pose(15.000, 70.000)
+                                new Pose(35.000, 80.000),
+                                new Pose(15.000, 80.000)
                         )
                 )
                 .setLinearHeadingInterpolation(Math.toRadians(180), Math.toRadians(-90))
@@ -238,6 +259,9 @@ public class ball_auto_12 extends OpMode {
         timer.reset();
     }
     public void loop(){
+
+        robot.loop(sort, shooter, intake, follower);
+
         CommandScheduler.getInstance().run();
         telemetry.update();
     }

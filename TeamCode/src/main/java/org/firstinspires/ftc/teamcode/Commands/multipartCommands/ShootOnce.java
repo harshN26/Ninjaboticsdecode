@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.Commands.multipartCommands;
 
 import com.seattlesolvers.solverslib.command.InstantCommand;
 import com.seattlesolvers.solverslib.command.SequentialCommandGroup;
+import com.seattlesolvers.solverslib.command.WaitCommand;
 import com.seattlesolvers.solverslib.command.WaitUntilCommand;
 
 import org.firstinspires.ftc.teamcode.Subsystems.ChamberSort;
