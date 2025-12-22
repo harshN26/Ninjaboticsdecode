@@ -55,7 +55,7 @@ public class Constants {
 
 
     public static double[] pidCoeffs_turret ={0.032,0.057,0.0005};
-    public static final int tolerance_turret=10;
+    public static final int tolerance_turret=5;
 
     public static final double tolerance_shooter=100;
 

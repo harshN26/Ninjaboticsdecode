@@ -102,11 +102,7 @@ public class TurretShooter extends SubsystemBase {
         return tol_turret;
     }
 
-    public void resetEncoderTurret() {
-        robot.turret.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        robot.turret.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-    }
 
     private void updateTurretPos(){
         turretCurrPos=robot.turret.getCurrentPosition();
@@ -284,17 +280,10 @@ public class TurretShooter extends SubsystemBase {
                 break;
             case RESET:
                 // something has gone wrong, try to fix
-                set_targetRPM_shooter(Constants.ShooterResetRPM);
-                setHoodTarget(Constants.hoodResetPos);
-                set_target_turret(offsetConstant);
-                hoodOffset=0.0;
 
-                if(robot.turretZero.isPressed()){
-                    robot.turret.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                    robot.turret.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-                    offsetConstant=0;
+                hoodOffset=0.0;
                     update(shooterState.IDLE);
-                }
+
                 break;
             case AUTOCLOSE:
                 set_targetRPM_shooter(3500);
