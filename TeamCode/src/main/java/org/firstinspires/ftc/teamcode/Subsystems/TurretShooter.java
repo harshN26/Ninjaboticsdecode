@@ -164,7 +164,7 @@ public class TurretShooter extends SubsystemBase {
         boolean rpmOK = (currentRPM_shooter >= targetRPM_shooter - Constants.tolerance_shooter && currentRPM_shooter <= targetRPM_shooter + Constants.tolerance_shooter);
         boolean hoodOK = Math.abs(targetHoodPos - hoodPos) <= Constants.hoodTolerance;
         boolean turretOK=Math.abs(turretTarget-turretCurrPos)<=Constants.tolerance_turret;
-        inRange = rpmOK&&hoodOK&&turretOK&&state==shooterState.FIRE;
+        inRange = rpmOK&&hoodOK&&turretOK&&(state==shooterState.FIRE||state==shooterState.AUTOFAR||state==shooterState.AUTOCLOSE);
         //inRange=rpmOK&&hoodOK&&turretOK;
         return inRange;
     }
@@ -201,9 +201,9 @@ public class TurretShooter extends SubsystemBase {
 
         double motorRevs = (dtheta / (2.0 * Math.PI)) * 3.0;
         int targetTicks = (int)(motorRevs * Constants.TICKS_PER_REV_Turret);
-        targetTicks = Math.max(-600, Math.min(600, targetTicks));
+        targetTicks = Math.max(-300+offsetConstant, Math.min(300+offsetConstant, targetTicks));
 
-        // ---------------- BALLISTICS (RAW RPM FIXED) ----------------
+
 
 
         double rawRPM=Constants.MIN_WHEEL_RPM;
@@ -212,7 +212,7 @@ public class TurretShooter extends SubsystemBase {
         // ---------------- REMAINDER UNCHANGED ----------------
 
         double vBall =
-                (rawRPM / 60.0) * 2.0 * Math.PI * Constants.shooterWheelRadius;
+                (rawRPM / 60.0) * 2.0 * Math.PI * Constants.shooterWheelRadius* Constants.EFFECTIVE_RPM_FACTOR;
 
         double v2 = vBall * vBall;
         double g = Constants.g;
@@ -266,6 +266,11 @@ public class TurretShooter extends SubsystemBase {
 
                 break;
             case IDLE:
+                if(robot.turretZero.isPressed()&&turretCurrPos!=0){
+                    robot.turret.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                    robot.turret.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+                    offsetConstant=0;
+                }
                 // get turret to be as close to 0 as possible and shooter to current-appropriate speed
                 set_targetRPM_shooter(Constants.ShooterIdleRPM);
                 setHoodTarget(Constants.hoodResetPos+hoodOffset);

@@ -47,7 +47,7 @@ public class Constants {
     public static final double MAX_WHEEL_RPM = 5000.0;
 
 
-    public static double EFFECTIVE_RPM_FACTOR = 0.97;
+    public static double EFFECTIVE_RPM_FACTOR = 0.5;
 
     public static double ShooterDistanceSlope=13.3;
 

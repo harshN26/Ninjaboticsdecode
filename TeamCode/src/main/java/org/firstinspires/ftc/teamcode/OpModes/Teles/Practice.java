@@ -107,9 +107,6 @@ public class Practice extends OpMode{
             CommandScheduler.getInstance().schedule(new InstantCommand(()->shooter.update(TurretShooter.shooterState.IDLE)));
         }
 
-        if(g2YCurrent&&!g2YLast){
-            CommandScheduler.getInstance().schedule(new ResetCommand(follower,shooter,intake,sort,robot));
-        }
         if(g1LBCurrent&&!g1LBLast){
             CommandScheduler.getInstance().schedule(new InstantCommand(()->intake.update(Intake.INTAKE_STATE.OUT)));
             CommandScheduler.getInstance().schedule(new InstantCommand(()->sort.update(ChamberSort.CHAMBER_STATE.OUT)));
