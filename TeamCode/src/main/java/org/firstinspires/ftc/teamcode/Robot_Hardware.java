@@ -19,6 +19,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
+import org.firstinspires.ftc.teamcode.OpModes.Limelight.LLPort;
 import org.firstinspires.ftc.teamcode.Subsystems.ChamberSort;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake;
 import org.firstinspires.ftc.teamcode.Subsystems.TurretShooter;
@@ -146,8 +147,16 @@ public class Robot_Hardware{
 
     }
 
+    public void init_loop(LLPort ll){
+        try {
+            ll.loop();
+        }catch(Exception ignored){
+            telem.addLine("New Limelight error: "+ignored);
+        }
+    }
 
-    public void loop(ChamberSort chamber, TurretShooter shooter, Intake intakeSubsystem, Follower follower){
+
+    public void loop(ChamberSort chamber, TurretShooter shooter, Intake intakeSubsystem, Follower follower, LLPort ll){
         if(alliance==AllianceColor.RED){
             goal= Constants.redGoal;
             telem.addLine("red goal");
@@ -160,6 +169,11 @@ public class Robot_Hardware{
             chamber.loop();
         }catch(Exception ignored){
             telem.addLine("New Chamber error: "+ignored);
+        }
+        try {
+            ll.loop();
+        }catch(Exception ignored){
+            telem.addLine("New Limelight error: "+ignored);
         }
         try {
             shooter.loop();

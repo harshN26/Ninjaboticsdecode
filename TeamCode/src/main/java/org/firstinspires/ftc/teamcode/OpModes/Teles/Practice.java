@@ -75,7 +75,7 @@ public class Practice extends OpMode{
 
     }
     public void init_loop(){
-        ll.loop();
+        robot.init_loop(ll);
         telemetry.update();
     }
 
@@ -166,7 +166,7 @@ public class Practice extends OpMode{
         }
 
 
-        robot.loop(sort, shooter, intake, follower);
+        robot.loop(sort, shooter, intake, follower,ll);
 
 
         if (g1BCurrent&&!g1BLast) {

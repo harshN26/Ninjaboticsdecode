@@ -22,6 +22,7 @@ import com.seattlesolvers.solverslib.command.WaitUntilCommand;
 import org.firstinspires.ftc.teamcode.Commands.multipartCommands.ShootAll;
 import org.firstinspires.ftc.teamcode.Commands.multipartCommands.ShootAllAUTOCLOSE;
 import org.firstinspires.ftc.teamcode.Constants;
+import org.firstinspires.ftc.teamcode.OpModes.Limelight.LLPort;
 import org.firstinspires.ftc.teamcode.Robot_Hardware;
 import org.firstinspires.ftc.teamcode.Subsystems.ChamberSort;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake;
@@ -41,6 +42,8 @@ public class ball_auto_12 extends OpMode {
     Intake intake;
 
     TurretShooter shooter;
+
+    LLPort ll;
 
 
 
@@ -62,6 +65,8 @@ public class ball_auto_12 extends OpMode {
         sort=new ChamberSort(robot, telemetry);
         intake=new Intake(robot, telemetry);
         shooter=new TurretShooter(robot,telemetry);
+
+        ll=new LLPort(telemetry,robot);
 
         robot.init(hardwareMap,telemetry);
 
@@ -161,6 +166,7 @@ public class ball_auto_12 extends OpMode {
         );
     }
 
+
     public void initPaths(){
 //        PathChain path1;
 //        PathChain collectBalls1, collectBalls2, collectBalls3;
@@ -258,6 +264,7 @@ public class ball_auto_12 extends OpMode {
 
     }
     public void init_loop(){
+        robot.init_loop(ll);
         telemetry.update();
     }
 
@@ -267,7 +274,7 @@ public class ball_auto_12 extends OpMode {
     }
     public void loop(){
 
-        robot.loop(sort, shooter, intake, follower);
+        robot.loop(sort, shooter, intake, follower,ll);
 
         CommandScheduler.getInstance().run();
         telemetry.update();
