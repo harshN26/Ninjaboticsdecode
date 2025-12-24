@@ -49,19 +49,19 @@ public class Constants {
 
     public static double EFFECTIVE_RPM_FACTOR = 0.5;
 
-    public static double ShooterDistanceSlope=13.3;
+    public static double ShooterDistanceSlope=13;
 
 
 
 
-    public static double[] pidCoeffs_turret ={0.032,0.057,0.0005};
+    public static double[] pidCoeffs_turret ={0.015,0.03,0.0007};
     public static final int tolerance_turret=5;
 
-    public static final double tolerance_shooter=100;
+    public static final double tolerance_shooter=200;
 
     public static final double TICKS_PER_REV_Shooter = 28;
 
-    public static final double TICKS_PER_REV_Turret = 384.5;
+    public static final double TICKS_PER_REV_Turret = 537.7;
 
     public static double shooter_kp=0.0009;
     public static double shooter_kv=0.0002;

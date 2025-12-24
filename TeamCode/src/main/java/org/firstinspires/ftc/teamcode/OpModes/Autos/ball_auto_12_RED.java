@@ -8,27 +8,23 @@ import com.pedropathing.geometry.BezierLine;
 import com.pedropathing.geometry.Pose;
 import com.pedropathing.paths.PathChain;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.seattlesolvers.solverslib.command.CommandScheduler;
 import com.seattlesolvers.solverslib.command.InstantCommand;
-import com.seattlesolvers.solverslib.command.ParallelCommandGroup;
-import com.seattlesolvers.solverslib.command.ParallelDeadlineGroup;
 import com.seattlesolvers.solverslib.command.ParallelRaceGroup;
 import com.seattlesolvers.solverslib.command.SequentialCommandGroup;
 import com.seattlesolvers.solverslib.command.WaitUntilCommand;
 
-import org.firstinspires.ftc.teamcode.Commands.multipartCommands.ShootAll;
 import org.firstinspires.ftc.teamcode.Commands.multipartCommands.ShootAllAUTOCLOSE;
-import org.firstinspires.ftc.teamcode.Constants;
 import org.firstinspires.ftc.teamcode.Robot_Hardware;
 import org.firstinspires.ftc.teamcode.Subsystems.ChamberSort;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake;
 import org.firstinspires.ftc.teamcode.Subsystems.TurretShooter;
+
 //@Disabled
-@Autonomous(name="GoalAuto12BLUE")
-public class ball_auto_12 extends OpMode {
+@Autonomous(name="GoalAuto12RED")
+public class ball_auto_12_RED extends OpMode {
     Robot_Hardware robot=Robot_Hardware.getInstance();
     ElapsedTime timer;
 
@@ -85,7 +81,7 @@ public class ball_auto_12 extends OpMode {
                             new InstantCommand(()->timer.reset()),
                             new ParallelRaceGroup(
                                     new ShootAllAUTOCLOSE(shooter,sort,intake),
-                                    new WaitUntilCommand(()->timer.milliseconds()>4000)
+                                    new WaitUntilCommand(()->timer.milliseconds()>3000)
                             ),
                             //Collect balls1
                             new InstantCommand(()->follower.followPath(collectBalls1)),
@@ -208,7 +204,7 @@ public class ball_auto_12 extends OpMode {
                         new BezierCurve(
                                 new Pose(57.000, 8.000),
                                 new Pose(58.000, 57.000),
-                                new Pose(20.000, 55.000)
+                                new Pose(20.000, 57.000)
                         )
                 )
                 .setConstantHeadingInterpolation(Math.toRadians(180))
@@ -225,19 +221,13 @@ public class ball_auto_12 extends OpMode {
         collectBalls3 = follower
                 .pathBuilder()
                 .addPath(
-                        new BezierLine(
+                        new BezierCurve(
                                 new Pose(57.000, 83.000),
-                                new Pose(54.800, 38.000)
-                        )
-                )
-                .setLinearHeadingInterpolation(Math.toRadians(-90), Math.toRadians(180))
-                .addPath(
-                        new BezierLine(
-                                new Pose(54.800, 38.000),
+                                new Pose(56.800, 32.000),
                                 new Pose(20.000, 35.000)
                         )
                 )
-                .setConstantHeadingInterpolation(Math.toRadians(180))
+                .setTangentHeadingInterpolation()
                 .build();
 
         shoot3 = follower

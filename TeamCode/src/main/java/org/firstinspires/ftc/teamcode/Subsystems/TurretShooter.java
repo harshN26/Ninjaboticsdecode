@@ -157,7 +157,7 @@ public class TurretShooter extends SubsystemBase {
 
 
     public boolean isInRange() {
-        boolean rpmOK = (currentRPM_shooter >= targetRPM_shooter - Constants.tolerance_shooter && currentRPM_shooter <= targetRPM_shooter + Constants.tolerance_shooter);
+        boolean rpmOK = (currentRPM_shooter >= targetRPM_shooter - Constants.tolerance_shooter*(12/robot.voltage) && currentRPM_shooter <= targetRPM_shooter + Constants.tolerance_shooter*(12/robot.voltage) );
         boolean hoodOK = Math.abs(targetHoodPos - hoodPos) <= Constants.hoodTolerance;
         boolean turretOK=Math.abs(turretTarget-turretCurrPos)<=Constants.tolerance_turret;
         inRange = rpmOK&&hoodOK&&turretOK&&(state==shooterState.FIRE||state==shooterState.AUTOFAR||state==shooterState.AUTOCLOSE);
@@ -197,13 +197,14 @@ public class TurretShooter extends SubsystemBase {
 
         double motorRevs = (dtheta / (2.0 * Math.PI)) * 3.0;
         int targetTicks = (int)(motorRevs * Constants.TICKS_PER_REV_Turret);
-        targetTicks = Math.max(-300+offsetConstant, Math.min(300+offsetConstant, targetTicks));
+        targetTicks = Math.max(-800+offsetConstant, Math.min(800+offsetConstant, targetTicks));
 
 
 
 
         double rawRPM=Constants.MIN_WHEEL_RPM;
         rawRPM+=Constants.ShooterDistanceSlope*horizontalDistance;
+        rawRPM=Math.max(rawRPM,Constants.MAX_WHEEL_RPM);
 
         // ---------------- REMAINDER UNCHANGED ----------------
 
@@ -259,10 +260,10 @@ public class TurretShooter extends SubsystemBase {
                 setHoodTarget((int)results[2]+hoodOffset);
 //                set_target_turret((int)results[3]);
                 set_target_turret((int)results[3]+offsetConstant);
-
+//                set_target_turret(offsetConstant);
                 break;
             case IDLE:
-                if(robot.turretZero.isPressed()&&turretCurrPos!=0){
+                if(robot.turretZero.isPressed()&&!(Math.abs(turretCurrPos-turretTarget)<5)){
                     robot.turret.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                     robot.turret.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
                     offsetConstant=0;
@@ -271,6 +272,7 @@ public class TurretShooter extends SubsystemBase {
                 set_targetRPM_shooter(Constants.ShooterIdleRPM);
                 setHoodTarget(Constants.hoodResetPos+hoodOffset);
                 set_target_turret(offsetConstant);
+
                 break;
             case STOP:
                 // complete standstill, analysing if something is wrong or on low voltage
@@ -286,7 +288,7 @@ public class TurretShooter extends SubsystemBase {
 
                 break;
             case AUTOCLOSE:
-                set_targetRPM_shooter(3500);
+                set_targetRPM_shooter(3900);
 //                setHoodTarget(results[2]);
                 setHoodTarget((int)results[2]+hoodOffset);
 //                set_target_turret((int)results[3]);

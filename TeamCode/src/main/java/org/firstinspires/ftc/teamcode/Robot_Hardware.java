@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode;
 import com.pedropathing.follower.Follower;
 import com.pedropathing.geometry.Pose;
 import com.pedropathing.math.Vector;
+import com.qualcomm.hardware.limelightvision.Limelight3A;
 import com.qualcomm.hardware.rev.RevTouchSensor;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -37,6 +38,8 @@ public class Robot_Hardware{
     public VoltageSensor voltageSensor;
 
     public RevTouchSensor turretZero;
+
+    public Limelight3A limelight;
 
     public double voltage;
     ElapsedTime voltageTimer;
@@ -128,7 +131,10 @@ public class Robot_Hardware{
         turretZero=hardwareMap.get(RevTouchSensor.class,Global_Configs.turretZeroName);
 
 
-
+        limelight=hardwareMap.get(Limelight3A.class,Global_Configs.limelightName);
+        limelight.setPollRateHz(50);
+        limelight.pipelineSwitch(0);
+        limelight.start();
         telem=telemetry;
 
 
@@ -139,6 +145,7 @@ public class Robot_Hardware{
 //        leds=hardwareMap.get(RevBlinkinLedDriver.class, Global_Configs.ledsName);
 
     }
+
 
     public void loop(ChamberSort chamber, TurretShooter shooter, Intake intakeSubsystem, Follower follower){
         if(alliance==AllianceColor.RED){
@@ -181,7 +188,7 @@ public class Robot_Hardware{
             telem.addLine("New General error: "+ignored);
         }
 
-        if (voltageTimer.seconds() > 5) {
+        if (voltageTimer.milliseconds() > 500) {
             voltageTimer.reset();
             voltage = voltageSensor.getVoltage();
         }
@@ -192,6 +199,9 @@ public class Robot_Hardware{
 
     public double getVoltage(){
         return voltage;
+    }
+    public void end(){
+        limelight.stop();
     }
 
 }

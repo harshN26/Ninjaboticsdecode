@@ -20,13 +20,11 @@ public class ShootAllAUTOCLOSE extends SequentialCommandGroup {
                         new InstantCommand(()->shooter.update(TurretShooter.shooterState.AUTOCLOSE)),
                     new InstantCommand(()-> chamberSort.update(ChamberSort.CHAMBER_STATE.UP)),
                         new InstantCommand(()-> intake.update(Intake.INTAKE_STATE.IN)),
-                        new WaitCommand(500),
+                    new ShootOnce(shooter,chamberSort,intake),
+                    new ShootOnce(shooter,chamberSort,intake),
                     new ShootOnce(shooter,chamberSort,intake),
                     new WaitCommand(500),
-                    new ShootOnce(shooter,chamberSort,intake),
-                        new WaitCommand(500),
-                    new ShootOnce(shooter,chamberSort,intake),
-                    new InstantCommand(()->shooter.update(TurretShooter.shooterState.STOP)),
+                    new InstantCommand(()->shooter.update(TurretShooter.shooterState.IDLE)),
                     new InstantCommand(()->intake.update(Intake.INTAKE_STATE.STOP)),
                     new InstantCommand(()->chamberSort.update(ChamberSort.CHAMBER_STATE.STOP))
                 )

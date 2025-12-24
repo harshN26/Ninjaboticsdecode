@@ -36,6 +36,7 @@ public class Global_Configs {
     public final static DOFStatus hood2Status=DOFStatus.DISABLED ;
 
     public final static String turretZeroName="turretZero";
+    public final static String limelightName="turretZero";
 
 
 //    public final static String ledsName="leds";

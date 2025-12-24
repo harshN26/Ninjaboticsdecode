@@ -21,6 +21,7 @@ import com.seattlesolvers.solverslib.gamepad.GamepadKeys;
 import org.firstinspires.ftc.teamcode.Commands.BasicCommands.ResetCommand;
 import org.firstinspires.ftc.teamcode.Commands.BasicCommands.StartAll;
 import org.firstinspires.ftc.teamcode.Commands.multipartCommands.ShootAll;
+import org.firstinspires.ftc.teamcode.OpModes.Limelight.LLPort;
 import org.firstinspires.ftc.teamcode.Robot_Hardware;
 import org.firstinspires.ftc.teamcode.Subsystems.ChamberSort;
 
@@ -38,6 +39,7 @@ public class Practice extends OpMode{
 
     ChamberSort sort;
     Intake intake;
+    LLPort ll;
 
     TurretShooter shooter;
 
@@ -68,8 +70,12 @@ public class Practice extends OpMode{
         }
         follower.update();
 
+        ll=new LLPort(telemetry,robot);
+
+
     }
     public void init_loop(){
+        ll.loop();
         telemetry.update();
     }
 
@@ -184,6 +190,6 @@ public class Practice extends OpMode{
         g2LBLast=  g2LBCurrent;
     }
     public void end(){
-
+        robot.end();
     }
 }
