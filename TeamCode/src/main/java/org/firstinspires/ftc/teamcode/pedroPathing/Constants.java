@@ -56,14 +56,14 @@ public class Constants {
                     .strafeEncoderDirection(Encoder.REVERSE);
 
     public static PathConstraints pathConstraints = new PathConstraints(
-            0.995,
+            0.8,
             0.1,
             0.1,
             0.007,
             500,
-            4,
+            5,
             10,
-            1
+            3
     );
 
     public static Follower createFollower(HardwareMap hardwareMap) {

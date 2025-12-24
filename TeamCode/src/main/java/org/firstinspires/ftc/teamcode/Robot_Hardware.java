@@ -4,6 +4,7 @@ import com.pedropathing.follower.Follower;
 import com.pedropathing.geometry.Pose;
 import com.pedropathing.math.Vector;
 import com.qualcomm.hardware.limelightvision.Limelight3A;
+import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.hardware.rev.RevTouchSensor;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -12,6 +13,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.DigitalChannel;
 import com.qualcomm.robotcore.hardware.DigitalChannelImpl;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.TouchSensor;
 import com.qualcomm.robotcore.hardware.VoltageSensor;
@@ -45,8 +47,10 @@ public class Robot_Hardware{
     public double voltage;
     ElapsedTime voltageTimer;
 
+    public Pose startPose=new Pose(0,0,0);
 
 
+    public IMU imu;
 
 
 
@@ -133,11 +137,14 @@ public class Robot_Hardware{
 
 
         limelight=hardwareMap.get(Limelight3A.class,Global_Configs.limelightName);
-        limelight.setPollRateHz(50);
+        limelight.setPollRateHz(100);
         limelight.pipelineSwitch(0);
         limelight.start();
         telem=telemetry;
 
+        imu=hardwareMap.get(IMU.class, "imu");
+
+        imu.initialize(new IMU.Parameters(new RevHubOrientationOnRobot(RevHubOrientationOnRobot.LogoFacingDirection.LEFT, RevHubOrientationOnRobot.UsbFacingDirection.FORWARD)));
 
 
         voltageSensor=hardwareMap.voltageSensor.iterator().next();
@@ -147,13 +154,6 @@ public class Robot_Hardware{
 
     }
 
-    public void init_loop(LLPort ll){
-        try {
-            ll.loop();
-        }catch(Exception ignored){
-            telem.addLine("New Limelight error: "+ignored);
-        }
-    }
 
 
     public void loop(ChamberSort chamber, TurretShooter shooter, Intake intakeSubsystem, Follower follower, LLPort ll){
@@ -172,6 +172,10 @@ public class Robot_Hardware{
         }
         try {
             ll.loop();
+            if(LLPort.currentPose){
+                follower.setPose(ll.returnPose());
+            }
+            ll.telem();
         }catch(Exception ignored){
             telem.addLine("New Limelight error: "+ignored);
         }
@@ -202,7 +206,7 @@ public class Robot_Hardware{
             telem.addLine("New General error: "+ignored);
         }
 
-        if (voltageTimer.milliseconds() > 500) {
+        if (voltageTimer.milliseconds() > 200) {
             voltageTimer.reset();
             voltage = voltageSensor.getVoltage();
         }

@@ -75,7 +75,6 @@ public class Practice extends OpMode{
 
     }
     public void init_loop(){
-        robot.init_loop(ll);
         telemetry.update();
     }
 
@@ -83,6 +82,7 @@ public class Practice extends OpMode{
         CommandScheduler.getInstance().schedule(
                 new StartAll(follower,shooter,intake,sort, telemetry)
         );
+        ll.start();
         //TODO: schedule default commands
         CommandScheduler.getInstance().run();
         timer.reset();

@@ -90,7 +90,7 @@ public class ball_auto_12 extends OpMode {
                             new InstantCommand(()->timer.reset()),
                             new ParallelRaceGroup(
                                     new ShootAllAUTOCLOSE(shooter,sort,intake),
-                                    new WaitUntilCommand(()->timer.milliseconds()>4000)
+                                    new WaitUntilCommand(()->timer.milliseconds()>3000)
                             ),
                             //Collect balls1
                             new InstantCommand(()->follower.followPath(collectBalls1)),
@@ -175,7 +175,7 @@ public class ball_auto_12 extends OpMode {
         path1 = follower
                 .pathBuilder()
                 .addPath(
-                        new BezierLine(new Pose(22.000, 124.000), new Pose(57.000, 83.000))
+                        new BezierLine(Constants.blueGoalStartingPose.getPose(), new Pose(57.000, 83.000))
                 )
                 .setLinearHeadingInterpolation(Math.toRadians(143), Math.toRadians(180))
                 .build();
@@ -194,36 +194,37 @@ public class ball_auto_12 extends OpMode {
                         new BezierCurve(
                                 new Pose(20.000, 83.000),
                                 new Pose(35.000, 74.000),
-                                new Pose(15.000, 74.000)
+                                new Pose(7.000, 74.000)
                         )
                 )
                 .setLinearHeadingInterpolation(Math.toRadians(180), Math.toRadians(90))
+                .setTimeoutConstraint(1)
                 .build();
 
         shoot1 = follower
                 .pathBuilder()
                 .addPath(
-                        new BezierLine(new Pose(15.000, 74.000), new Pose(57.000, 83.000))
+                        new BezierLine(new Pose(7.000, 74.000), new Pose(57.000, 83.000))
                 )
-                .setLinearHeadingInterpolation(Math.toRadians(90), Math.toRadians(180))
+                .setLinearHeadingInterpolation(Math.toRadians(90), Math.toRadians(225))
                 .build();
 
         collectBalls2 = follower
                 .pathBuilder()
                 .addPath(
                         new BezierCurve(
-                                new Pose(57.000, 8.000),
-                                new Pose(58.000, 57.000),
-                                new Pose(20.000, 55.000)
+                                new Pose(57.000, 83.000),
+                                new Pose(58.000, 58.000),
+                                new Pose(20.000, 58.000)
                         )
                 )
-                .setConstantHeadingInterpolation(Math.toRadians(180))
+                .setLinearHeadingInterpolation(Math.toRadians(225), Math.toRadians(180))
                 .build();
 
         shoot2 = follower
                 .pathBuilder()
                 .addPath(
-                        new BezierLine(new Pose(20.000, 57.000), new Pose(57.000, 83.000))
+                        new BezierLine(new Pose(22.000, 58.000), new Pose(57.000, 83.000))
                 )
                 .setLinearHeadingInterpolation(Math.toRadians(-180), Math.toRadians(-90))
                 .build();
@@ -257,24 +258,24 @@ public class ball_auto_12 extends OpMode {
         nextToGate = follower
                 .pathBuilder()
                 .addPath(
-                        new BezierLine(new Pose(57.000, 83.000), new Pose(25.000, 75.000))
+                        new BezierLine(new Pose(57.000, 83.000), new Pose(25.000, 72.000))
                 )
-                .setConstantHeadingInterpolation(Math.toRadians(180))
+                .setLinearHeadingInterpolation(Math.toRadians(180), Math.toRadians(90))
                 .build();
 
     }
     public void init_loop(){
-        robot.init_loop(ll);
         telemetry.update();
     }
 
     public void start(){
-
+        ll.start();
         timer.reset();
     }
     public void loop(){
 
         robot.loop(sort, shooter, intake, follower,ll);
+
 
         CommandScheduler.getInstance().run();
         telemetry.update();

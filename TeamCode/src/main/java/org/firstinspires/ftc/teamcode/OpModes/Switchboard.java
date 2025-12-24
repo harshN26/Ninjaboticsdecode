@@ -21,6 +21,7 @@ public class Switchboard extends OpMode {
 
             if (gamepad1.a) {
                 robot.alliance = Robot_Hardware.AllianceColor.RED;
+
                 robot.resetPose=Constants.redResetPose;
             }
             if (gamepad1.b) {
@@ -29,18 +30,22 @@ public class Switchboard extends OpMode {
             }
             if(gamepad1.dpad_left){
                 robot.pose= Constants.blueBackStartingPose;
+                robot.startPose=Constants.blueBackStartingPose;
                 telemetry.addLine("blue back");
             }
             if(gamepad1.dpad_up){
                 robot.pose= Constants.blueGoalStartingPose;
+                robot.startPose=Constants.blueGoalStartingPose;
                 telemetry.addLine("blue goal");
             }
             if(gamepad1.dpad_down){
                 robot.pose= Constants.redGoalStartingPose;
+                robot.startPose=Constants.redGoalStartingPose;
                 telemetry.addLine("red goal");
             }
             if(gamepad1.dpad_right){
                 robot.pose= Constants.redBackStartingPose;
+                robot.startPose=Constants.redBackStartingPose;
                 telemetry.addLine("red back");
             }
             telemetry.addLine("Alliance Color: " + robot.alliance);

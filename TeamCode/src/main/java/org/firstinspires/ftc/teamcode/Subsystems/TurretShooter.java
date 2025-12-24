@@ -288,7 +288,7 @@ public class TurretShooter extends SubsystemBase {
 
                 break;
             case AUTOCLOSE:
-                set_targetRPM_shooter(3900);
+                set_targetRPM_shooter(3950);
 //                setHoodTarget(results[2]);
                 setHoodTarget((int)results[2]+hoodOffset);
 //                set_target_turret((int)results[3]);

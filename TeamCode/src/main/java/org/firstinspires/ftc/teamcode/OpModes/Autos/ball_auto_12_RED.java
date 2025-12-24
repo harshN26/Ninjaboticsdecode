@@ -175,96 +175,96 @@ public class ball_auto_12_RED extends OpMode {
         path1 = follower
                 .pathBuilder()
                 .addPath(
-                        new BezierLine(new Pose(22.000, 124.000), new Pose(57.000, 83.000))
+                        new BezierLine(Constants.redGoalStartingPose.getPose(), new Pose(87.000, 83.000))
                 )
-                .setLinearHeadingInterpolation(Math.toRadians(143), Math.toRadians(180))
+                .setLinearHeadingInterpolation(Math.toRadians(37), Math.toRadians(0))
                 .build();
 
         collectBalls1 = follower
                 .pathBuilder()
                 .addPath(
-                        new BezierLine(new Pose(57.000, 83.000), new Pose(20.000, 83.000))
+                        new BezierLine(new Pose(87.000, 83.000), new Pose(124.000, 83.000))
                 )
-                .setConstantHeadingInterpolation(Math.toRadians(180))
+                .setConstantHeadingInterpolation(Math.toRadians(0))
                 .build();
 
         openGate = follower
                 .pathBuilder()
                 .addPath(
                         new BezierCurve(
-                                new Pose(20.000, 83.000),
-                                new Pose(35.000, 74.000),
-                                new Pose(15.000, 74.000)
+                                new Pose(124.000, 83.000),
+                                new Pose(119.000, 74.000),
+                                new Pose(137.000, 74.000)
                         )
                 )
-                .setLinearHeadingInterpolation(Math.toRadians(180), Math.toRadians(90))
+                .setLinearHeadingInterpolation(Math.toRadians(0), Math.toRadians(90))
+                .setTimeoutConstraint(0.994)
                 .build();
 
         shoot1 = follower
                 .pathBuilder()
                 .addPath(
-                        new BezierLine(new Pose(15.000, 74.000), new Pose(57.000, 83.000))
+                        new BezierLine(new Pose(137.000, 74.000), new Pose(87.000, 83.000))
                 )
-                .setLinearHeadingInterpolation(Math.toRadians(90), Math.toRadians(180))
+                .setLinearHeadingInterpolation(Math.toRadians(90), Math.toRadians(0))
                 .build();
 
         collectBalls2 = follower
                 .pathBuilder()
                 .addPath(
                         new BezierCurve(
-                                new Pose(57.000, 8.000),
-                                new Pose(58.000, 57.000),
-                                new Pose(20.000, 55.000)
+                                new Pose(87.000, 83.000),
+                                new Pose(86.000, 57.000),
+                                new Pose(124.000, 58.000)
                         )
                 )
-                .setConstantHeadingInterpolation(Math.toRadians(180))
+                .setConstantHeadingInterpolation(Math.toRadians(0))
                 .build();
 
         shoot2 = follower
                 .pathBuilder()
                 .addPath(
-                        new BezierLine(new Pose(20.000, 57.000), new Pose(57.000, 83.000))
+                        new BezierLine(new Pose(124.000, 58.000), new Pose(87.000, 83.000))
                 )
-                .setLinearHeadingInterpolation(Math.toRadians(-180), Math.toRadians(-90))
+                .setLinearHeadingInterpolation(Math.toRadians(0), Math.toRadians(-90))
                 .build();
 
         collectBalls3 = follower
                 .pathBuilder()
                 .addPath(
                         new BezierLine(
-                                new Pose(57.000, 83.000),
-                                new Pose(54.800, 38.000)
+                                new Pose(87.000, 83.000),
+                                new Pose(89.200, 38.000)
                         )
                 )
-                .setLinearHeadingInterpolation(Math.toRadians(-90), Math.toRadians(180))
+                .setLinearHeadingInterpolation(Math.toRadians(-90), Math.toRadians(0))
                 .addPath(
                         new BezierLine(
-                                new Pose(54.800, 38.000),
-                                new Pose(20.000, 35.000)
+                                new Pose(89.200, 38.000),
+                                new Pose(124.000, 35.000)
                         )
                 )
-                .setConstantHeadingInterpolation(Math.toRadians(180))
+                .setConstantHeadingInterpolation(Math.toRadians(0))
                 .build();
 
         shoot3 = follower
                 .pathBuilder()
                 .addPath(
-                        new BezierLine(new Pose(20.000, 35.000), new Pose(57.000, 83.000))
+                        new BezierLine(new Pose(124.000, 35.000), new Pose(87.000, 83.000))
                 )
-                .setConstantHeadingInterpolation(Math.toRadians(180))
+                .setConstantHeadingInterpolation(Math.toRadians(0))
                 .build();
 
         nextToGate = follower
                 .pathBuilder()
                 .addPath(
-                        new BezierLine(new Pose(57.000, 83.000), new Pose(25.000, 75.000))
+                        new BezierLine(new Pose(87.000, 83.000), new Pose(119.000, 72.000))
                 )
-                .setConstantHeadingInterpolation(Math.toRadians(180))
+                .setLinearHeadingInterpolation(Math.toRadians(0), Math.toRadians(90))
                 .build();
 
     }
     public void init_loop(){
-        robot.init_loop(ll);
         telemetry.update();
     }
 
