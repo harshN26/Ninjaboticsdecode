@@ -2,11 +2,8 @@ package org.firstinspires.ftc.teamcode.OpModes.Teles;
 
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
-import com.bylazar.telemetry.PanelsTelemetry;
 import com.pedropathing.geometry.Pose;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.seattlesolvers.solverslib.command.Command;
 import com.seattlesolvers.solverslib.command.CommandScheduler;
 import com.pedropathing.follower.Follower;
 
@@ -14,14 +11,11 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.seattlesolvers.solverslib.command.InstantCommand;
-import com.seattlesolvers.solverslib.gamepad.GamepadEx;
-import com.seattlesolvers.solverslib.gamepad.GamepadKeys;
 
 
-import org.firstinspires.ftc.teamcode.Commands.BasicCommands.ResetCommand;
 import org.firstinspires.ftc.teamcode.Commands.BasicCommands.StartAll;
 import org.firstinspires.ftc.teamcode.Commands.multipartCommands.ShootAll;
-import org.firstinspires.ftc.teamcode.OpModes.Limelight.LLPort;
+import org.firstinspires.ftc.teamcode.Subsystems.LLPort;
 import org.firstinspires.ftc.teamcode.Robot_Hardware;
 import org.firstinspires.ftc.teamcode.Subsystems.ChamberSort;
 
@@ -70,7 +64,7 @@ public class Practice extends OpMode{
         }
         follower.update();
 
-        ll=new LLPort(telemetry,robot);
+//        ll=new LLPort(telemetry,robot);
 
 
     }
@@ -171,9 +165,11 @@ public class Practice extends OpMode{
 
         if (g1BCurrent&&!g1BLast) {
             follower.setPose(robot.resetPose);
+            robot.imu.resetYaw();
+            robot.startPose=robot.startPose.setHeading(Math.toRadians(90));
         }
         CommandScheduler.getInstance().run();
-        telemetry.update();
+
 
         g1ALast=  g1ACurrent;
         g1XLast=  g1XCurrent;
@@ -189,7 +185,7 @@ public class Practice extends OpMode{
         g2RBLast=  g2RBCurrent;
         g2LBLast=  g2LBCurrent;
     }
-    public void end(){
+    public void stop(){
         robot.end();
     }
 }

@@ -29,6 +29,7 @@ repositories{
     maven { url 'https://psilynx.github.io/PsiKit/gradle' }
     maven {url "https://repo.dairy.foundation/releases"}
     maven {url "https://repo.dairy.foundation/snapshots"}
+    maven { url = 'https://jitpack.io' }
 }
 
 dependencies {
@@ -41,5 +42,6 @@ dependencies {
     implementation "org.solverslib:pedroPathing:SNAPSHOT-7962e3e" // pedroPathing
     implementation 'org.psilynx.psikit:core:0.1.0-beta1'
     implementation 'org.psilynx.psikit:ftc:0.1.0-beta1'
+    implementation 'com.github.Thermal-Equilibrium:homeostasis-FTC:1.0.6'
 
 }

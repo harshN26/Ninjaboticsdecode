@@ -13,9 +13,9 @@ public class ShootOnce extends SequentialCommandGroup {
     public ShootOnce(TurretShooter shooter, ChamberSort chamber, Intake in){
         super(
                 new SequentialCommandGroup(
+                        new InstantCommand(()->in.update(Intake.INTAKE_STATE.IN)),
                     new WaitUntilCommand(shooter::isInRange),
                     new InstantCommand(()->chamber.update(ChamberSort.CHAMBER_STATE.UP)),
-                    new InstantCommand(()->in.update(Intake.INTAKE_STATE.IN)),
                     new WaitUntilCommand(()-> !shooter.isInRange()),
                     new InstantCommand(()->chamber.update(ChamberSort.CHAMBER_STATE.IN)),
                     new InstantCommand(()->in.update(Intake.INTAKE_STATE.STOP))

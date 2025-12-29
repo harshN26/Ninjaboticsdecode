@@ -10,18 +10,15 @@ import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
-import com.qualcomm.robotcore.hardware.DigitalChannel;
-import com.qualcomm.robotcore.hardware.DigitalChannelImpl;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.hardware.Servo;
-import com.qualcomm.robotcore.hardware.TouchSensor;
 import com.qualcomm.robotcore.hardware.VoltageSensor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
-import org.firstinspires.ftc.teamcode.OpModes.Limelight.LLPort;
+import org.firstinspires.ftc.teamcode.Subsystems.LLPort;
 import org.firstinspires.ftc.teamcode.Subsystems.ChamberSort;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake;
 import org.firstinspires.ftc.teamcode.Subsystems.TurretShooter;
@@ -63,8 +60,10 @@ public class Robot_Hardware{
 
     public static AllianceColor alliance=AllianceColor.RED;
 
-    public Pose goal,pose,resetPose;
+    public static Pose goal,pose,resetPose;
     public static boolean inReset=false;
+
+    public static boolean autoPoseResetApproval=false;
 
 
 
@@ -137,9 +136,10 @@ public class Robot_Hardware{
 
 
         limelight=hardwareMap.get(Limelight3A.class,Global_Configs.limelightName);
-        limelight.setPollRateHz(100);
+        limelight.setPollRateHz(200);
         limelight.pipelineSwitch(0);
         limelight.start();
+
         telem=telemetry;
 
         imu=hardwareMap.get(IMU.class, "imu");
@@ -149,21 +149,20 @@ public class Robot_Hardware{
 
         voltageSensor=hardwareMap.voltageSensor.iterator().next();
 
+        if(alliance==AllianceColor.RED){
+            goal= Constants.redGoal;
 
-//        leds=hardwareMap.get(RevBlinkinLedDriver.class, Global_Configs.ledsName);
+        }else{
+            goal= Constants.blueGoal;
+
+        }
 
     }
 
 
 
     public void loop(ChamberSort chamber, TurretShooter shooter, Intake intakeSubsystem, Follower follower, LLPort ll){
-        if(alliance==AllianceColor.RED){
-            goal= Constants.redGoal;
-            telem.addLine("red goal");
-        }else{
-            goal= Constants.blueGoal;
-            telem.addLine("blue goal");
-        }
+
 
         try {
             chamber.loop();
@@ -172,7 +171,7 @@ public class Robot_Hardware{
         }
         try {
             ll.loop();
-            if(LLPort.currentPose){
+            if(ll.resultValid&&(currGameState==GameState.TELE || autoPoseResetApproval)){
                 follower.setPose(ll.returnPose());
             }
             ll.telem();
@@ -211,13 +210,11 @@ public class Robot_Hardware{
             voltage = voltageSensor.getVoltage();
         }
 
+
+        telem.update();
+
     }
 
-
-
-    public double getVoltage(){
-        return voltage;
-    }
     public void end(){
         limelight.stop();
     }

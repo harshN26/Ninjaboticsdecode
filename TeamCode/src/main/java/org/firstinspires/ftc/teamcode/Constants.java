@@ -31,7 +31,7 @@ public class Constants {
 
 
 
-    public static final Pose redGoal=new Pose(142,142);
+    public static final Pose redGoal=new Pose(140,142);
     public static final Pose blueGoal=new Pose(2,142);
     public static double zGoal=45; //in
 
@@ -57,7 +57,7 @@ public class Constants {
     public static double[] pidCoeffs_turret ={0.015,0.03,0.0007};
     public static final int tolerance_turret=5;
 
-    public static final double tolerance_shooter=200;
+    public static final double tolerance_shooter=175;
 
     public static final double TICKS_PER_REV_Shooter = 28;
 
@@ -88,6 +88,26 @@ public class Constants {
 
     public static final Pose blueResetPose=new Pose(136,9,Math.toRadians(90));
     public static final Pose redResetPose=new Pose(9,9,Math.toRadians(90));
+
+
+
+    public static final Pose autoCloseBLUEShoot=new Pose(57.000, 83.000);
+    public static final Pose autoFarBLUEShoot=new Pose(54.000, 13.000);
+    public static final Pose autoCloseREDShoot=new Pose(87.000, 83.000);
+    public static final Pose autoFarREDShoot=new Pose(90.000, 13.000);
+
+
+
+
+
+
+
+
+
+
+    public static final double filterQ=0.3;
+    public static final double filterR=3.0;
+    public static final int filterN=3;
 
 
 

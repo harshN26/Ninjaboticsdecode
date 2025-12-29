@@ -1,0 +1,103 @@
+package org.firstinspires.ftc.teamcode.Subsystems;
+
+
+import com.ThermalEquilibrium.homeostasis.Filters.FilterAlgorithms.KalmanFilter;
+import com.pedropathing.ftc.FTCCoordinates;
+import com.pedropathing.geometry.PedroCoordinates;
+import com.pedropathing.geometry.Pose;
+import com.qualcomm.hardware.limelightvision.LLResult;
+import com.qualcomm.robotcore.util.ElapsedTime;
+
+import org.firstinspires.ftc.robotcore.external.Const;
+import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.Pose3D;
+import org.firstinspires.ftc.teamcode.Constants;
+import org.firstinspires.ftc.teamcode.Robot_Hardware;
+
+public class LLPort {
+
+    Robot_Hardware robot;
+    public static Pose robotUpdatedPose;
+
+    public boolean resultValid=false;
+
+    Telemetry telemetry;
+    ElapsedTime timer;
+    KalmanFilter filterX,filterY;
+    public LLPort(Telemetry telem, Robot_Hardware hardware){
+        robot=hardware;
+        telemetry=telem;
+        timer=new ElapsedTime();
+        filterX=new KalmanFilter(Constants.filterQ,Constants.filterR,Constants.filterN);
+        filterY=new KalmanFilter(Constants.filterQ,Constants.filterR,Constants.filterN);
+
+    }
+    public void start(){
+        timer.startTime();
+    }
+    public void loop(){
+        double headingRad = robot.imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS)+robot.startPose.getHeading();
+
+        robot.limelight.updateRobotOrientation(headingRad);
+
+        LLResult result=robot.limelight.getLatestResult();
+
+        Pose3D llPose = result.getBotpose();
+
+
+        double xIn = llPose.getPosition().x * 39.37;
+        double yIn = llPose.getPosition().y * 39.37;
+
+
+
+
+        Pose ftcPose = new Pose(
+                xIn,
+                yIn,
+                headingRad,
+                FTCCoordinates.INSTANCE
+        );
+
+
+        robotUpdatedPose = ftcPose.getAsCoordinateSystem(PedroCoordinates.INSTANCE);
+
+
+        if (!(resultValid=result.isValid())) {
+            resetFilter();
+            return;
+        }
+
+
+        double currentValueX = robotUpdatedPose.getX();
+        double estimateX = filterX.estimate(currentValueX);
+
+
+        double currentValueY =robotUpdatedPose.getY();
+        double estimateY = filterY.estimate(currentValueY);
+
+        robotUpdatedPose= new Pose(
+                estimateX,
+                estimateY,
+                headingRad,
+                PedroCoordinates.INSTANCE
+        );
+
+
+    }
+    public Pose returnPose(){
+
+        return robotUpdatedPose;
+    }
+    public void telem(){
+        telemetry.addLine("Pose: "+robotUpdatedPose);
+
+    }
+
+   private void resetFilter(){
+        filterX=new KalmanFilter(Constants.filterQ,Constants.filterR,Constants.filterN);
+        filterY=new KalmanFilter(Constants.filterQ,Constants.filterR,Constants.filterN);
+   }
+
+
+}

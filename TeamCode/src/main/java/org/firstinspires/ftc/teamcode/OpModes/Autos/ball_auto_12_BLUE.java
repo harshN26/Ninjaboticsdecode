@@ -8,28 +8,25 @@ import com.pedropathing.geometry.BezierLine;
 import com.pedropathing.geometry.Pose;
 import com.pedropathing.paths.PathChain;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.seattlesolvers.solverslib.command.CommandScheduler;
 import com.seattlesolvers.solverslib.command.InstantCommand;
-import com.seattlesolvers.solverslib.command.ParallelCommandGroup;
-import com.seattlesolvers.solverslib.command.ParallelDeadlineGroup;
 import com.seattlesolvers.solverslib.command.ParallelRaceGroup;
 import com.seattlesolvers.solverslib.command.SequentialCommandGroup;
+import com.seattlesolvers.solverslib.command.WaitCommand;
 import com.seattlesolvers.solverslib.command.WaitUntilCommand;
 
-import org.firstinspires.ftc.teamcode.Commands.multipartCommands.ShootAll;
 import org.firstinspires.ftc.teamcode.Commands.multipartCommands.ShootAllAUTOCLOSE;
 import org.firstinspires.ftc.teamcode.Constants;
-import org.firstinspires.ftc.teamcode.OpModes.Limelight.LLPort;
+import org.firstinspires.ftc.teamcode.Subsystems.LLPort;
 import org.firstinspires.ftc.teamcode.Robot_Hardware;
 import org.firstinspires.ftc.teamcode.Subsystems.ChamberSort;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake;
 import org.firstinspires.ftc.teamcode.Subsystems.TurretShooter;
 //@Disabled
 @Autonomous(name="GoalAuto12BLUE")
-public class ball_auto_12 extends OpMode {
+public class ball_auto_12_BLUE extends OpMode {
     Robot_Hardware robot=Robot_Hardware.getInstance();
     ElapsedTime timer;
 
@@ -86,6 +83,7 @@ public class ball_auto_12 extends OpMode {
                             new InstantCommand(()->intake.update(Intake.INTAKE_STATE.STOP)),
                             // first move back while firing 3 balls
                             new InstantCommand(()->follower.followPath(path1)),
+                            new InstantCommand(()-> intake.update(Intake.INTAKE_STATE.IN)),
                             new WaitUntilCommand(()->!follower.isBusy()),
                             new InstantCommand(()->timer.reset()),
                             new ParallelRaceGroup(
@@ -107,11 +105,13 @@ public class ball_auto_12 extends OpMode {
 
                             //go to shoot 1
                             new WaitUntilCommand(()->!follower.isBusy()),
+                            new WaitCommand(1000),
                             new InstantCommand(()->follower.followPath(shoot1)),
                             new InstantCommand(()->shooter.update(TurretShooter.shooterState.AUTOCLOSE)),
 
                             //shoot
                             new WaitUntilCommand(()->(!follower.isBusy()&&shooter.inRange)),
+                            new InstantCommand(()-> robot.autoPoseResetApproval =true),
                             new InstantCommand(()->timer.reset()),
                             new ParallelRaceGroup(
                                     new ShootAllAUTOCLOSE(shooter,sort,intake),
@@ -122,6 +122,7 @@ public class ball_auto_12 extends OpMode {
                             new InstantCommand(()->sort.update(ChamberSort.CHAMBER_STATE.IN)),
                             new InstantCommand(()->shooter.update(TurretShooter.shooterState.IDLE)),
                             new InstantCommand(()->intake.update(Intake.INTAKE_STATE.IN)),
+                            new InstantCommand(()-> robot.autoPoseResetApproval =false),
                             new InstantCommand(()->follower.followPath(collectBalls2)),
 
                             //go to shoot 2
@@ -167,7 +168,7 @@ public class ball_auto_12 extends OpMode {
     }
 
 
-    public void initPaths(){
+    public void initPaths()  {
 //        PathChain path1;
 //        PathChain collectBalls1, collectBalls2, collectBalls3;
 //        PathChain openGate,nextToGate;
@@ -194,7 +195,7 @@ public class ball_auto_12 extends OpMode {
                         new BezierCurve(
                                 new Pose(20.000, 83.000),
                                 new Pose(35.000, 74.000),
-                                new Pose(7.000, 74.000)
+                                new Pose(14.000, 74.000)
                         )
                 )
                 .setLinearHeadingInterpolation(Math.toRadians(180), Math.toRadians(90))
@@ -204,7 +205,7 @@ public class ball_auto_12 extends OpMode {
         shoot1 = follower
                 .pathBuilder()
                 .addPath(
-                        new BezierLine(new Pose(7.000, 74.000), new Pose(57.000, 83.000))
+                        new BezierLine(new Pose(14.000, 74.000), Constants.autoCloseBLUEShoot)
                 )
                 .setLinearHeadingInterpolation(Math.toRadians(90), Math.toRadians(225))
                 .build();
@@ -214,8 +215,8 @@ public class ball_auto_12 extends OpMode {
                 .addPath(
                         new BezierCurve(
                                 new Pose(57.000, 83.000),
-                                new Pose(58.000, 58.000),
-                                new Pose(20.000, 58.000)
+                                new Pose(59.000, 58.000),
+                                new Pose(19.000, 58.000)
                         )
                 )
                 .setLinearHeadingInterpolation(Math.toRadians(225), Math.toRadians(180))
@@ -224,33 +225,34 @@ public class ball_auto_12 extends OpMode {
         shoot2 = follower
                 .pathBuilder()
                 .addPath(
-                        new BezierLine(new Pose(22.000, 58.000), new Pose(57.000, 83.000))
+                        new BezierLine(new Pose(19.000, 58.000), new Pose(58.500, 83.000))
                 )
-                .setLinearHeadingInterpolation(Math.toRadians(-180), Math.toRadians(-90))
+                .setLinearHeadingInterpolation(Math.toRadians(180), Math.toRadians(270))
                 .build();
 
         collectBalls3 = follower
                 .pathBuilder()
                 .addPath(
                         new BezierLine(
-                                new Pose(57.000, 83.000),
-                                new Pose(54.800, 38.000)
+                                new Pose(58.500, 83.000),
+                                new Pose(54.800, 36.000)
                         )
                 )
-                .setLinearHeadingInterpolation(Math.toRadians(-90), Math.toRadians(180))
+                .setLinearHeadingInterpolation(Math.toRadians(270), Math.toRadians(180))
                 .addPath(
                         new BezierLine(
-                                new Pose(54.800, 38.000),
-                                new Pose(20.000, 35.000)
+                                new Pose(54.800, 36.000),
+                                new Pose(20.000, 34.000)
                         )
                 )
                 .setConstantHeadingInterpolation(Math.toRadians(180))
+                .setVelocityConstraint(0.8)
                 .build();
 
         shoot3 = follower
                 .pathBuilder()
                 .addPath(
-                        new BezierLine(new Pose(20.000, 35.000), new Pose(57.000, 83.000))
+                        new BezierLine(new Pose(20.000, 34.000), new Pose(60,83))
                 )
                 .setConstantHeadingInterpolation(Math.toRadians(180))
                 .build();
@@ -258,7 +260,7 @@ public class ball_auto_12 extends OpMode {
         nextToGate = follower
                 .pathBuilder()
                 .addPath(
-                        new BezierLine(new Pose(57.000, 83.000), new Pose(25.000, 72.000))
+                        new BezierLine(new Pose(60.000, 83.000), new Pose(25.000, 72.000))
                 )
                 .setLinearHeadingInterpolation(Math.toRadians(180), Math.toRadians(90))
                 .build();
@@ -278,9 +280,9 @@ public class ball_auto_12 extends OpMode {
 
 
         CommandScheduler.getInstance().run();
-        telemetry.update();
+
     }
-    public void end(){
+    public void stop(){
         robot.end();
     }
 }
