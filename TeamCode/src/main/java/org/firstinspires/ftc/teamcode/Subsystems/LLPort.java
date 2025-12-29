@@ -21,6 +21,7 @@ public class LLPort {
     public static Pose robotUpdatedPose;
 
     public boolean resultValid=false;
+    private boolean resultValidLast=false;
 
     Telemetry telemetry;
     ElapsedTime timer;
@@ -37,6 +38,7 @@ public class LLPort {
         timer.startTime();
     }
     public void loop(){
+        resultValidLast=resultValid;
         double headingRad = robot.imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS)+robot.startPose.getHeading();
 
         robot.limelight.updateRobotOrientation(headingRad);
@@ -63,7 +65,7 @@ public class LLPort {
         robotUpdatedPose = ftcPose.getAsCoordinateSystem(PedroCoordinates.INSTANCE);
 
 
-        if (!(resultValid=result.isValid())) {
+        if ((resultValid=result.isValid())&&resultValid!=resultValidLast) {
             resetFilter();
             return;
         }
@@ -71,6 +73,7 @@ public class LLPort {
 
         double currentValueX = robotUpdatedPose.getX();
         double estimateX = filterX.estimate(currentValueX);
+
 
 
         double currentValueY =robotUpdatedPose.getY();
@@ -95,8 +98,8 @@ public class LLPort {
     }
 
    private void resetFilter(){
-        filterX=new KalmanFilter(Constants.filterQ,Constants.filterR,Constants.filterN);
-        filterY=new KalmanFilter(Constants.filterQ,Constants.filterR,Constants.filterN);
+        filterX.setX(robot.x);
+        filterY.setX(robot.y);
    }
 
 

@@ -25,7 +25,7 @@ import org.firstinspires.ftc.teamcode.Subsystems.ChamberSort;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake;
 import org.firstinspires.ftc.teamcode.Subsystems.TurretShooter;
 //@Disabled
-@Autonomous(name="GoalAuto12BLUE")
+@Autonomous(name="Goal12BlueWithGate")
 public class ball_auto_12_BLUE extends OpMode {
     Robot_Hardware robot=Robot_Hardware.getInstance();
     ElapsedTime timer;

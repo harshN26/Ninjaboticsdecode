@@ -7,6 +7,7 @@ import com.pedropathing.geometry.BezierCurve;
 import com.pedropathing.geometry.BezierLine;
 import com.pedropathing.geometry.Pose;
 import com.pedropathing.paths.PathChain;
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.seattlesolvers.solverslib.command.CommandScheduler;
@@ -24,7 +25,7 @@ import org.firstinspires.ftc.teamcode.Subsystems.ChamberSort;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake;
 import org.firstinspires.ftc.teamcode.Subsystems.LLPort;
 import org.firstinspires.ftc.teamcode.Subsystems.TurretShooter;
-
+@Autonomous(name="FarBlueCycling")
 public class ballAutoCycleFarBLUE extends OpMode {
     Robot_Hardware robot=Robot_Hardware.getInstance();
     ElapsedTime timer;
@@ -78,10 +79,10 @@ public class ballAutoCycleFarBLUE extends OpMode {
                         // first move back while firing 3 balls
                         new InstantCommand(()->follower.followPath(path1)),
                         new InstantCommand(()-> intake.update(Intake.INTAKE_STATE.IN)),
-                        new WaitUntilCommand(()->!follower.isBusy()),
+                        new WaitUntilCommand(()->!follower.isBusy()&&shooter.isInRange()),
                         new InstantCommand(()->timer.reset()),
                         new ParallelRaceGroup(
-                                new ShootAllAUTOCLOSE(shooter,sort,intake),
+                                new ShootAllAUTOFAR(shooter,sort,intake),
                                 new WaitUntilCommand(()->timer.milliseconds()>3000)
                         ),
                         //Collect balls1
@@ -94,7 +95,8 @@ public class ballAutoCycleFarBLUE extends OpMode {
                         new WaitUntilCommand(()->!follower.isBusy()),
 
                         new InstantCommand(()->follower.followPath(backToShoot1)),
-                        new WaitUntilCommand(()->!follower.isBusy()),
+                        new InstantCommand(()->shooter.update(TurretShooter.shooterState.AUTOFAR)),
+                        new WaitUntilCommand(()->!follower.isBusy()&&shooter.isInRange()),
                         new InstantCommand(()->timer.reset()),
                         new InstantCommand(()->robot.autoPoseResetApproval=true),
                         new ParallelRaceGroup(
@@ -112,7 +114,8 @@ public class ballAutoCycleFarBLUE extends OpMode {
 
 
                         new InstantCommand(()->follower.followPath(backToShoot)),
-                        new WaitUntilCommand(()->!follower.isBusy()),
+                        new InstantCommand(()->shooter.update(TurretShooter.shooterState.AUTOFAR)),
+                        new WaitUntilCommand(()->!follower.isBusy()&&shooter.isInRange()),
                         new InstantCommand(()->timer.reset()),
                         new InstantCommand(()->robot.autoPoseResetApproval=true),
                         new ParallelRaceGroup(
