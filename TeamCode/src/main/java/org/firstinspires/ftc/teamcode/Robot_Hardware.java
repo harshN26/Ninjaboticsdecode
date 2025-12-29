@@ -138,7 +138,7 @@ public class Robot_Hardware{
         limelight=hardwareMap.get(Limelight3A.class,Global_Configs.limelightName);
         limelight.setPollRateHz(200);
         limelight.pipelineSwitch(0);
-        limelight.start();
+
 
         telem=telemetry;
 

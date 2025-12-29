@@ -99,7 +99,7 @@ public class redPreloadClose extends OpMode {
                         new InstantCommand(()->intake.update(Intake.INTAKE_STATE.IN)),
                         new InstantCommand(()->sort.update(ChamberSort.CHAMBER_STATE.IN)),
                         new WaitUntilCommand(()->!follower.isBusy()),
-
+                        
 
 
 

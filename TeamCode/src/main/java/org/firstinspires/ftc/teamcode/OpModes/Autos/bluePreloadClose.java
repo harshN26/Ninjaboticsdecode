@@ -124,7 +124,7 @@ public class bluePreloadClose extends OpMode {
         path1 = follower
                 .pathBuilder()
                 .addPath(
-                        new BezierLine(Constants.redGoalStartingPose.getPose(), Constants.autoCloseREDShoot)
+                        new BezierLine(Constants.blueGoalStartingPose.getPose(), Constants.autoCloseBLUEShoot)
                 )
                 .setLinearHeadingInterpolation(Math.toRadians(143), Math.toRadians(180))
                 .build();
@@ -132,7 +132,7 @@ public class bluePreloadClose extends OpMode {
         collectBalls1 = follower
                 .pathBuilder()
                 .addPath(
-                        new BezierLine(Constants.autoCloseREDShoot, new Pose(124.000, 83.000))
+                        new BezierLine(Constants.autoCloseBLUEShoot, new Pose(20.000, 83.000))
                 )
                 .setConstantHeadingInterpolation(Math.toRadians(180))
                 .build();
@@ -143,7 +143,7 @@ public class bluePreloadClose extends OpMode {
         park = follower
                 .pathBuilder()
                 .addPath(
-                        new BezierLine(new Pose(124.000, 83.000), new Pose(119.000, 72.000))
+                        new BezierLine(new Pose(20.000, 83.000), new Pose(25.000, 72.000))
                 )
                 .setLinearHeadingInterpolation(Math.toRadians(180), Math.toRadians(90))
                 .build();

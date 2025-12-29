@@ -145,7 +145,7 @@ public class blue9Close extends OpMode {
         path1 = follower
                 .pathBuilder()
                 .addPath(
-                        new BezierLine(Constants.redGoalStartingPose.getPose(), Constants.autoCloseREDShoot)
+                        new BezierLine(Constants.blueGoalStartingPose.getPose(), Constants.autoCloseBLUEShoot)
                 )
                 .setLinearHeadingInterpolation(Math.toRadians(143), Math.toRadians(180))
                 .build();
@@ -153,7 +153,7 @@ public class blue9Close extends OpMode {
         collectBalls1 = follower
                 .pathBuilder()
                 .addPath(
-                        new BezierLine(Constants.autoCloseREDShoot, new Pose(124.000, 83.000))
+                        new BezierLine(Constants.autoCloseBLUEShoot, new Pose(20.000, 83.000))
                 )
                 .setConstantHeadingInterpolation(Math.toRadians(180))
                 .build();
@@ -163,7 +163,7 @@ public class blue9Close extends OpMode {
         shoot1 = follower
                 .pathBuilder()
                 .addPath(
-                        new BezierLine(new Pose(124.000, 83.000), Constants.autoCloseREDShoot)
+                        new BezierLine(new Pose(20.000, 83.000), Constants.autoCloseBLUEShoot)
                 )
                 .setLinearHeadingInterpolation(Math.toRadians(180), Math.toRadians(225))
                 .build();
@@ -172,9 +172,9 @@ public class blue9Close extends OpMode {
                 .pathBuilder()
                 .addPath(
                         new BezierCurve(
-                                Constants.autoCloseREDShoot,
-                                new Pose(86.000, 57.000),
-                                new Pose(124.000, 58.000)
+                                Constants.autoCloseBLUEShoot,
+                                new Pose(58.000, 57.000),
+                                new Pose(20.000, 58.000)
                         )
                 )
                 .setLinearHeadingInterpolation(Math.toRadians(225), Math.toRadians(180))
@@ -183,7 +183,7 @@ public class blue9Close extends OpMode {
         shoot2 = follower
                 .pathBuilder()
                 .addPath(
-                        new BezierLine(new Pose(124.000, 58.000), Constants.autoCloseREDShoot)
+                        new BezierLine(new Pose(20.000, 58.000), Constants.autoCloseBLUEShoot)
                 )
                 .setLinearHeadingInterpolation(Math.toRadians(180), Math.toRadians(-90))
                 .build();
@@ -191,7 +191,7 @@ public class blue9Close extends OpMode {
         park = follower
                 .pathBuilder()
                 .addPath(
-                        new BezierLine(Constants.autoCloseREDShoot, new Pose(119.000, 72.000))
+                        new BezierLine(Constants.autoCloseBLUEShoot, new Pose(25.000, 72.000))
                 )
                 .setLinearHeadingInterpolation(Math.toRadians(-90), Math.toRadians(90))
                 .build();
