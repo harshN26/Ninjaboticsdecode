@@ -10,7 +10,9 @@ import com.pedropathing.ftc.FollowerBuilder;
 import com.pedropathing.ftc.drivetrains.MecanumConstants;
 import com.pedropathing.ftc.localization.Encoder;
 import com.pedropathing.ftc.localization.constants.ThreeWheelConstants;
+import com.pedropathing.ftc.localization.constants.ThreeWheelIMUConstants;
 import com.pedropathing.paths.PathConstraints;
+import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
@@ -40,8 +42,8 @@ public class Constants {
             .xVelocity(73.92097787589588)
             .yVelocity(79.29183977);
 
-    public static ThreeWheelConstants localizerConstants =
-            new ThreeWheelConstants()
+    public static ThreeWheelIMUConstants localizerConstants =
+            new ThreeWheelIMUConstants()
                     .forwardTicksToInches(0.0010609088278141003)
                     .strafeTicksToInches(0.0010486712643076903)
                     .turnTicksToInches(0.001428505931999635)
@@ -53,7 +55,9 @@ public class Constants {
                     .strafeEncoder_HardwareMapName("backRight")
                     .leftEncoderDirection(Encoder.REVERSE)
                     .rightEncoderDirection(Encoder.REVERSE)
-                    .strafeEncoderDirection(Encoder.REVERSE);
+                    .strafeEncoderDirection(Encoder.REVERSE)
+                    .IMU_HardwareMapName("imu")
+                    .IMU_Orientation(new RevHubOrientationOnRobot(RevHubOrientationOnRobot.LogoFacingDirection.LEFT, RevHubOrientationOnRobot.UsbFacingDirection.FORWARD));
 
     public static PathConstraints pathConstraints = new PathConstraints(
             0.8,
@@ -69,7 +73,7 @@ public class Constants {
     public static Follower createFollower(HardwareMap hardwareMap) {
         return new FollowerBuilder(followerConstants, hardwareMap)
                 .mecanumDrivetrain(driveConstants)
-                .threeWheelLocalizer(localizerConstants)
+                .threeWheelIMULocalizer(localizerConstants)
                 .pathConstraints(pathConstraints)
                 .build();
     }

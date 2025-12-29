@@ -39,9 +39,9 @@ public class LLPort {
     }
     public void loop(){
         resultValidLast=resultValid;
-        double headingRad = robot.imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS)+robot.startPose.getHeading();
 
-        robot.limelight.updateRobotOrientation(headingRad);
+
+        robot.limelight.updateRobotOrientation(robot.heading);
 
         LLResult result=robot.limelight.getLatestResult();
 
@@ -57,7 +57,7 @@ public class LLPort {
         Pose ftcPose = new Pose(
                 xIn,
                 yIn,
-                headingRad,
+                robot.heading,
                 FTCCoordinates.INSTANCE
         );
 
@@ -67,24 +67,24 @@ public class LLPort {
 
         if ((resultValid=result.isValid())&&resultValid!=resultValidLast) {
             resetFilter();
-            return;
+        }
+        if(resultValid) {
+            double currentValueX = robotUpdatedPose.getX();
+            double estimateX = filterX.estimate(currentValueX);
+
+
+            double currentValueY = robotUpdatedPose.getY();
+            double estimateY = filterY.estimate(currentValueY);
+
+            robotUpdatedPose = new Pose(
+                    estimateX,
+                    estimateY,
+                    robot.heading,
+                    PedroCoordinates.INSTANCE
+            );
         }
 
 
-        double currentValueX = robotUpdatedPose.getX();
-        double estimateX = filterX.estimate(currentValueX);
-
-
-
-        double currentValueY =robotUpdatedPose.getY();
-        double estimateY = filterY.estimate(currentValueY);
-
-        robotUpdatedPose= new Pose(
-                estimateX,
-                estimateY,
-                headingRad,
-                PedroCoordinates.INSTANCE
-        );
 
 
     }

@@ -37,10 +37,14 @@ public class Practice extends OpMode{
 
     TurretShooter shooter;
 
-    boolean g1XLast=false,g1YLast=false,g1BLast=false,g1ALast=false, g1LBLast=false, g1RBLast=false;
-    boolean g1XCurrent,g1YCurrent,g1BCurrent,g1ACurrent, g1LBCurrent, g1RBCurrent;
-    boolean g2XLast=false,g2YLast=false,g2BLast=false,g2ALast=false, g2LBLast=false, g2RBLast=false;
-    boolean g2XCurrent,g2YCurrent,g2BCurrent,g2ACurrent, g2LBCurrent, g2RBCurrent;
+    public boolean g1XLast=false,g1YLast=false,g1BLast=false,g1ALast=false, g1LBLast=false, g1RBLast=false;
+    public boolean g1XCurrent,g1YCurrent,g1BCurrent,g1ACurrent, g1LBCurrent, g1RBCurrent;
+    public boolean g2XLast=false,g2YLast=false,g2BLast=false,g2ALast=false, g2LBLast=false, g2RBLast=false;
+    public boolean g2XCurrent,g2YCurrent,g2BCurrent,g2ACurrent, g2LBCurrent, g2RBCurrent;
+
+    public boolean g2LTLast,g2LTCurrent;
+
+    public double drive_mult_pow=0.9;
 
     public void init(){
         timer=new ElapsedTime();
@@ -95,6 +99,7 @@ public class Practice extends OpMode{
         g2YCurrent= gamepad2.y;
         g2RBCurrent= gamepad2.right_bumper;
         g2LBCurrent= gamepad2.left_bumper;
+        g2LTCurrent=gamepad2.left_trigger>0.5;
 
         if(g1ACurrent&&!g1ALast){
             CommandScheduler.getInstance().schedule(new ShootAll(shooter,sort,intake));
@@ -105,6 +110,10 @@ public class Practice extends OpMode{
             CommandScheduler.getInstance().schedule(new InstantCommand(()->shooter.update(TurretShooter.shooterState.FIRE)));
         }else if(g2BLast&&!g2BCurrent){
             CommandScheduler.getInstance().schedule(new InstantCommand(()->shooter.update(TurretShooter.shooterState.IDLE)));
+        }
+
+        if(g2YCurrent&&!g2YLast){
+            shooter.turretEnable=!shooter.turretEnable;
         }
 
         if(g1LBCurrent&&!g1LBLast){
@@ -126,16 +135,16 @@ public class Practice extends OpMode{
 
         if(robot.alliance== Robot_Hardware.AllianceColor.RED) {
             CommandScheduler.getInstance().schedule(new InstantCommand(() -> follower.setTeleOpDrive(
-                    -gamepad1.left_stick_y,
-                    -gamepad1.left_stick_x,
-                    -gamepad1.right_stick_x,
+                    -gamepad1.left_stick_y*drive_mult_pow,
+                    -gamepad1.left_stick_x*drive_mult_pow,
+                    -gamepad1.right_stick_x*drive_mult_pow,
                     false
             )));
         }else{
             CommandScheduler.getInstance().schedule(new InstantCommand(() -> follower.setTeleOpDrive(
-                    gamepad1.left_stick_y,
-                    gamepad1.left_stick_x,
-                    -gamepad1.right_stick_x,
+                    gamepad1.left_stick_y*drive_mult_pow,
+                    gamepad1.left_stick_x*drive_mult_pow,
+                    -gamepad1.right_stick_x*drive_mult_pow,
                     false
             )));
         }
@@ -152,7 +161,7 @@ public class Practice extends OpMode{
             shooter.hoodOffset-=0.1;
         }
 
-        if(g2LBCurrent&&!g2LBLast){
+        if(g2LTCurrent&&!g2LTLast){
             robot.turret.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             robot.turret.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
             shooter.update(TurretShooter.shooterState.IDLE);
@@ -165,8 +174,6 @@ public class Practice extends OpMode{
 
         if (g1BCurrent&&!g1BLast) {
             follower.setPose(robot.resetPose);
-            robot.imu.resetYaw();
-            robot.startPose=robot.startPose.setHeading(Math.toRadians(90));
         }
         CommandScheduler.getInstance().run();
 
@@ -184,6 +191,7 @@ public class Practice extends OpMode{
         g2YLast=  g2YCurrent;
         g2RBLast=  g2RBCurrent;
         g2LBLast=  g2LBCurrent;
+        g2LTLast=g2LTCurrent;
     }
     public void stop(){
         robot.end();

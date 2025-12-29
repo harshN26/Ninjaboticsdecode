@@ -21,7 +21,7 @@ public class TurretShooter extends SubsystemBase {
     Robot_Hardware robot;
 
 
-    public enum shooterState {FIRE, IDLE, STOP, RESET, AUTOCLOSE, AUTOFAR}
+    public enum shooterState {FIRE, IDLE, STOP, RESET, AUTOCLOSE, AUTOFAR, FIRENOTURRET}
     public int offsetConstant;
     public shooterState state = shooterState.IDLE;
 
@@ -45,6 +45,8 @@ public class TurretShooter extends SubsystemBase {
     public double tol_turret;
     public int turretTarget;
     private int turretCurrPos;
+
+    public boolean turretEnable=true;
     Telemetry telem;
     private final ElapsedTime timer = new ElapsedTime();
 
@@ -253,13 +255,26 @@ public class TurretShooter extends SubsystemBase {
         switch (state) {
             case FIRE:
                 // active tracking and everything, we are ready for shooting and waiting for balls to enter
-
+                if(!turretEnable){
+                    state=shooterState.FIRENOTURRET;
+                }
 //                set_targetRPM_shooter(results[0]);
                 set_targetRPM_shooter((int)results[0]);
 //                setHoodTarget(results[2]);
                 setHoodTarget((int)results[2]+hoodOffset);
 //                set_target_turret((int)results[3]);
                 set_target_turret((int)results[3]+offsetConstant);
+//                set_target_turret(offsetConstant);
+                break;
+            case FIRENOTURRET:
+                // active tracking and everything, we are ready for shooting and waiting for balls to enter
+
+//                set_targetRPM_shooter(results[0]);
+                set_targetRPM_shooter((int)results[0]);
+//                setHoodTarget(results[2]);
+                setHoodTarget((int)results[2]+hoodOffset);
+//                set_target_turret((int)results[3]);
+                set_target_turret(offsetConstant);
 //                set_target_turret(offsetConstant);
                 break;
             case IDLE:

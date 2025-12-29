@@ -47,7 +47,6 @@ public class Robot_Hardware{
     public Pose startPose=new Pose(0,0,0);
 
 
-    public IMU imu;
 
 
 
@@ -60,7 +59,7 @@ public class Robot_Hardware{
 
     public static AllianceColor alliance=AllianceColor.RED;
 
-    public static Pose goal,pose,resetPose;
+    public static Pose goal,pose,resetPose=Constants.redResetPose;
     public static boolean inReset=false;
 
     public static boolean autoPoseResetApproval=false;
@@ -126,12 +125,13 @@ public class Robot_Hardware{
         push.setPosition(0.05);
         ramp=hwMap.get(Servo.class, Global_Configs.rampName);
         flickSide=hwMap.get(Servo.class, Global_Configs.flickSideName);
-        flickSide.setPosition(0.5);
+        flickSide.setPosition(0);
         flickUp=hwMap.get(Servo.class, Global_Configs.flickUpName);
         hood1=hwMap.get(Servo.class, Global_Configs.hood1Name);
 
         hood2=hwMap.get(Servo.class, Global_Configs.hood2Name);
         hood2.setDirection(Servo.Direction.REVERSE);
+
         turretZero=hardwareMap.get(RevTouchSensor.class,Global_Configs.turretZeroName);
 
 
@@ -139,12 +139,9 @@ public class Robot_Hardware{
         limelight.setPollRateHz(200);
         limelight.pipelineSwitch(0);
 
-
         telem=telemetry;
 
-        imu=hardwareMap.get(IMU.class, "imu");
 
-        imu.initialize(new IMU.Parameters(new RevHubOrientationOnRobot(RevHubOrientationOnRobot.LogoFacingDirection.LEFT, RevHubOrientationOnRobot.UsbFacingDirection.FORWARD)));
 
 
         voltageSensor=hardwareMap.voltageSensor.iterator().next();
