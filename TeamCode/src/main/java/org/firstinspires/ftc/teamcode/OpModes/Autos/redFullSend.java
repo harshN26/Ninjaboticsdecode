@@ -25,7 +25,7 @@ import org.firstinspires.ftc.teamcode.Subsystems.LLPort;
 import org.firstinspires.ftc.teamcode.Subsystems.TurretShooter;
 
 //@Disabled
-@Autonomous(name="blueFullSend")
+@Autonomous(name="redFullSend")
 public class redFullSend extends OpMode {
     Robot_Hardware robot=Robot_Hardware.getInstance();
     ElapsedTime timer;
