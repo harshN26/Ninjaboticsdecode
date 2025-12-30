@@ -73,7 +73,7 @@ public class Robot_Hardware{
     public double y,yVelo;
     public double heading, headingVelo;
 
-    public double turrHeading;
+    public static boolean firing=false;
 
     Telemetry telem;
 

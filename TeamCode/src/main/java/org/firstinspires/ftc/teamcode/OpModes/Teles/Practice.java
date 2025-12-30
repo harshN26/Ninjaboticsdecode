@@ -15,6 +15,7 @@ import com.seattlesolvers.solverslib.command.InstantCommand;
 
 import org.firstinspires.ftc.teamcode.Commands.BasicCommands.StartAll;
 import org.firstinspires.ftc.teamcode.Commands.multipartCommands.ShootAll;
+import org.firstinspires.ftc.teamcode.Commands.multipartCommands.ShootOnce;
 import org.firstinspires.ftc.teamcode.Subsystems.LLPort;
 import org.firstinspires.ftc.teamcode.Robot_Hardware;
 import org.firstinspires.ftc.teamcode.Subsystems.ChamberSort;
@@ -104,6 +105,9 @@ public class Practice extends OpMode{
         if(g1ACurrent&&!g1ALast){
             CommandScheduler.getInstance().schedule(new ShootAll(shooter,sort,intake));
         }
+        if(g2ACurrent&&!g2ALast){
+            CommandScheduler.getInstance().schedule((new ShootOnce(shooter,sort,intake)));
+        }
 
 
         if(g2BCurrent&&!g2BLast){
@@ -128,7 +132,7 @@ public class Practice extends OpMode{
             CommandScheduler.getInstance().schedule(new InstantCommand(()->intake.update(Intake.INTAKE_STATE.IN)));
             CommandScheduler.getInstance().schedule(new InstantCommand(()->sort.update(ChamberSort.CHAMBER_STATE.UP)));
         }
-        else if (intake.state != Intake.INTAKE_STATE.STOP&&!(g1RBCurrent||g2XCurrent||g1LBCurrent)){
+        else if (intake.state != Intake.INTAKE_STATE.STOP&&!(g1RBCurrent||g2XCurrent||g1LBCurrent)&&!robot.firing){
             CommandScheduler.getInstance().schedule(new InstantCommand(()->intake.update(Intake.INTAKE_STATE.STOP)));
             CommandScheduler.getInstance().schedule(new InstantCommand(()->sort.update(ChamberSort.CHAMBER_STATE.STOP)));
         }
