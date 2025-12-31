@@ -227,9 +227,10 @@ public class TurretShooter extends SubsystemBase {
 
         double theta = Math.atan((v2 - Math.sqrt(underSqrt)) / (g * horizontalDistance));
 
-        double hoodPos = Math.max(0.0,
-                Math.min(1.0,
-                        (theta - Math.toRadians(Constants.shooterMinAngle) / Math.toRadians(Constants.shooterMaxAngle))));
+        double hoodPos = (Constants.shooterMaxAngle - theta) / (Constants.shooterMaxAngle - Constants.shooterMinAngle);
+
+
+        hoodPos = Math.max(0.0, Math.min(1.0, hoodPos));
 
         double effectiveRPM =
                 Math.min(rawRPM * Constants.EFFECTIVE_RPM_FACTOR,
