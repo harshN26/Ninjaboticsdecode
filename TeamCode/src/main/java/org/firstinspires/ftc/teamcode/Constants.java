@@ -24,7 +24,7 @@ public class Constants {
     public static final double hoodResetPos =0.5;
     public static final double hoodTolerance=0.02;
 
-    public static double shooterMinAngle=20;//deg
+    public static double shooterMinAngle=15;//deg
     public static double shooterMaxAngle=45;//deg
 
 
@@ -74,7 +74,7 @@ public class Constants {
 
 
 
-
+    public static final int turretMaxTicks=800;
 
 
 

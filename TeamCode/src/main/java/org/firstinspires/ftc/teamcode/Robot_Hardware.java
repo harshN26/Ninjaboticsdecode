@@ -203,7 +203,7 @@ public class Robot_Hardware{
             telem.addLine("New General error: "+ignored);
         }
 
-        if (voltageTimer.milliseconds() > 500) {
+        if (voltageTimer.milliseconds() > 100) {
             voltageTimer.reset();
             voltage = voltageSensor.getVoltage();
         }

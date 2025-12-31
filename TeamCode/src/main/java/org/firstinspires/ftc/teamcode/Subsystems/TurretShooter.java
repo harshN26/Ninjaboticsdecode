@@ -2,6 +2,8 @@ package org.firstinspires.ftc.teamcode.Subsystems;
 
 
 
+import static org.firstinspires.ftc.teamcode.Constants.turretMaxTicks;
+
 import com.bylazar.configurables.annotations.Configurable;
 import com.bylazar.telemetry.PanelsTelemetry;
 import com.bylazar.telemetry.TelemetryManager;
@@ -184,13 +186,13 @@ public class TurretShooter extends SubsystemBase {
 
     private double[] calculateShot2(double xTarget, double yTarget){
         double dy = yTarget - robot.y-robot.yVelo;
-        double dx = xTarget - robot.x-robot.xVelo;
+        double dx = xTarget - robot.x-robot.xVelo*Math.signum(xTarget-robot.x);
         double horizontalDistance = Math.hypot(dy, dx);
 
         double fieldAngle = Math.atan2(dy, dx);
         double robotdAngle = (fieldAngle - robot.heading);
 
-        double turretCurrAngle = fieldAngle - robotdAngle - Math.PI;
+        double turretCurrAngle = fieldAngle - robotdAngle - Math.PI; //change math.pi here only depending on turret zero offset. if the offset is 0 (turret zero faces forward), remove Math.PI
         if (turretCurrAngle < Math.toRadians(-180)) {
             turretCurrAngle += 2 * Math.PI;
         }
@@ -201,7 +203,7 @@ public class TurretShooter extends SubsystemBase {
 
         double motorRevs = (dtheta / (2.0 * Math.PI)) * 3.0;
         int targetTicks = (int)(motorRevs * Constants.TICKS_PER_REV_Turret);
-        targetTicks = Math.max(-800+offsetConstant, Math.min(800+offsetConstant, targetTicks));
+        targetTicks = Math.max(-Constants.turretMaxTicks+offsetConstant, Math.min(Constants.turretMaxTicks+offsetConstant, targetTicks));
 
 
 
@@ -210,24 +212,24 @@ public class TurretShooter extends SubsystemBase {
         rawRPM+=Constants.ShooterDistanceSlope*horizontalDistance;
         rawRPM=Math.min(rawRPM,Constants.MAX_WHEEL_RPM);
 
-        // ---------------- REMAINDER UNCHANGED ----------------
+
 
         double vBall =
                 (rawRPM / 60.0) * 2.0 * Math.PI * Constants.shooterWheelRadius* Constants.EFFECTIVE_RPM_FACTOR;
 
         double v2 = vBall * vBall;
         double g = Constants.g;
-        double x = horizontalDistance;
+
         double z = Constants.dZ;
 
-        double underSqrt = v2 * v2 - g * (g * x * x + 2.0 * z * v2);
+        double underSqrt = v2 * v2 - g * (g * horizontalDistance * horizontalDistance + 2.0 * z * v2);
         if (underSqrt < 0) underSqrt = 0;
 
-        double theta = Math.atan((v2 - Math.sqrt(underSqrt)) / (g * x));
+        double theta = Math.atan((v2 - Math.sqrt(underSqrt)) / (g * horizontalDistance));
 
         double hoodPos = Math.max(0.0,
                 Math.min(1.0,
-                        (theta - Math.toRadians(15.0)) / Math.toRadians(30.0)));
+                        (theta - Math.toRadians(Constants.shooterMinAngle) / Math.toRadians(Constants.shooterMaxAngle))));
 
         double effectiveRPM =
                 Math.min(rawRPM * Constants.EFFECTIVE_RPM_FACTOR,

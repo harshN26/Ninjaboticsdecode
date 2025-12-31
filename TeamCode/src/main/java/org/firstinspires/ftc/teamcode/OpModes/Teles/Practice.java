@@ -13,6 +13,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import com.seattlesolvers.solverslib.command.InstantCommand;
 
 
+import org.firstinspires.ftc.teamcode.Commands.BasicCommands.ResetCommand;
 import org.firstinspires.ftc.teamcode.Commands.BasicCommands.StartAll;
 import org.firstinspires.ftc.teamcode.Commands.multipartCommands.ShootAll;
 import org.firstinspires.ftc.teamcode.Commands.multipartCommands.ShootOnce;
@@ -173,7 +174,9 @@ public class Practice extends OpMode{
         }
 
         if(g1YCurrent&&!g1YLast){
-            CommandScheduler.getInstance().reset();
+            CommandScheduler.getInstance().cancelAll();
+            robot.firing=false;
+            robot.autoPoseResetApproval=false;
         }
 
 
