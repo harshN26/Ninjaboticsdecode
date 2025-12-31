@@ -106,7 +106,7 @@ public class Constants {
 
 
     public static final double filterQ=0.3;
-    public static final double filterR=3.0;
+    public static final double filterR=5.0;
     public static final int filterN=3;
 
 

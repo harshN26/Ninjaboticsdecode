@@ -82,7 +82,7 @@ public class Practice extends OpMode{
         CommandScheduler.getInstance().schedule(
                 new StartAll(follower,shooter,intake,sort, telemetry)
         );
-//        ll.start();
+        ll.start();
         //TODO: schedule default commands
         CommandScheduler.getInstance().run();
         timer.reset();

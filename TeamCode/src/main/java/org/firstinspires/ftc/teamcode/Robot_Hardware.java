@@ -168,11 +168,11 @@ public class Robot_Hardware{
             telem.addLine("New Chamber error: "+ignored);
         }
         try {
-//            ll.loop();
-//            if(ll.resultValid&&(currGameState==GameState.TELE)){
-//                follower.setPose(ll.returnPose());
-//            }
-//            ll.telem();
+            ll.loop();
+            if(ll.resultValid&&(currGameState==GameState.TELE)){
+                follower.setPose(ll.returnPose());
+            }
+            ll.telem();
         }catch(Exception ignored){
             telem.addLine("New Limelight error: "+ignored);
         }
@@ -214,7 +214,7 @@ public class Robot_Hardware{
     }
 
     public void end(){
-//        limelight.stop();
+        limelight.stop();
     }
 
 }
