@@ -30,7 +30,7 @@ public class TurretShooter extends SubsystemBase {
     private double currentRPM_shooter;
     private double targetRPM_shooter;
 
-    public boolean inRange;
+    public static boolean inRange;
 
     private double hoodPos;
     public static double targetHoodPos;
@@ -159,10 +159,12 @@ public class TurretShooter extends SubsystemBase {
 
 
     public boolean isInRange() {
-        boolean rpmOK = (currentRPM_shooter >= targetRPM_shooter - Constants.tolerance_shooter*(12/robot.voltage) && currentRPM_shooter <= targetRPM_shooter + Constants.tolerance_shooter*(12/robot.voltage) );
+        boolean rpmOK = currentRPM_shooter >= targetRPM_shooter - Constants.tolerance_shooter*(12/robot.voltage) && currentRPM_shooter <= targetRPM_shooter + Constants.tolerance_shooter*(12/robot.voltage);
         boolean hoodOK = Math.abs(targetHoodPos - hoodPos) <= Constants.hoodTolerance;
         boolean turretOK=Math.abs(turretTarget-turretCurrPos)<=Constants.tolerance_turret;
-        inRange = rpmOK&&hoodOK&&turretOK&&(state==shooterState.FIRE||state==shooterState.AUTOFAR||state==shooterState.AUTOCLOSE);
+        telem.addLine("rpmOK"+rpmOK);
+        telem.addLine("turretOK"+turretOK);
+        inRange = rpmOK&&hoodOK&&turretOK&&(state==shooterState.FIRE||state==shooterState.AUTOFAR||state==shooterState.AUTOCLOSE||state==shooterState.FIRENOTURRET);
         //inRange=rpmOK&&hoodOK&&turretOK;
         return inRange;
     }
@@ -172,7 +174,7 @@ public class TurretShooter extends SubsystemBase {
 
     public void update(shooterState newState) {
         state = newState;
-        inRange = false;
+//        inRange = false;
     }
 
 
@@ -206,7 +208,7 @@ public class TurretShooter extends SubsystemBase {
 
         double rawRPM=Constants.MIN_WHEEL_RPM;
         rawRPM+=Constants.ShooterDistanceSlope*horizontalDistance;
-        rawRPM=Math.max(rawRPM,Constants.MAX_WHEEL_RPM);
+        rawRPM=Math.min(rawRPM,Constants.MAX_WHEEL_RPM);
 
         // ---------------- REMAINDER UNCHANGED ----------------
 
@@ -247,7 +249,7 @@ public class TurretShooter extends SubsystemBase {
         updateCurrentSpeedShooter();
         updateHoodPos();
         updateTurretPos();
-        inRange=isInRange();
+        isInRange();
 
         pidTurret.setPID(Constants.pidCoeffs_turret[0],Constants.pidCoeffs_turret[1],Constants.pidCoeffs_turret[2]);
 
@@ -278,6 +280,7 @@ public class TurretShooter extends SubsystemBase {
 //                set_target_turret(offsetConstant);
                 break;
             case IDLE:
+                inRange=false;
                 if(robot.turretZero.isPressed()&&!(Math.abs(turretCurrPos-turretTarget)<5)){
                     robot.turret.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                     robot.turret.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -303,7 +306,7 @@ public class TurretShooter extends SubsystemBase {
 
                 break;
             case AUTOCLOSE:
-                set_targetRPM_shooter(3950);
+                set_targetRPM_shooter((int)results[0]);
 //                setHoodTarget(results[2]);
                 setHoodTarget((int)results[2]+hoodOffset);
 //                set_target_turret((int)results[3]);
@@ -360,7 +363,7 @@ public class TurretShooter extends SubsystemBase {
         }
 
         telem(); 
-        telemP();
+//        telemP();
     }
 
     public void telem() {

@@ -54,10 +54,10 @@ public class Constants {
 
 
 
-    public static double[] pidCoeffs_turret ={0.015,0.03,0.0007};
+    public static double[] pidCoeffs_turret ={0.013,0.025,0.0007};
     public static final int tolerance_turret=5;
 
-    public static final double tolerance_shooter=175;
+    public static double tolerance_shooter=95;
 
     public static final double TICKS_PER_REV_Shooter = 28;
 
@@ -91,7 +91,7 @@ public class Constants {
 
 
 
-    public static final Pose autoCloseBLUEShoot=new Pose(57.000, 83.000);
+    public static final Pose autoCloseBLUEShoot=new Pose(55.000, 83.000);
     public static final Pose autoFarBLUEShoot=new Pose(54.000, 13.000);
     public static final Pose autoCloseREDShoot=new Pose(87.000, 83.000);
     public static final Pose autoFarREDShoot=new Pose(90.000, 13.000);

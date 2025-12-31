@@ -69,7 +69,7 @@ public class Practice extends OpMode{
         }
         follower.update();
 
-//        ll=new LLPort(telemetry,robot);
+        ll=new LLPort(telemetry,robot);
 
 
     }
@@ -81,7 +81,7 @@ public class Practice extends OpMode{
         CommandScheduler.getInstance().schedule(
                 new StartAll(follower,shooter,intake,sort, telemetry)
         );
-        ll.start();
+//        ll.start();
         //TODO: schedule default commands
         CommandScheduler.getInstance().run();
         timer.reset();
@@ -172,6 +172,10 @@ public class Practice extends OpMode{
             shooter.offsetConstant=0;
         }
 
+        if(g1YCurrent&&!g1YLast){
+            CommandScheduler.getInstance().reset();
+        }
+
 
         robot.loop(sort, shooter, intake, follower,ll);
 
@@ -180,6 +184,7 @@ public class Practice extends OpMode{
             follower.setPose(robot.resetPose);
         }
         CommandScheduler.getInstance().run();
+
 
 
         g1ALast=  g1ACurrent;

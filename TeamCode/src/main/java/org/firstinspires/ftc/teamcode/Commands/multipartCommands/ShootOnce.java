@@ -16,7 +16,7 @@ public class ShootOnce extends SequentialCommandGroup {
                 new SequentialCommandGroup(
                         new InstantCommand(()-> Robot_Hardware.getInstance().firing=true),
                         new InstantCommand(()->in.update(Intake.INTAKE_STATE.IN)),
-                    new WaitUntilCommand(shooter::isInRange),
+                    new WaitUntilCommand(()->shooter.isInRange()),
                     new InstantCommand(()->chamber.update(ChamberSort.CHAMBER_STATE.UP)),
                     new WaitUntilCommand(()-> !shooter.isInRange()),
                     new InstantCommand(()->chamber.update(ChamberSort.CHAMBER_STATE.IN)),

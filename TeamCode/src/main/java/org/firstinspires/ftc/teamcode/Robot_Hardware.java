@@ -60,7 +60,7 @@ public class Robot_Hardware{
     public static AllianceColor alliance=AllianceColor.RED;
 
     public static Pose goal,pose,resetPose=Constants.redResetPose;
-    public static boolean inReset=false;
+
 
     public static boolean autoPoseResetApproval=false;
 
@@ -135,9 +135,10 @@ public class Robot_Hardware{
         turretZero=hardwareMap.get(RevTouchSensor.class,Global_Configs.turretZeroName);
 
 
-        limelight=hardwareMap.get(Limelight3A.class,Global_Configs.limelightName);
-        limelight.setPollRateHz(200);
-        limelight.pipelineSwitch(0);
+//        limelight=hardwareMap.get(Limelight3A.class,Global_Configs.limelightName);
+//        limelight.setPollRateHz(200);
+//        limelight.pipelineSwitch(0);
+////        limelight.start();
 
         telem=telemetry;
 
@@ -167,11 +168,11 @@ public class Robot_Hardware{
             telem.addLine("New Chamber error: "+ignored);
         }
         try {
-            ll.loop();
-            if(ll.resultValid&&(currGameState==GameState.TELE || autoPoseResetApproval)){
-                follower.setPose(ll.returnPose());
-            }
-            ll.telem();
+//            ll.loop();
+//            if(ll.resultValid&&(currGameState==GameState.TELE)){
+//                follower.setPose(ll.returnPose());
+//            }
+//            ll.telem();
         }catch(Exception ignored){
             telem.addLine("New Limelight error: "+ignored);
         }
@@ -202,7 +203,7 @@ public class Robot_Hardware{
             telem.addLine("New General error: "+ignored);
         }
 
-        if (voltageTimer.milliseconds() > 200) {
+        if (voltageTimer.milliseconds() > 500) {
             voltageTimer.reset();
             voltage = voltageSensor.getVoltage();
         }
@@ -213,7 +214,7 @@ public class Robot_Hardware{
     }
 
     public void end(){
-        limelight.stop();
+//        limelight.stop();
     }
 
 }
