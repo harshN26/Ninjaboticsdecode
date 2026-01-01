@@ -44,7 +44,7 @@ public class Practice extends OpMode{
     public boolean g2XLast=false,g2YLast=false,g2BLast=false,g2ALast=false, g2LBLast=false, g2RBLast=false;
     public boolean g2XCurrent,g2YCurrent,g2BCurrent,g2ACurrent, g2LBCurrent, g2RBCurrent;
 
-    public boolean g2LTLast,g2LTCurrent;
+    public boolean g2LTLast=false,g2LTCurrent, g1LTLast=false,g1LTCurrent;
 
     public double drive_mult_pow=0.9;
 
@@ -102,6 +102,7 @@ public class Practice extends OpMode{
         g2RBCurrent= gamepad2.right_bumper;
         g2LBCurrent= gamepad2.left_bumper;
         g2LTCurrent=gamepad2.left_trigger>0.5;
+        g1LTCurrent=gamepad1.left_trigger>0.5;
 
         if(g1ACurrent&&!g1ALast){
             CommandScheduler.getInstance().schedule(new ShootAll(shooter,sort,intake));
@@ -152,6 +153,12 @@ public class Practice extends OpMode{
                     -gamepad1.right_stick_x*drive_mult_pow,
                     false
             )));
+        }
+
+        if(g1LTCurrent&&!g1LTLast&&drive_mult_pow==0.9){
+            drive_mult_pow=0.3;
+        }else if(g1LTCurrent&&!g1LTLast&&drive_mult_pow==0.3){
+            drive_mult_pow=0.9;
         }
 
         if(gamepad2.dpad_left){
@@ -213,6 +220,7 @@ public class Practice extends OpMode{
         g2RBLast=  g2RBCurrent;
         g2LBLast=  g2LBCurrent;
         g2LTLast=g2LTCurrent;
+        g1LTLast=g1LTCurrent;
     }
     public void stop(){
 //        robot.end();
