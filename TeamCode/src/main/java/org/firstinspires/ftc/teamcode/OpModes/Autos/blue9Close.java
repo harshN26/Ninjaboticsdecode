@@ -152,18 +152,20 @@ public class blue9Close extends OpMode {
 
         collectBalls1 = follower
                 .pathBuilder()
+
                 .addPath(
-                        new BezierLine(Constants.autoCloseBLUEShoot, new Pose(20.000, 83.000))
+                        new BezierLine(Constants.autoCloseBLUEShoot, new Pose(20.000, 87.000))
                 )
                 .setConstantHeadingInterpolation(Math.toRadians(180))
                 .build();
 
 
 
+
         shoot1 = follower
                 .pathBuilder()
                 .addPath(
-                        new BezierLine(new Pose(20.000, 83.000), Constants.autoCloseBLUEShoot)
+                        new BezierLine(new Pose(20.000, 87.000), Constants.autoCloseBLUEShoot)
                 )
                 .setLinearHeadingInterpolation(Math.toRadians(180), Math.toRadians(225))
                 .build();
@@ -173,8 +175,8 @@ public class blue9Close extends OpMode {
                 .addPath(
                         new BezierCurve(
                                 Constants.autoCloseBLUEShoot,
-                                new Pose(58.000, 57.000),
-                                new Pose(20.000, 58.000)
+                                new Pose(59.000, 62.000),
+                                new Pose(19.000, 62.000)
                         )
                 )
                 .setLinearHeadingInterpolation(Math.toRadians(225), Math.toRadians(180))
@@ -183,9 +185,9 @@ public class blue9Close extends OpMode {
         shoot2 = follower
                 .pathBuilder()
                 .addPath(
-                        new BezierLine(new Pose(20.000, 58.000), Constants.autoCloseBLUEShoot)
+                        new BezierLine(new Pose(19.000, 62.000), Constants.autoCloseBLUEShoot)
                 )
-                .setLinearHeadingInterpolation(Math.toRadians(180), Math.toRadians(-90))
+                .setLinearHeadingInterpolation(Math.toRadians(180), Math.toRadians(270))
                 .build();
 
         park = follower
@@ -202,7 +204,7 @@ public class blue9Close extends OpMode {
     }
 
     public void start(){
-        ll.start();
+//        ll.start();
         timer.reset();
     }
     public void loop(){
@@ -214,6 +216,6 @@ public class blue9Close extends OpMode {
 
     }
     public void stop(){
-        robot.end();
+//        robot.end();
     }
 }

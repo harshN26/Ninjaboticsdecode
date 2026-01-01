@@ -227,10 +227,9 @@ public class TurretShooter extends SubsystemBase {
 
         double theta = Math.atan((v2 - Math.sqrt(underSqrt)) / (g * horizontalDistance));
 
-        double hoodPos = (Constants.shooterMaxAngle - theta) / (Constants.shooterMaxAngle - Constants.shooterMinAngle);
-
-
-        hoodPos = Math.max(0.0, Math.min(1.0, hoodPos));
+        double hoodPos = Math.max(0.0,
+                Math.min(1.0,
+                        (theta - Math.toRadians(15.0)) / Math.toRadians(35.0)));
 
         double effectiveRPM =
                 Math.min(rawRPM * Constants.EFFECTIVE_RPM_FACTOR,
@@ -316,11 +315,11 @@ public class TurretShooter extends SubsystemBase {
                 set_target_turret((int)results[3]+offsetConstant);
                 break;
             case AUTOFAR:
-                set_targetRPM_shooter(5000);
+                set_targetRPM_shooter((int)results[0]);
 //                setHoodTarget(results[2]);
-                setHoodTarget((int)results[2]+hoodOffset);
+                setHoodTarget((int)results[2]);
 //                set_target_turret((int)results[3]);
-                set_target_turret((int)results[3]+offsetConstant);
+                set_target_turret((int)results[3]);
 
                 break;
             default:

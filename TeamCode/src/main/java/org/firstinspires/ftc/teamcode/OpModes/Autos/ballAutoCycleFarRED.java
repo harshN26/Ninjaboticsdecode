@@ -198,7 +198,7 @@ public class ballAutoCycleFarRED extends OpMode {
     }
 
     public void start(){
-        ll.start();
+//        ll.start();
         timer.reset();
     }
     public void loop(){
@@ -210,6 +210,6 @@ public class ballAutoCycleFarRED extends OpMode {
 
     }
     public void stop(){
-        robot.end();
+//        robot.end();
     }
 }

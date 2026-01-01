@@ -19,7 +19,7 @@ public class Constants {
     public static final int ShooterIdleRPM =0;
     public static final int ShooterStopRPM =0;
 
-    public static final double hoodMaxPos =1.0;
+    public static final double hoodMaxPos =0.6;
     public static double hoodMinPos =0.1;
     public static final double hoodResetPos =0.5;
     public static final double hoodTolerance=0.02;
@@ -31,9 +31,9 @@ public class Constants {
 
 
 
-    public static final Pose redGoal=new Pose(140,142);
-    public static final Pose blueGoal=new Pose(2,142);
-    public static double zGoal=45; //in
+    public static final Pose redGoal=new Pose(138,142);
+    public static final Pose blueGoal=new Pose(0,138);
+    public static double zGoal=40; //in
 
     public static double shooterHeight=16;//in
     public static final double shooterWheelRadius=1.5;//in
@@ -43,7 +43,7 @@ public class Constants {
 
 
 
-    public static final double MIN_WHEEL_RPM = 3000.0;
+    public static final double MIN_WHEEL_RPM = 2900.0;
     public static final double MAX_WHEEL_RPM = 5000.0;
 
 
@@ -54,7 +54,7 @@ public class Constants {
 
 
 
-    public static double[] pidCoeffs_turret ={0.013,0.025,0.0007};
+    public static double[] pidCoeffs_turret ={0.01,0.025,0.0007};
     public static final int tolerance_turret=5;
 
     public static double tolerance_shooter=95;

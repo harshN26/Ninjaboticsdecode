@@ -13,7 +13,10 @@ public class ShootAllAUTOFAR extends SequentialCommandGroup {
     public ShootAllAUTOFAR(TurretShooter shooter, ChamberSort chamberSort, Intake intake){
         super(
                 new SequentialCommandGroup(
+
                     new InstantCommand(()->shooter.update(TurretShooter.shooterState.AUTOFAR)),
+                    new ShootOnce(shooter,chamberSort,intake),
+                    new ShootOnce(shooter,chamberSort,intake),
                     new ShootOnce(shooter,chamberSort,intake),
                     new ShootOnce(shooter,chamberSort,intake),
                     new ShootOnce(shooter,chamberSort,intake),

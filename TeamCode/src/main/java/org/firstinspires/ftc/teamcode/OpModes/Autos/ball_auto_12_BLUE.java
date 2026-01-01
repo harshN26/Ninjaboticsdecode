@@ -226,7 +226,7 @@ public class ball_auto_12_BLUE extends OpMode {
         shoot2 = follower
                 .pathBuilder()
                 .addPath(
-                        new BezierLine(new Pose(19.000, 62.000), Constants.autoCloseBLUEShoot)
+                        new BezierLine(new Pose(19.000, 62.000), new Pose(Constants.autoCloseBLUEShoot.getX()+3,Constants.autoCloseBLUEShoot.getY()+3))
                 )
                 .setLinearHeadingInterpolation(Math.toRadians(180), Math.toRadians(270))
                 .build();
@@ -235,7 +235,7 @@ public class ball_auto_12_BLUE extends OpMode {
                 .pathBuilder()
                 .addPath(
                         new BezierLine(
-                                Constants.autoCloseBLUEShoot,
+                                new Pose(Constants.autoCloseBLUEShoot.getX()+3,Constants.autoCloseBLUEShoot.getY()+3),
                                 new Pose(54.800, 38.000)
                         )
                 )
@@ -254,7 +254,7 @@ public class ball_auto_12_BLUE extends OpMode {
         shoot3 = follower
                 .pathBuilder()
                 .addPath(
-                        new BezierLine(new Pose(20.000, 36.000), Constants.autoCloseBLUEShoot)
+                        new BezierLine(new Pose(20.000, 36.000), new Pose(Constants.autoCloseBLUEShoot.getX()+5,Constants.autoCloseBLUEShoot.getY()+24))
                 )
                 .setConstantHeadingInterpolation(Math.toRadians(180))
                 .build();
@@ -262,7 +262,7 @@ public class ball_auto_12_BLUE extends OpMode {
         nextToGate = follower
                 .pathBuilder()
                 .addPath(
-                        new BezierLine(Constants.autoCloseBLUEShoot, new Pose(25.000, 72.000))
+                        new BezierLine( new Pose(Constants.autoCloseBLUEShoot.getX()+5,Constants.autoCloseBLUEShoot.getY()+20), new Pose(25.000, 72.000))
                 )
                 .setLinearHeadingInterpolation(Math.toRadians(180), Math.toRadians(90))
                 .build();
@@ -285,6 +285,6 @@ public class ball_auto_12_BLUE extends OpMode {
 
     }
     public void stop(){
-        robot.end();
+//        robot.end();
     }
 }

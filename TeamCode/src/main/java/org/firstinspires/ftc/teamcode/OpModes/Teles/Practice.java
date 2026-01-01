@@ -82,7 +82,7 @@ public class Practice extends OpMode{
         CommandScheduler.getInstance().schedule(
                 new StartAll(follower,shooter,intake,sort, telemetry)
         );
-        ll.start();
+//        ll.start();
         //TODO: schedule default commands
         CommandScheduler.getInstance().run();
         timer.reset();
@@ -177,6 +177,15 @@ public class Practice extends OpMode{
             CommandScheduler.getInstance().cancelAll();
             robot.firing=false;
             robot.autoPoseResetApproval=false;
+            CommandScheduler.getInstance().schedule(new InstantCommand(()->
+                    shooter.update(TurretShooter.shooterState.IDLE)
+            ));
+            CommandScheduler.getInstance().schedule(new InstantCommand(()->
+                    intake.update(Intake.INTAKE_STATE.STOP)
+            ));
+            CommandScheduler.getInstance().schedule(new InstantCommand(()->
+                    sort.update(ChamberSort.CHAMBER_STATE.STOP)
+            ));
         }
 
 
@@ -206,6 +215,6 @@ public class Practice extends OpMode{
         g2LTLast=g2LTCurrent;
     }
     public void stop(){
-        robot.end();
+//        robot.end();
     }
 }

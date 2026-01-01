@@ -93,7 +93,7 @@ public class bluePreloadClose extends OpMode {
                                 new WaitUntilCommand(()->timer.milliseconds()>3000)
                         ),
 
-
+                        new InstantCommand(()->shooter.update(TurretShooter.shooterState.IDLE)),
                         //collect and shoot 1
                         new InstantCommand(()->follower.followPath(collectBalls1)),
                         new InstantCommand(()->intake.update(Intake.INTAKE_STATE.IN)),
@@ -144,7 +144,7 @@ public class bluePreloadClose extends OpMode {
                 .pathBuilder()
                 .addPath(
                         new BezierLine(new Pose(20.000, 83.000), new Pose(25.000, 72.000))
-                )
+                ).setVelocityConstraint(0.3)
                 .setLinearHeadingInterpolation(Math.toRadians(180), Math.toRadians(90))
                 .build();
 
@@ -154,7 +154,7 @@ public class bluePreloadClose extends OpMode {
     }
 
     public void start(){
-        ll.start();
+//        ll.start();
         timer.reset();
     }
     public void loop(){
@@ -166,6 +166,6 @@ public class bluePreloadClose extends OpMode {
 
     }
     public void stop(){
-        robot.end();
+//        robot.end();
     }
 }

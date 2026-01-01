@@ -4,6 +4,7 @@ package org.firstinspires.ftc.teamcode.Commands.multipartCommands;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.seattlesolvers.solverslib.command.InstantCommand;
 import com.seattlesolvers.solverslib.command.SequentialCommandGroup;
+import com.seattlesolvers.solverslib.command.WaitCommand;
 
 import org.firstinspires.ftc.teamcode.Robot_Hardware;
 import org.firstinspires.ftc.teamcode.Subsystems.ChamberSort;
@@ -17,9 +18,13 @@ public class ShootAll extends SequentialCommandGroup {
                 new SequentialCommandGroup(
                     new InstantCommand(()->shooter.update(TurretShooter.shooterState.FIRE)),
                     new ShootOnce(shooter,chamberSort,intake),
+                        new WaitCommand(100),
                     new ShootOnce(shooter,chamberSort,intake),
+                        new WaitCommand(100),
                     new ShootOnce(shooter,chamberSort,intake),
+                        new WaitCommand(100),
                     new ShootOnce(shooter,chamberSort,intake),
+                    new WaitCommand(500),
                     new InstantCommand(()->shooter.update(TurretShooter.shooterState.STOP)),
                     new InstantCommand(()->intake.update(Intake.INTAKE_STATE.STOP)),
                     new InstantCommand(()->chamberSort.update(ChamberSort.CHAMBER_STATE.STOP)),

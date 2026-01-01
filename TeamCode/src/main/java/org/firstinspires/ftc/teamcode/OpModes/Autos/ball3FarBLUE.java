@@ -76,7 +76,7 @@ public class ball3FarBLUE extends OpMode {
                         new InstantCommand(()->intake.update(Intake.INTAKE_STATE.STOP)),
                         // first move while firing 3 balls
                         new InstantCommand(()->follower.followPath(path1)),
-                        new InstantCommand(()-> intake.update(Intake.INTAKE_STATE.IN)),
+//                        new InstantCommand(()-> intake.update(Intake.INTAKE_STATE.IN)),
                         new WaitUntilCommand(()->!follower.isBusy()&&shooter.isInRange()),
                         new InstantCommand(()->timer.reset()),
                         new ParallelRaceGroup(
@@ -124,7 +124,7 @@ public class ball3FarBLUE extends OpMode {
     }
 
     public void start(){
-        ll.start();
+//        ll.start();
         timer.reset();
     }
     public void loop(){
@@ -136,6 +136,6 @@ public class ball3FarBLUE extends OpMode {
 
     }
     public void stop(){
-        robot.end();
+//        robot.end();
     }
 }

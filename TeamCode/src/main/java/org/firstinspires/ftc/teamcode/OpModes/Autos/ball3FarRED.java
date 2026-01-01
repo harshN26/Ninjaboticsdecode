@@ -76,7 +76,7 @@ public class ball3FarRED extends OpMode {
                         new InstantCommand(()->intake.update(Intake.INTAKE_STATE.STOP)),
                         // first move while firing 3 balls
                         new InstantCommand(()->follower.followPath(path1)),
-                        new InstantCommand(()-> intake.update(Intake.INTAKE_STATE.IN)),
+//                        new InstantCommand(()-> intake.update(Intake.INTAKE_STATE.IN)),
                         new WaitUntilCommand(()->!follower.isBusy()&&shooter.isInRange()),
                         new InstantCommand(()->timer.reset()),
                         new ParallelRaceGroup(
@@ -86,8 +86,8 @@ public class ball3FarRED extends OpMode {
 
 
 //park
-                        new InstantCommand(()->intake.update(Intake.INTAKE_STATE.IN)),
-                        new InstantCommand(()->sort.update(ChamberSort.CHAMBER_STATE.IN)),
+                        new InstantCommand(()->intake.update(Intake.INTAKE_STATE.STOP)),
+                        new InstantCommand(()->sort.update(ChamberSort.CHAMBER_STATE.STOP)),
                         new InstantCommand(()->shooter.update(TurretShooter.shooterState.IDLE)),
                         new InstantCommand(()->follower.followPath(park)),
                         new WaitUntilCommand(()->timer.milliseconds()>=29000)
@@ -124,7 +124,7 @@ public class ball3FarRED extends OpMode {
     }
 
     public void start(){
-        ll.start();
+//        ll.start();
         timer.reset();
     }
     public void loop(){
@@ -136,6 +136,6 @@ public class ball3FarRED extends OpMode {
 
     }
     public void stop(){
-        robot.end();
+//        robot.end();
     }
 }
