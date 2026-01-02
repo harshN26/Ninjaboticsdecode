@@ -88,7 +88,23 @@ public class ball9FarBLUE extends OpMode {
                         ),
 
 
+                        new InstantCommand(()->follower.followPath(collectBallLine3)),
+                        new InstantCommand(()->sort.update(ChamberSort.CHAMBER_STATE.IN)),
+                        new InstantCommand(()->shooter.update(TurretShooter.shooterState.IDLE)),
+                        new InstantCommand(()->intake.update(Intake.INTAKE_STATE.IN)),
+                        new WaitUntilCommand(()->!follower.isBusy()),
 
+
+                        new InstantCommand(()->follower.followPath(shootBallLine3)),
+                        new InstantCommand(()->shooter.update(TurretShooter.shooterState.AUTOFAR)),
+                        new WaitUntilCommand(()->!follower.isBusy()&&shooter.isInRange()),
+                        new InstantCommand(()->timer.reset()),
+                        new InstantCommand(()->robot.autoPoseResetApproval=true),
+                        new ParallelRaceGroup(
+                                new ShootAllAUTOFAR(shooter,sort,intake),
+                                new WaitUntilCommand(()->timer.milliseconds()>3000)
+                        ),
+                        new InstantCommand(()->robot.autoPoseResetApproval=false),
 
 
 
@@ -97,7 +113,7 @@ public class ball9FarBLUE extends OpMode {
                         new InstantCommand(()->follower.followPath(collectBalls1)),
                         new InstantCommand(()->sort.update(ChamberSort.CHAMBER_STATE.IN)),
                         new InstantCommand(()->shooter.update(TurretShooter.shooterState.IDLE)),
-                        new InstantCommand(()->intake.update(Intake.INTAKE_STATE.IN)),
+//                        new InstantCommand(()->intake.update(Intake.INTAKE_STATE.IN)),
                         new WaitUntilCommand(()->!follower.isBusy()),
                         new InstantCommand(()->follower.followPath(collectBalls1P2)),
                         new WaitUntilCommand(()->!follower.isBusy()),
@@ -152,7 +168,7 @@ public class ball9FarBLUE extends OpMode {
                 .addPath(
                         new BezierLine(robot.pose, Constants.autoFarBLUEShoot)
                 )
-                .setLinearHeadingInterpolation(Math.toRadians(90), Math.toRadians(180))
+                .setLinearHeadingInterpolation(Math.toRadians(90), Math.toRadians(185))
                 .build();
 
         collectBallLine3=follower
@@ -164,7 +180,7 @@ public class ball9FarBLUE extends OpMode {
                                 new Pose(20.000, 34.000)
                         )
                 )
-                .setConstantHeadingInterpolation(180)
+                .setLinearHeadingInterpolation(Math.toRadians(185), Math.toRadians(180))
                 .build();
         shootBallLine3=follower
                 .pathBuilder()
@@ -177,14 +193,14 @@ public class ball9FarBLUE extends OpMode {
         collectBalls1 = follower
                 .pathBuilder()
                 .addPath(
-                        new BezierLine(Constants.autoFarBLUEShoot, new Pose(10.000, 13.000))
+                        new BezierLine(Constants.autoFarBLUEShoot, new Pose(12.000, 20.000))
                 )
                 .setLinearHeadingInterpolation(Math.toRadians(180), Math.toRadians(210))
                 .build();
         collectBalls1P2 = follower
                 .pathBuilder()
                 .addPath(
-                        new BezierLine(new Pose(10.000, 13.000), new Pose(10.000, 9.000))
+                        new BezierLine(new Pose(12.000, 13.000), new Pose(10.000, 14.000))
                 )
                 .setConstantHeadingInterpolation(Math.toRadians(210))
                 .build();
@@ -192,14 +208,14 @@ public class ball9FarBLUE extends OpMode {
         backToShoot = follower
                 .pathBuilder()
                 .addPath(
-                        new BezierLine(new Pose(10.000, 13.000), Constants.autoFarBLUEShoot)
+                        new BezierLine(new Pose(10.000, 14.000), Constants.autoFarBLUEShoot)
                 )
                 .setLinearHeadingInterpolation(Math.toRadians(180), Math.toRadians(225))
                 .build();
         backToShoot1 = follower
                 .pathBuilder()
                 .addPath(
-                        new BezierLine(new Pose(10.000, 9.000), Constants.autoFarBLUEShoot)
+                        new BezierLine(new Pose(12.000, 14.000), Constants.autoFarBLUEShoot)
                 )
                 .setLinearHeadingInterpolation(Math.toRadians(210), Math.toRadians(225))
                 .build();
@@ -207,7 +223,7 @@ public class ball9FarBLUE extends OpMode {
         collectBalls = follower
                 .pathBuilder()
                 .addPath(
-                        new BezierLine(Constants.autoFarBLUEShoot, new Pose(10.000, 13.000))
+                        new BezierLine(Constants.autoFarBLUEShoot, new Pose(12.000, 14.000))
                 )
                 .setLinearHeadingInterpolation(Math.toRadians(225), Math.toRadians(180))
                 .build();

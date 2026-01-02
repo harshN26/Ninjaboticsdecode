@@ -185,15 +185,16 @@ public class blue9Close extends OpMode {
         shoot2 = follower
                 .pathBuilder()
                 .addPath(
-                        new BezierLine(new Pose(19.000, 62.000), Constants.autoCloseBLUEShoot)
+                        new BezierLine(new Pose(19.000, 62.000), new Pose(Constants.autoCloseBLUEShoot.getX()+3,Constants.autoCloseBLUEShoot.getY()+3))
                 )
                 .setLinearHeadingInterpolation(Math.toRadians(180), Math.toRadians(270))
                 .build();
 
+
         park = follower
                 .pathBuilder()
                 .addPath(
-                        new BezierLine(Constants.autoCloseBLUEShoot, new Pose(25.000, 72.000))
+                        new BezierLine(new Pose(Constants.autoCloseBLUEShoot.getX()+3,Constants.autoCloseBLUEShoot.getY()+3), new Pose(25.000, 72.000))
                 )
                 .setLinearHeadingInterpolation(Math.toRadians(-90), Math.toRadians(90))
                 .build();

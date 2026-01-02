@@ -254,7 +254,7 @@ public class ball_auto_12_BLUE extends OpMode {
         shoot3 = follower
                 .pathBuilder()
                 .addPath(
-                        new BezierLine(new Pose(20.000, 36.000), new Pose(Constants.autoCloseBLUEShoot.getX()+5,Constants.autoCloseBLUEShoot.getY()+24))
+                        new BezierLine(new Pose(20.000, 36.000), new Pose(Constants.autoCloseBLUEShoot.getX()+5,Constants.autoCloseBLUEShoot.getY()+30))
                 )
                 .setConstantHeadingInterpolation(Math.toRadians(180))
                 .build();
@@ -262,7 +262,7 @@ public class ball_auto_12_BLUE extends OpMode {
         nextToGate = follower
                 .pathBuilder()
                 .addPath(
-                        new BezierLine( new Pose(Constants.autoCloseBLUEShoot.getX()+5,Constants.autoCloseBLUEShoot.getY()+20), new Pose(25.000, 72.000))
+                        new BezierLine( new Pose(Constants.autoCloseBLUEShoot.getX()+5,Constants.autoCloseBLUEShoot.getY()+30), new Pose(25.000, 72.000))
                 )
                 .setLinearHeadingInterpolation(Math.toRadians(180), Math.toRadians(90))
                 .build();

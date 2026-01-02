@@ -196,6 +196,9 @@ public class TurretShooter extends SubsystemBase {
         if (turretCurrAngle < Math.toRadians(-180)) {
             turretCurrAngle += 2 * Math.PI;
         }
+        if (turretCurrAngle > Math.toRadians(180)) {
+            turretCurrAngle -= 2 * Math.PI;
+        }
 
         double dtheta1 = (turretCurrAngle - fieldAngle) % (2 * Math.PI);
         double dtheta2 = ((turretCurrAngle + 2 * Math.PI) - fieldAngle) % (2 * Math.PI);
