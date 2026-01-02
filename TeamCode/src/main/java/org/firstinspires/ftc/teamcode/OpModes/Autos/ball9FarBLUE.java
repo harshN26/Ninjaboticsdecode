@@ -200,7 +200,7 @@ public class ball9FarBLUE extends OpMode {
         collectBalls1P2 = follower
                 .pathBuilder()
                 .addPath(
-                        new BezierLine(new Pose(12.000, 13.000), new Pose(10.000, 14.000))
+                        new BezierLine(new Pose(12.000, 20.000), new Pose(12.000, 14.000))
                 )
                 .setConstantHeadingInterpolation(Math.toRadians(210))
                 .build();
@@ -208,7 +208,7 @@ public class ball9FarBLUE extends OpMode {
         backToShoot = follower
                 .pathBuilder()
                 .addPath(
-                        new BezierLine(new Pose(10.000, 14.000), Constants.autoFarBLUEShoot)
+                        new BezierLine(new Pose(12.000, 14.000), Constants.autoFarBLUEShoot)
                 )
                 .setLinearHeadingInterpolation(Math.toRadians(180), Math.toRadians(225))
                 .build();

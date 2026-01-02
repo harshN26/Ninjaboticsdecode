@@ -165,7 +165,7 @@ public class ball9FarRED extends OpMode {
                 .addPath(
                         new BezierLine(robot.pose, Constants.autoFarREDShoot)
                 )
-                .setLinearHeadingInterpolation(Math.toRadians(90), Math.toRadians(180))
+                .setLinearHeadingInterpolation(Math.toRadians(90), Math.toRadians(0))
                 .build();
 
         collectBallLine3=follower
@@ -173,62 +173,62 @@ public class ball9FarRED extends OpMode {
                 .addPath(
                         new BezierCurve(
                                 Constants.autoFarREDShoot,
-                                new Pose(54,34),
-                                new Pose(20.000, 34.000)
+                                new Pose(90,38),
+                                new Pose(124.000, 34.000)
                         )
                 )
-                .setConstantHeadingInterpolation(180)
+                .setConstantHeadingInterpolation(0)
                 .build();
         shootBallLine3=follower
                 .pathBuilder()
                 .addPath(
-                        new BezierLine(new Pose(20,34),Constants.autoFarREDShoot)
+                        new BezierLine(new Pose(124,34),Constants.autoFarREDShoot)
                 )
-                .setConstantHeadingInterpolation(180)
+                .setConstantHeadingInterpolation(0)
                 .build();
 
         collectBalls1 = follower
                 .pathBuilder()
                 .addPath(
-                        new BezierLine(Constants.autoFarREDShoot, new Pose(10.000, 13.000))
+                        new BezierLine(Constants.autoFarREDShoot, new Pose(132.000, 20.000))
                 )
-                .setLinearHeadingInterpolation(Math.toRadians(180), Math.toRadians(210))
+                .setLinearHeadingInterpolation(Math.toRadians(0), Math.toRadians(-30))
                 .build();
         collectBalls1P2 = follower
                 .pathBuilder()
                 .addPath(
-                        new BezierLine(new Pose(10.000, 13.000), new Pose(10.000, 9.000))
+                        new BezierLine(new Pose(132.000, 20.000), new Pose(132.000, 14.000))
                 )
-                .setConstantHeadingInterpolation(Math.toRadians(210))
+                .setConstantHeadingInterpolation(Math.toRadians(-30))
                 .build();
 
         backToShoot = follower
                 .pathBuilder()
                 .addPath(
-                        new BezierLine(new Pose(10.000, 13.000), Constants.autoFarREDShoot)
+                        new BezierLine(new Pose(132.000, 14.000), Constants.autoFarREDShoot)
                 )
-                .setLinearHeadingInterpolation(Math.toRadians(180), Math.toRadians(225))
+                .setLinearHeadingInterpolation(Math.toRadians(0), Math.toRadians(-45))
                 .build();
         backToShoot1 = follower
                 .pathBuilder()
                 .addPath(
-                        new BezierLine(new Pose(10.000, 9.000), Constants.autoFarREDShoot)
+                        new BezierLine(new Pose(132.000, 14.000), Constants.autoFarREDShoot)
                 )
-                .setLinearHeadingInterpolation(Math.toRadians(210), Math.toRadians(225))
+                .setLinearHeadingInterpolation(Math.toRadians(-30), Math.toRadians(-45))
                 .build();
 
         collectBalls = follower
                 .pathBuilder()
                 .addPath(
-                        new BezierLine(Constants.autoFarREDShoot, new Pose(10.000, 13.000))
+                        new BezierLine(Constants.autoFarREDShoot, new Pose(132.000, 14.000))
                 )
-                .setLinearHeadingInterpolation(Math.toRadians(225), Math.toRadians(180))
+                .setLinearHeadingInterpolation(Math.toRadians(-45), Math.toRadians(0))
                 .build();
 
         park = follower
                 .pathBuilder()
                 .addPath(
-                        new BezierLine(Constants.autoFarREDShoot, new Pose(38.000, 17.000))
+                        new BezierLine(Constants.autoFarREDShoot, new Pose(106.000, 17.000))
                 )
                 .setLinearHeadingInterpolation(Math.toRadians(225), Math.toRadians(90))
                 .build();
