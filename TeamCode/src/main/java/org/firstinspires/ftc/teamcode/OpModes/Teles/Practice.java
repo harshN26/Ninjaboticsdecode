@@ -155,9 +155,9 @@ public class Practice extends OpMode{
             )));
         }
 
-        if(g1LTCurrent&&!g1LTLast&&drive_mult_pow==0.9){
+        if(g1LTCurrent){
             drive_mult_pow=0.3;
-        }else if(g1LTCurrent&&!g1LTLast&&drive_mult_pow==0.3){
+        }else{
             drive_mult_pow=0.9;
         }
 
