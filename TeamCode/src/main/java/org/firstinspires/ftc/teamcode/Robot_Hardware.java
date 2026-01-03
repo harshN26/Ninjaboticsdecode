@@ -42,7 +42,7 @@ public class Robot_Hardware{
     public Limelight3A limelight;
 
     public double voltage;
-    ElapsedTime voltageTimer;
+    ElapsedTime voltageTimer, loopTimer;
 
     public Pose startPose=new Pose(0,0,0);
 
@@ -59,7 +59,7 @@ public class Robot_Hardware{
 
     public static AllianceColor alliance=AllianceColor.RED;
 
-    public static Pose goal,pose,resetPose=Constants.redResetPose;
+    public static Pose goal=Constants.redGoal,pose=Constants.redGoalStartingPose,resetPose=Constants.redResetPose;
 
 
     public static boolean autoPoseResetApproval=false;
