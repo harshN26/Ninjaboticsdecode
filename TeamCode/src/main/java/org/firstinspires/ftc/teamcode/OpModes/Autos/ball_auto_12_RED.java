@@ -56,7 +56,11 @@ public class ball_auto_12_RED extends OpMode {
 
         CommandScheduler.getInstance().reset();
         telemetry =  new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
+        robot.alliance = Robot_Hardware.AllianceColor.RED;
+        robot.resetPose=Constants.redResetPose;
         robot.currGameState= Robot_Hardware.GameState.AUTO;
+        robot.pose= Constants.redGoalStartingPose;
+        robot.startPose=Constants.redGoalStartingPose;
 
 
         sort=new ChamberSort(robot, telemetry);
@@ -267,6 +271,8 @@ public class ball_auto_12_RED extends OpMode {
 
     }
     public void init_loop(){
+        telemetry.addLine("red goal");
+        telemetry.addLine("ZERO THE TURRET AND HOOD");
         telemetry.update();
     }
 

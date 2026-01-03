@@ -49,7 +49,12 @@ public class ball3FarBLUE extends OpMode {
 
         CommandScheduler.getInstance().reset();
         telemetry =  new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
+        robot.alliance = Robot_Hardware.AllianceColor.BLUE;
+        robot.resetPose=Constants.blueResetPose;
         robot.currGameState= Robot_Hardware.GameState.AUTO;
+        robot.pose= Constants.blueBackStartingPose;
+        robot.startPose=Constants.blueBackStartingPose;
+
 
 
         sort=new ChamberSort(robot, telemetry);
@@ -120,6 +125,8 @@ public class ball3FarBLUE extends OpMode {
 
     }
     public void init_loop(){
+        telemetry.addLine("blue back");
+        telemetry.addLine("ZERO THE TURRET AND HOOD");
         telemetry.update();
     }
 

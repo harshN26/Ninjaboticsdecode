@@ -53,7 +53,11 @@ public class bluePreloadClose extends OpMode {
 
         CommandScheduler.getInstance().reset();
         telemetry =  new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
+        robot.alliance = Robot_Hardware.AllianceColor.BLUE;
+        robot.resetPose=Constants.blueResetPose;
         robot.currGameState= Robot_Hardware.GameState.AUTO;
+        robot.pose= Constants.blueGoalStartingPose;
+        robot.startPose=Constants.blueGoalStartingPose;
 
 
         sort=new ChamberSort(robot, telemetry);
@@ -150,6 +154,8 @@ public class bluePreloadClose extends OpMode {
 
     }
     public void init_loop(){
+        telemetry.addLine("blue goal");
+        telemetry.addLine("ZERO THE TURRET AND HOOD");
         telemetry.update();
     }
 
