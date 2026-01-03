@@ -17,7 +17,6 @@ public class ShootAll extends SequentialCommandGroup {
         super(
                 new SequentialCommandGroup(
                     new InstantCommand(()->shooter.update(TurretShooter.shooterState.FIRE)),
-                        new InstantCommand(()-> Robot_Hardware.getInstance().firing=true),
                     new ShootOnce(shooter,chamberSort,intake),
                         new WaitCommand(100),
                     new ShootOnce(shooter,chamberSort,intake),
@@ -28,8 +27,8 @@ public class ShootAll extends SequentialCommandGroup {
                     new WaitCommand(500),
                     new InstantCommand(()->shooter.update(TurretShooter.shooterState.STOP)),
                     new InstantCommand(()->intake.update(Intake.INTAKE_STATE.STOP)),
-                    new InstantCommand(()->chamberSort.update(ChamberSort.CHAMBER_STATE.STOP)),
-                    new InstantCommand(()-> Robot_Hardware.getInstance().firing=false)
+                    new InstantCommand(()->chamberSort.update(ChamberSort.CHAMBER_STATE.STOP))
+
                 )
         );
 

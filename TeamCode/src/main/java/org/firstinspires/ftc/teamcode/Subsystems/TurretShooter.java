@@ -241,7 +241,7 @@ public class TurretShooter extends SubsystemBase {
                 Math.min(rawRPM * Constants.EFFECTIVE_RPM_FACTOR,
                         Constants.MAX_WHEEL_RPM);
 
-        return new double[]{rawRPM, effectiveRPM, hoodPos, targetTicks};
+        return new double[]{rawRPM, effectiveRPM, hoodPos+hoodOffset, targetTicks+offsetConstant};
     }
 
 
@@ -271,24 +271,24 @@ public class TurretShooter extends SubsystemBase {
 //                set_targetRPM_shooter(results[0]);
                 set_targetRPM_shooter((int)results[0]);
 //                setHoodTarget(results[2]);
-                setHoodTarget((int)results[2]+hoodOffset);
+                setHoodTarget(results[2]);
 //                set_target_turret((int)results[3]);
-                set_target_turret((int)results[3]+offsetConstant);
+                set_target_turret((int)results[3]);
 //                set_target_turret(offsetConstant);
                 break;
             case FIRENOTURRET:
-                // active tracking and everything, we are ready for shooting and waiting for balls to enter
-
+                // we are ready for shooting no turret
 //                set_targetRPM_shooter(results[0]);
                 set_targetRPM_shooter((int)results[0]);
 //                setHoodTarget(results[2]);
-                setHoodTarget((int)results[2]+hoodOffset);
+                setHoodTarget(results[2]);
 //                set_target_turret((int)results[3]);
                 set_target_turret(offsetConstant);
 //                set_target_turret(offsetConstant);
                 break;
             case IDLE:
                 inRange=false;
+
                 if(robot.turretZero.isPressed()&&!(Math.abs(turretCurrPos-turretTarget)<5)){
                     robot.turret.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                     robot.turret.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -315,15 +315,15 @@ public class TurretShooter extends SubsystemBase {
                 break;
             case AUTOCLOSE:
                 set_targetRPM_shooter((int)results[0]);
-//                setHoodTarget(results[2]);
-                setHoodTarget((int)results[2]+hoodOffset);
+//                setHoodTarget((int)results[2]);
+                setHoodTarget(results[2]);
 //                set_target_turret((int)results[3]);
-                set_target_turret((int)results[3]+offsetConstant);
+                set_target_turret((int)results[3]);
                 break;
             case AUTOFAR:
                 set_targetRPM_shooter((int)results[0]);
 //                setHoodTarget(results[2]);
-                setHoodTarget((int)results[2]);
+                setHoodTarget(results[2]);
 //                set_target_turret((int)results[3]);
                 set_target_turret((int)results[3]);
 
