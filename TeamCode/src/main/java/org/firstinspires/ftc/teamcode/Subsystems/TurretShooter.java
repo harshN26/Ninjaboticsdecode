@@ -164,8 +164,9 @@ public class TurretShooter extends SubsystemBase {
         boolean rpmOK = currentRPM_shooter >= targetRPM_shooter - Constants.tolerance_shooter*(12/robot.voltage) && currentRPM_shooter <= targetRPM_shooter + Constants.tolerance_shooter*(12/robot.voltage);
         boolean hoodOK = Math.abs(targetHoodPos - hoodPos) <= Constants.hoodTolerance;
         boolean turretOK=Math.abs(turretTarget-turretCurrPos)<=Constants.tolerance_turret;
-        telem.addLine("rpmOK"+rpmOK);
-        telem.addLine("turretOK"+turretOK);
+        telem.addLine("rpm OK"+rpmOK);
+        telem.addLine("turret OK"+turretOK);
+        telem.addLine("hood OK"+hoodOK);
         inRange = rpmOK&&hoodOK&&turretOK&&(state==shooterState.FIRE||state==shooterState.AUTOFAR||state==shooterState.AUTOCLOSE||state==shooterState.FIRENOTURRET);
         //inRange=rpmOK&&hoodOK&&turretOK;
         return inRange;
@@ -185,14 +186,16 @@ public class TurretShooter extends SubsystemBase {
 
 
     private double[] calculateShot2(double xTarget, double yTarget){
-        double dy = yTarget - robot.y-robot.yVelo;
-        double dx = xTarget - robot.x-robot.xVelo;
+        double dy = yTarget - robot.y-robot.yVelo*0.5;
+        double dx = xTarget - robot.x-robot.xVelo*0.5;
         double horizontalDistance = Math.hypot(dy, dx);
+
+
 
         double fieldAngle = Math.atan2(dy, dx);
         double robotdAngle = (fieldAngle - robot.heading);
 
-        double turretCurrAngle = fieldAngle - robotdAngle - Math.PI; //change math.pi here only depending on turret zero offset. if the offset is 0 (turret zero faces forward), remove Math.PI
+        double turretCurrAngle = robot.heading - Math.PI; //change math.pi here only depending on turret zero offset. if the offset is 0 (turret zero faces forward), remove Math.PI
         if (turretCurrAngle < Math.toRadians(-180)) {
             turretCurrAngle += 2 * Math.PI;
         }
@@ -392,7 +395,6 @@ public class TurretShooter extends SubsystemBase {
         telemetry.addLine("current turret Pos: " + turretTarget);
         telemetry.addLine("target hood Pos: " + targetHoodPos);
         telemetry.addLine("current hood Pos: " + targetHoodPos);
-
         telemetry.addLine("shooter in range: " + inRange);
         telemetry.update(telem);
 
