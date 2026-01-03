@@ -44,9 +44,11 @@ public class Practice extends OpMode{
     public boolean g2XLast=false,g2YLast=false,g2BLast=false,g2ALast=false, g2LBLast=false, g2RBLast=false;
     public boolean g2XCurrent,g2YCurrent,g2BCurrent,g2ACurrent, g2LBCurrent, g2RBCurrent;
 
-    public boolean g2LTLast=false,g2LTCurrent, g1LTLast=false,g1LTCurrent;
+    public boolean g2LTLast=false,g2LTCurrent, g1LTLast=false,g1LTCurrent, g2RTLast=false,g2RTCurrent;
 
     public double drive_mult_pow=0.9;
+
+    ElapsedTime loopTimer;
 
     public void init(){
         timer=new ElapsedTime();
@@ -103,6 +105,7 @@ public class Practice extends OpMode{
         g2LBCurrent= gamepad2.left_bumper;
         g2LTCurrent=gamepad2.left_trigger>0.5;
         g1LTCurrent=gamepad1.left_trigger>0.5;
+        g2RTCurrent=gamepad2.right_trigger>0.5;
 
         if(g1ACurrent&&!g1ALast){
             CommandScheduler.getInstance().schedule(new ShootAll(shooter,sort,intake));
@@ -156,15 +159,15 @@ public class Practice extends OpMode{
         }
 
         if(g1LTCurrent){
-            drive_mult_pow=0.3;
+            drive_mult_pow=0.28;
         }else{
             drive_mult_pow=0.9;
         }
 
         if(gamepad2.dpad_left){
-            shooter.offsetConstant-=3;
+            shooter.offsetConstant-=5;
         }else if(gamepad2.dpad_right){
-            shooter.offsetConstant+=3;
+            shooter.offsetConstant+=5;
         }
 
         if(gamepad2.dpad_up&&shooter.hoodOffset<1.0){
@@ -182,8 +185,6 @@ public class Practice extends OpMode{
 
         if(g1YCurrent&&!g1YLast){
             CommandScheduler.getInstance().cancelAll();
-            robot.firing=false;
-            robot.autoPoseResetApproval=false;
             CommandScheduler.getInstance().schedule(new InstantCommand(()->
                     shooter.update(TurretShooter.shooterState.IDLE)
             ));
@@ -193,6 +194,9 @@ public class Practice extends OpMode{
             CommandScheduler.getInstance().schedule(new InstantCommand(()->
                     sort.update(ChamberSort.CHAMBER_STATE.STOP)
             ));
+            robot.firing=false;
+            robot.autoPoseResetApproval=false;
+
         }
 
 
@@ -221,6 +225,7 @@ public class Practice extends OpMode{
         g2LBLast=  g2LBCurrent;
         g2LTLast=g2LTCurrent;
         g1LTLast=g1LTCurrent;
+        g2RTLast=g2RTCurrent;
     }
     public void stop(){
 //        robot.end();

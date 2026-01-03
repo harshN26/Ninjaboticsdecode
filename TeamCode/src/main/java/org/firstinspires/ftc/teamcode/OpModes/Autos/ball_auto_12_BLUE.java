@@ -99,14 +99,14 @@ public class ball_auto_12_BLUE extends OpMode {
                             // open gate
                             new WaitUntilCommand(()->!follower.isBusy()),
                             new InstantCommand(()->follower.followPath(openGate)),
-                            new InstantCommand(()->sort.update(ChamberSort.CHAMBER_STATE.STOP)),
-                            new InstantCommand(()->intake.update(Intake.INTAKE_STATE.STOP)),
 
 
                             //go to shoot 1
                             new WaitUntilCommand(()->!follower.isBusy()),
                             new WaitCommand(1000),
                             new InstantCommand(()->follower.followPath(shoot1)),
+                            new InstantCommand(()->sort.update(ChamberSort.CHAMBER_STATE.STOP)),
+                            new InstantCommand(()->intake.update(Intake.INTAKE_STATE.STOP)),
                             new InstantCommand(()->shooter.update(TurretShooter.shooterState.AUTOCLOSE)),
 
                             //shoot

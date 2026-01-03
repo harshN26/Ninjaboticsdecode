@@ -26,7 +26,7 @@ public class Constants {
             .centripetalScaling(0.0003)
             .translationalPIDFCoefficients(new PIDFCoefficients(0.07,0.000075,0.002,0.02))
             .headingPIDFCoefficients(new PIDFCoefficients(1.5,0.2,0.05,0.01))
-            .drivePIDFCoefficients(new FilteredPIDFCoefficients(0.0018,0,0.00001,0.7,0));
+            .drivePIDFCoefficients(new FilteredPIDFCoefficients(0.001,0.005,0.0004,0.7,0));
 
 
     public static MecanumConstants driveConstants = new MecanumConstants()
@@ -65,9 +65,9 @@ public class Constants {
             0.1,
             0.007,
             500,
-            5,
+            0.8,
             10,
-            3
+            1.1
     );
 
     public static Follower createFollower(HardwareMap hardwareMap) {
