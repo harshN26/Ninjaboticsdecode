@@ -59,7 +59,7 @@ public class Robot_Hardware{
 
     public static AllianceColor alliance=AllianceColor.RED;
 
-    public static Pose goal=Constants.redGoal,pose=Constants.redGoalStartingPose,resetPose=Constants.redResetPose;
+    public static Pose goal,pose=Constants.redGoalStartingPose,resetPose=Constants.redResetPose;
 
 
     public static boolean autoPoseResetApproval=false;
@@ -91,6 +91,7 @@ public class Robot_Hardware{
     public void init(HardwareMap hardwareMap, Telemetry telemetry){
         hwMap=hardwareMap;
         voltageTimer=new ElapsedTime();
+        loopTimer=new ElapsedTime();
 
         //m1 MUST be ACTIVE
         shooterM1=hwMap.get(DcMotorEx.class, Global_Configs.shooterM1Name);
@@ -208,7 +209,8 @@ public class Robot_Hardware{
             voltage = voltageSensor.getVoltage();
         }
 
-
+        telem.addLine("Loop time (milliseconds): "+loopTimer.milliseconds());
+        loopTimer.reset();
         telem.update();
 
     }
