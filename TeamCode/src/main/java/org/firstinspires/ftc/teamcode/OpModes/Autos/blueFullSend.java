@@ -76,6 +76,9 @@ public class blueFullSend extends OpMode {
         follower.setStartingPose(robot.pose);
         follower.update();
 
+        shooter.offsetConstant=-10;
+        shooter.hoodOffset-=0.1;
+
 
         initPaths();
 

@@ -68,7 +68,7 @@ public class ballAutoCycleFarRED extends OpMode {
         follower = org.firstinspires.ftc.teamcode.pedroPathing.Constants.createFollower(hardwareMap);
         follower.setStartingPose(robot.pose);
         follower.update();
-
+        shooter.offsetConstant=-27;
 
         initPaths();
 

@@ -72,6 +72,8 @@ public class redPreloadClose extends OpMode {
         follower.setStartingPose(robot.pose);
         follower.update();
 
+        shooter.offsetConstant=15;
+        shooter.hoodOffset-=0.1;
 
         initPaths();
 

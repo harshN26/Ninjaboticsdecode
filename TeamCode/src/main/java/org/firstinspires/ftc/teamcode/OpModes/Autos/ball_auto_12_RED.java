@@ -76,6 +76,8 @@ public class ball_auto_12_RED extends OpMode {
         follower.update();
 
         shooter.offsetConstant=15;
+        shooter.hoodOffset-=0.1;
+
         initPaths();
 
         CommandScheduler.getInstance().schedule(
