@@ -153,15 +153,19 @@ public class red9Close extends OpMode {
                 .addPath(
                         new BezierLine(Constants.redGoalStartingPose.getPose(), Constants.autoCloseREDShoot)
                 )
-                .setLinearHeadingInterpolation(Math.toRadians(37), Math.toRadians(0))
+                .setLinearHeadingInterpolation(Math.toRadians(37), Math.toRadians(90))
                 .build();
 
         collectBalls1 = follower
                 .pathBuilder()
                 .addPath(
-                        new BezierLine(Constants.autoCloseREDShoot, new Pose(124.000, 83.000))
+                        new BezierLine(Constants.autoCloseREDShoot, new Pose(Constants.autoCloseREDShoot.getX()+3, 83.000))
                 )
-                .setConstantHeadingInterpolation(Math.toRadians(0))
+                .setLinearHeadingInterpolation(Math.toRadians(90), Math.toRadians(0))
+                .addPath(
+                        new BezierLine(new Pose(Constants.autoCloseREDShoot.getX()+3, 83.000), new Pose(124.000, 83.000))
+                )
+                .setConstantHeadingInterpolation(0)
                 .build();
 
 

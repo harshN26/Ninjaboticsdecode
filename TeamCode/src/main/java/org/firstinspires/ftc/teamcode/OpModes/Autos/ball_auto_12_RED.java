@@ -195,7 +195,7 @@ public class ball_auto_12_RED extends OpMode {
                 )
                 .setLinearHeadingInterpolation(Math.toRadians(90), Math.toRadians(0))
                 .addPath(
-                        new BezierLine(new Pose(Constants.autoCloseREDShoot.getX()+3, 83.000), new Pose(122.000, 83.000))
+                        new BezierLine(new Pose(Constants.autoCloseREDShoot.getX()+3, 83.000), new Pose(124.000, 83.000))
                 )
                 .setConstantHeadingInterpolation(0)
                 .build();
@@ -204,8 +204,8 @@ public class ball_auto_12_RED extends OpMode {
                 .pathBuilder()
                 .addPath(
                         new BezierCurve(
-                                new Pose(120.000, 83.000),
-                                new Pose(118.000, 73.000),
+                                new Pose(124.000, 83.000),
+                                new Pose(115.000, 73.000),
                                 new Pose(135.000, 74.500)
                         )
                 )
