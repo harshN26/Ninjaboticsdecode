@@ -75,7 +75,7 @@ public class ball_auto_12_RED extends OpMode {
         follower.setStartingPose(robot.pose);
         follower.update();
 
-
+        shooter.offsetConstant=15;
         initPaths();
 
         CommandScheduler.getInstance().schedule(
@@ -183,22 +183,26 @@ public class ball_auto_12_RED extends OpMode {
                 .addPath(
                         new BezierLine(Constants.redGoalStartingPose.getPose(), Constants.autoCloseREDShoot)
                 )
-                .setLinearHeadingInterpolation(Math.toRadians(37), Math.toRadians(0))
+                .setLinearHeadingInterpolation(Math.toRadians(37), Math.toRadians(90))
                 .build();
 
         collectBalls1 = follower
                 .pathBuilder()
                 .addPath(
-                        new BezierLine(Constants.autoCloseREDShoot, new Pose(120.000, 85.000))
+                        new BezierLine(Constants.autoCloseREDShoot, new Pose(Constants.autoCloseREDShoot.getX()+3, 83.000))
                 )
-                .setConstantHeadingInterpolation(Math.toRadians(0))
+                .setLinearHeadingInterpolation(Math.toRadians(90), Math.toRadians(0))
+                .addPath(
+                        new BezierLine(new Pose(Constants.autoCloseREDShoot.getX()+3, 83.000), new Pose(122.000, 83.000))
+                )
+                .setConstantHeadingInterpolation(0)
                 .build();
 
         openGate = follower
                 .pathBuilder()
                 .addPath(
                         new BezierCurve(
-                                new Pose(120.000, 85.000),
+                                new Pose(120.000, 83.000),
                                 new Pose(118.000, 73.000),
                                 new Pose(135.000, 74.500)
                         )

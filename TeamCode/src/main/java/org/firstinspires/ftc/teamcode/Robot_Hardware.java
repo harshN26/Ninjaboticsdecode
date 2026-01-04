@@ -211,6 +211,8 @@ public class Robot_Hardware{
 
         telem.addLine("Loop time (milliseconds): "+loopTimer.milliseconds());
         loopTimer.reset();
+
+        telem.addLine("pose"+ new Pose(x, y));
         telem.update();
 
     }

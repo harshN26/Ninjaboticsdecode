@@ -72,7 +72,7 @@ public class ball9FarRED extends OpMode {
         follower = org.firstinspires.ftc.teamcode.pedroPathing.Constants.createFollower(hardwareMap);
         follower.setStartingPose(robot.pose);
         follower.update();
-
+        shooter.offsetConstant=-27;
 
         initPaths();
 
@@ -179,7 +179,7 @@ public class ball9FarRED extends OpMode {
                         new BezierCurve(
                                 Constants.autoFarREDShoot,
                                 new Pose(90,38),
-                                new Pose(124.000, 34.000)
+                                new Pose(124.000, 36.000)
                         )
                 )
                 .setConstantHeadingInterpolation(0)
@@ -187,7 +187,7 @@ public class ball9FarRED extends OpMode {
         shootBallLine3=follower
                 .pathBuilder()
                 .addPath(
-                        new BezierLine(new Pose(124,34),Constants.autoFarREDShoot)
+                        new BezierLine(new Pose(124,36),Constants.autoFarREDShoot)
                 )
                 .setConstantHeadingInterpolation(0)
                 .build();
@@ -202,7 +202,7 @@ public class ball9FarRED extends OpMode {
         collectBalls1P2 = follower
                 .pathBuilder()
                 .addPath(
-                        new BezierLine(new Pose(132.000, 20.000), new Pose(132.000, 14.000))
+                        new BezierLine(new Pose(132.000, 20.000), new Pose(132.000, 16.000))
                 )
                 .setConstantHeadingInterpolation(Math.toRadians(-30))
                 .build();
@@ -210,7 +210,7 @@ public class ball9FarRED extends OpMode {
         backToShoot = follower
                 .pathBuilder()
                 .addPath(
-                        new BezierLine(new Pose(132.000, 14.000), Constants.autoFarREDShoot)
+                        new BezierLine(new Pose(132.000, 16.000), Constants.autoFarREDShoot)
                 )
                 .setLinearHeadingInterpolation(Math.toRadians(0), Math.toRadians(-45))
                 .build();

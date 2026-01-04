@@ -71,7 +71,7 @@ public class ball9FarBLUE extends OpMode {
         follower = org.firstinspires.ftc.teamcode.pedroPathing.Constants.createFollower(hardwareMap);
         follower.setStartingPose(robot.pose);
         follower.update();
-
+        shooter.offsetConstant=17;
 
         initPaths();
 
@@ -182,7 +182,7 @@ public class ball9FarBLUE extends OpMode {
                         new BezierCurve(
                                 Constants.autoFarBLUEShoot,
                                 new Pose(54,34),
-                                new Pose(20.000, 34.000)
+                                new Pose(20.000, 42.000)
                         )
                 )
                 .setLinearHeadingInterpolation(Math.toRadians(185), Math.toRadians(180))
@@ -190,7 +190,7 @@ public class ball9FarBLUE extends OpMode {
         shootBallLine3=follower
                 .pathBuilder()
                 .addPath(
-                        new BezierLine(new Pose(20,34),Constants.autoFarBLUEShoot)
+                        new BezierLine(new Pose(20,42),Constants.autoFarBLUEShoot)
                 )
                 .setConstantHeadingInterpolation(180)
                 .build();
@@ -205,7 +205,7 @@ public class ball9FarBLUE extends OpMode {
         collectBalls1P2 = follower
                 .pathBuilder()
                 .addPath(
-                        new BezierLine(new Pose(12.000, 20.000), new Pose(12.000, 14.000))
+                        new BezierLine(new Pose(12.000, 20.000), new Pose(16.000, 14.000))
                 )
                 .setConstantHeadingInterpolation(Math.toRadians(210))
                 .build();
@@ -213,14 +213,14 @@ public class ball9FarBLUE extends OpMode {
         backToShoot = follower
                 .pathBuilder()
                 .addPath(
-                        new BezierLine(new Pose(12.000, 14.000), Constants.autoFarBLUEShoot)
+                        new BezierLine(new Pose(16.000, 20.000), Constants.autoFarBLUEShoot)
                 )
                 .setLinearHeadingInterpolation(Math.toRadians(180), Math.toRadians(225))
                 .build();
         backToShoot1 = follower
                 .pathBuilder()
                 .addPath(
-                        new BezierLine(new Pose(12.000, 14.000), Constants.autoFarBLUEShoot)
+                        new BezierLine(new Pose(16.000, 14.000), Constants.autoFarBLUEShoot)
                 )
                 .setLinearHeadingInterpolation(Math.toRadians(210), Math.toRadians(225))
                 .build();
@@ -228,7 +228,7 @@ public class ball9FarBLUE extends OpMode {
         collectBalls = follower
                 .pathBuilder()
                 .addPath(
-                        new BezierLine(Constants.autoFarBLUEShoot, new Pose(12.000, 14.000))
+                        new BezierLine(Constants.autoFarBLUEShoot, new Pose(12.000, 20.000))
                 )
                 .setLinearHeadingInterpolation(Math.toRadians(225), Math.toRadians(180))
                 .build();

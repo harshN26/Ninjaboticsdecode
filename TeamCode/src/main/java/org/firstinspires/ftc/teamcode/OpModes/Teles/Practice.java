@@ -46,7 +46,7 @@ public class Practice extends OpMode{
 
     public boolean g2LTLast=false,g2LTCurrent, g1LTLast=false,g1LTCurrent, g2RTLast=false,g2RTCurrent;
 
-    public double drive_mult_pow=0.9;
+    public double drive_mult_pow=1.0;
 
     ElapsedTime loopTimer;
 
@@ -73,6 +73,8 @@ public class Practice extends OpMode{
         follower.update();
 
         ll=new LLPort(telemetry,robot);
+
+
 
 
     }
@@ -161,20 +163,29 @@ public class Practice extends OpMode{
         if(g1LTCurrent){
             drive_mult_pow=0.28;
         }else{
-            drive_mult_pow=0.9;
+            drive_mult_pow=1.0;
         }
 
         if(gamepad2.dpad_left){
-            shooter.offsetConstant-=5;
+            shooter.offsetConstant-=8;
         }else if(gamepad2.dpad_right){
-            shooter.offsetConstant+=5;
+            shooter.offsetConstant+=8;
         }
 
-        if(gamepad2.dpad_up&&shooter.hoodOffset<1.0){
+        if(gamepad2.dpad_up&&shooter.hoodPos<1.0){
             shooter.hoodOffset+=0.1;
-        }else if(gamepad2.dpad_down&&shooter.hoodOffset>0.0){
+        }else if(gamepad2.dpad_down&&shooter.hoodPos>0.0){
             shooter.hoodOffset-=0.1;
         }
+        if(shooter.hoodPosC>1.0){
+            shooter.hoodOffset-=0.01;
+        }else if(shooter.hoodPosC<0.0){
+            shooter.hoodOffset+=0.01;
+        }
+
+
+
+
 
         if(g2LTCurrent&&!g2LTLast){
             robot.turret.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);

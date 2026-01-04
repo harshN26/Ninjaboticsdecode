@@ -25,6 +25,7 @@ public class TurretShooter extends SubsystemBase {
 
     public enum shooterState {FIRE, IDLE, STOP, RESET, AUTOCLOSE, AUTOFAR, FIRENOTURRET}
     public int offsetConstant;
+    public double hoodPosC;
     public shooterState state = shooterState.IDLE;
 
     TelemetryManager telemetry;
@@ -34,7 +35,7 @@ public class TurretShooter extends SubsystemBase {
 
     public static boolean inRange;
 
-    private double hoodPos;
+    public double hoodPos;
     public static double targetHoodPos;
     public double hoodOffset=0.0;
 
@@ -196,10 +197,10 @@ public class TurretShooter extends SubsystemBase {
         double robotdAngle = (fieldAngle - robot.heading);
 
         double turretCurrAngle = robot.heading - Math.PI; //change math.pi here only depending on turret zero offset. if the offset is 0 (turret zero faces forward), remove Math.PI
-        if (turretCurrAngle < Math.toRadians(-180)) {
+        while (turretCurrAngle <= Math.toRadians(-180)) {
             turretCurrAngle += 2 * Math.PI;
         }
-        if (turretCurrAngle > Math.toRadians(180)) {
+        while (turretCurrAngle > Math.toRadians(180)) {
             turretCurrAngle -= 2 * Math.PI;
         }
 
@@ -209,7 +210,7 @@ public class TurretShooter extends SubsystemBase {
 
         double motorRevs = (dtheta / (2.0 * Math.PI)) * 3.0;
         int targetTicks = (int)(motorRevs * Constants.TICKS_PER_REV_Turret);
-        targetTicks = Math.max(-Constants.turretMaxTicks+offsetConstant, Math.min(Constants.turretMaxTicks+offsetConstant, targetTicks));
+        targetTicks = Math.max(-Constants.turretMaxTicks, Math.min(Constants.turretMaxTicks, targetTicks));
 
 
 
@@ -232,16 +233,15 @@ public class TurretShooter extends SubsystemBase {
         if (underSqrt < 0) underSqrt = 0;
 
         double theta = Math.atan((v2 - Math.sqrt(underSqrt)) / (g * horizontalDistance));
-
+        hoodPosC=((theta - Math.toRadians(15.0)) / Math.toRadians(35.0))+hoodOffset;
         double hoodPos = Math.max(0.0,
-                Math.min(1.0,
-                        (theta - Math.toRadians(15.0)) / Math.toRadians(35.0)));
+                Math.min(1.0,hoodPosC));
 
         double effectiveRPM =
                 Math.min(rawRPM * Constants.EFFECTIVE_RPM_FACTOR,
                         Constants.MAX_WHEEL_RPM);
 
-        return new double[]{rawRPM, effectiveRPM, hoodPos+hoodOffset, targetTicks+offsetConstant};
+        return new double[]{rawRPM, effectiveRPM, hoodPos, targetTicks+offsetConstant};
     }
 
 
@@ -316,7 +316,7 @@ public class TurretShooter extends SubsystemBase {
             case AUTOCLOSE:
                 set_targetRPM_shooter((int)results[0]);
 //                setHoodTarget((int)results[2]);
-                setHoodTarget(results[2]);
+                setHoodTarget(Constants.hoodMinPos);
 //                set_target_turret((int)results[3]);
                 set_target_turret((int)results[3]);
                 break;
