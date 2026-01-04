@@ -160,7 +160,7 @@ public class ballAutoCycleFarRED extends OpMode {
         collectBalls1P2 = follower
                 .pathBuilder()
                 .addPath(
-                        new BezierLine(new Pose(132.000, 20.000), new Pose(132.000, 14.000))
+                        new BezierLine(new Pose(132.000, 20.000), new Pose(132.000, 16.000))
                 )
                 .setConstantHeadingInterpolation(Math.toRadians(-30))
                 .build();
@@ -168,7 +168,7 @@ public class ballAutoCycleFarRED extends OpMode {
         backToShoot = follower
                 .pathBuilder()
                 .addPath(
-                        new BezierLine(new Pose(132.000, 14.000), Constants.autoFarREDShoot)
+                        new BezierLine(new Pose(132.000, 16.000), Constants.autoFarREDShoot)
                 )
                 .setLinearHeadingInterpolation(Math.toRadians(0), Math.toRadians(-45))
                 .build();
@@ -187,6 +187,7 @@ public class ballAutoCycleFarRED extends OpMode {
                 )
                 .setLinearHeadingInterpolation(Math.toRadians(-45), Math.toRadians(0))
                 .build();
+
         park = follower
                 .pathBuilder()
                 .addPath(

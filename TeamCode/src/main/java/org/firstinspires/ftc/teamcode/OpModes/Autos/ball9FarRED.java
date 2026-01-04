@@ -235,7 +235,7 @@ public class ball9FarRED extends OpMode {
                 .addPath(
                         new BezierLine(Constants.autoFarREDShoot, new Pose(106.000, 17.000))
                 )
-                .setLinearHeadingInterpolation(Math.toRadians(225), Math.toRadians(90))
+                .setLinearHeadingInterpolation(Math.toRadians(-45), Math.toRadians(90))
                 .build();
 
 

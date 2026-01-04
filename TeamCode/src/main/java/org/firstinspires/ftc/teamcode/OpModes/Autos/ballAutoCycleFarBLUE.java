@@ -163,7 +163,7 @@ public class ballAutoCycleFarBLUE extends OpMode {
         collectBalls1P2 = follower
                 .pathBuilder()
                 .addPath(
-                        new BezierLine(new Pose(12.000, 13.000), new Pose(10.000, 14.000))
+                        new BezierLine(new Pose(12.000, 20.000), new Pose(16.000, 14.000))
                 )
                 .setConstantHeadingInterpolation(Math.toRadians(210))
                 .build();
@@ -171,14 +171,14 @@ public class ballAutoCycleFarBLUE extends OpMode {
         backToShoot = follower
                 .pathBuilder()
                 .addPath(
-                        new BezierLine(new Pose(10.000, 14.000), Constants.autoFarBLUEShoot)
+                        new BezierLine(new Pose(16.000, 20.000), Constants.autoFarBLUEShoot)
                 )
                 .setLinearHeadingInterpolation(Math.toRadians(180), Math.toRadians(225))
                 .build();
         backToShoot1 = follower
                 .pathBuilder()
                 .addPath(
-                        new BezierLine(new Pose(12.000, 14.000), Constants.autoFarBLUEShoot)
+                        new BezierLine(new Pose(16.000, 14.000), Constants.autoFarBLUEShoot)
                 )
                 .setLinearHeadingInterpolation(Math.toRadians(210), Math.toRadians(225))
                 .build();
@@ -186,7 +186,7 @@ public class ballAutoCycleFarBLUE extends OpMode {
         collectBalls = follower
                 .pathBuilder()
                 .addPath(
-                        new BezierLine(Constants.autoFarBLUEShoot, new Pose(12.000, 14.000))
+                        new BezierLine(Constants.autoFarBLUEShoot, new Pose(12.000, 20.000))
                 )
                 .setLinearHeadingInterpolation(Math.toRadians(225), Math.toRadians(180))
                 .build();
