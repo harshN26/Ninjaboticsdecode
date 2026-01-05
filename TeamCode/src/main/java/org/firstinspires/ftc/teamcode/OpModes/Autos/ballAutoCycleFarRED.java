@@ -13,6 +13,7 @@ import com.seattlesolvers.solverslib.command.CommandScheduler;
 import com.seattlesolvers.solverslib.command.InstantCommand;
 import com.seattlesolvers.solverslib.command.ParallelRaceGroup;
 import com.seattlesolvers.solverslib.command.SequentialCommandGroup;
+import com.seattlesolvers.solverslib.command.WaitCommand;
 import com.seattlesolvers.solverslib.command.WaitUntilCommand;
 
 import org.firstinspires.ftc.teamcode.Commands.multipartCommands.ShootAllAUTOCLOSE;
@@ -77,11 +78,13 @@ public class ballAutoCycleFarRED extends OpMode {
                 new SequentialCommandGroup(
                         //get everything in position
                         new InstantCommand(()->sort.update(ChamberSort.CHAMBER_STATE.STOP)),
-                        new InstantCommand(()->shooter.update(TurretShooter.shooterState.AUTOFAR)),
+                        new InstantCommand(()->shooter.update(TurretShooter.shooterState.IDLE)),
                         new InstantCommand(()->intake.update(Intake.INTAKE_STATE.STOP)),
                         // first move back while firing 3 balls
                         new InstantCommand(()->follower.followPath(path1)),
                         new InstantCommand(()-> intake.update(Intake.INTAKE_STATE.IN)),
+                        new WaitCommand(500),
+                        new InstantCommand(()->shooter.update(TurretShooter.shooterState.AUTOFAR)),
                         new WaitUntilCommand(()->!follower.isBusy()&&shooter.isInRange()),
                         new InstantCommand(()->timer.reset()),
                         new ParallelRaceGroup(

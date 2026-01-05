@@ -14,6 +14,7 @@ import com.seattlesolvers.solverslib.command.CommandScheduler;
 import com.seattlesolvers.solverslib.command.InstantCommand;
 import com.seattlesolvers.solverslib.command.ParallelRaceGroup;
 import com.seattlesolvers.solverslib.command.SequentialCommandGroup;
+import com.seattlesolvers.solverslib.command.WaitCommand;
 import com.seattlesolvers.solverslib.command.WaitUntilCommand;
 
 import org.firstinspires.ftc.teamcode.Commands.multipartCommands.ShootAllAUTOCLOSE;
@@ -72,7 +73,7 @@ public class ball9FarRED extends OpMode {
         follower = org.firstinspires.ftc.teamcode.pedroPathing.Constants.createFollower(hardwareMap);
         follower.setStartingPose(robot.pose);
         follower.update();
-        shooter.offsetConstant=-27;
+        shooter.offsetConstant=-30;
 
         initPaths();
 
@@ -81,11 +82,13 @@ public class ball9FarRED extends OpMode {
                 new SequentialCommandGroup(
                         //get everything in position
                         new InstantCommand(()->sort.update(ChamberSort.CHAMBER_STATE.STOP)),
-                        new InstantCommand(()->shooter.update(TurretShooter.shooterState.AUTOFAR)),
+                        new InstantCommand(()->shooter.update(TurretShooter.shooterState.IDLE)),
                         new InstantCommand(()->intake.update(Intake.INTAKE_STATE.STOP)),
                         // first move back while firing 3 balls
                         new InstantCommand(()->follower.followPath(path1)),
                         new InstantCommand(()-> intake.update(Intake.INTAKE_STATE.IN)),
+                        new WaitCommand(500),
+                        new InstantCommand(()->shooter.update(TurretShooter.shooterState.AUTOFAR)),
                         new WaitUntilCommand(()->!follower.isBusy()&&shooter.isInRange()),
                         new InstantCommand(()->timer.reset()),
                         new ParallelRaceGroup(
@@ -179,7 +182,7 @@ public class ball9FarRED extends OpMode {
                         new BezierCurve(
                                 Constants.autoFarREDShoot,
                                 new Pose(90,38),
-                                new Pose(124.000, 36.000)
+                                new Pose(124.000, 38.000)
                         )
                 )
                 .setConstantHeadingInterpolation(0)
@@ -187,7 +190,7 @@ public class ball9FarRED extends OpMode {
         shootBallLine3=follower
                 .pathBuilder()
                 .addPath(
-                        new BezierLine(new Pose(124,36),Constants.autoFarREDShoot)
+                        new BezierLine(new Pose(124,38),Constants.autoFarREDShoot)
                 )
                 .setConstantHeadingInterpolation(0)
                 .build();

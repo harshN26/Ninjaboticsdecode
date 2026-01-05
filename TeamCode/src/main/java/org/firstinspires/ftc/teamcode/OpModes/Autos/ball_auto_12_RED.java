@@ -85,11 +85,13 @@ public class ball_auto_12_RED extends OpMode {
                 new SequentialCommandGroup(
                         //get everything in position
                         new InstantCommand(()->sort.update(ChamberSort.CHAMBER_STATE.STOP)),
-                        new InstantCommand(()->shooter.update(TurretShooter.shooterState.AUTOCLOSE)),
+                        new InstantCommand(()->shooter.update(TurretShooter.shooterState.IDLE)),
                         new InstantCommand(()->intake.update(Intake.INTAKE_STATE.STOP)),
                         // first move back while firing 3 balls
                         new InstantCommand(()->follower.followPath(path1)),
                         new InstantCommand(()-> intake.update(Intake.INTAKE_STATE.IN)),
+                        new WaitCommand(500),
+                        new InstantCommand(()->shooter.update(TurretShooter.shooterState.AUTOCLOSE)),
                         new WaitUntilCommand(()->!follower.isBusy()),
                         new InstantCommand(()->timer.reset()),
                         new ParallelRaceGroup(
@@ -218,7 +220,7 @@ public class ball_auto_12_RED extends OpMode {
                 .addPath(
                         new BezierLine(new Pose(135.000, 74.500), Constants.autoCloseREDShoot)
                 )
-                .setLinearHeadingInterpolation(Math.toRadians(90), Math.toRadians(-30))
+                .setLinearHeadingInterpolation(Math.toRadians(90), Math.toRadians(0))
                 .build();
 
         collectBalls2 = follower
@@ -226,11 +228,11 @@ public class ball_auto_12_RED extends OpMode {
                 .addPath(
                         new BezierCurve(
                                 Constants.autoCloseREDShoot,
-                                new Pose(83.000, 60.000),
+                                new Pose(83.000, 59.000),
                                 new Pose(132.000, 61.000)
                         )
                 )
-                .setLinearHeadingInterpolation(Math.toRadians(-30), Math.toRadians(0))
+                .setConstantHeadingInterpolation(0)
                 .build();
 
         shoot2 = follower
