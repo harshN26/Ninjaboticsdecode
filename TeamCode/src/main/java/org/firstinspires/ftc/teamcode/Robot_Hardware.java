@@ -96,12 +96,13 @@ public class Robot_Hardware{
         //m1 MUST be ACTIVE
         shooterM1=hwMap.get(DcMotorEx.class, Global_Configs.shooterM1Name);
         shooterM1.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
+        shooterM1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
         shooterM1.setDirection(DcMotorEx.Direction.REVERSE);
 
         if(Global_Configs.shooterM2Status== Global_Configs.DOFStatus.ACTIVE) {
             shooterM2=hwMap.get(DcMotorEx.class, Global_Configs.shooterM2Name);
             shooterM2.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
-
+            shooterM2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
         }
         if(Global_Configs.turretStatus== Global_Configs.DOFStatus.ACTIVE) {
             turret=hwMap.get(DcMotorEx.class, Global_Configs.turretName);

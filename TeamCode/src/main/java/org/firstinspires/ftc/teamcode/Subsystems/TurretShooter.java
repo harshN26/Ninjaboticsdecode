@@ -342,11 +342,14 @@ public class TurretShooter extends SubsystemBase {
         turretPow=pidTurret.calculate(turretCurrPos,turretTarget);
         shooterPow= Constants.shooter_kp * (targetRPM_shooter-currentRPM_shooter) + Constants.shooter_kv * targetRPM_shooter + Math.signum(targetRPM_shooter-currentRPM_shooter) * Constants.shooter_ks;
         shooterPow*=12/robot.voltage;
+
+        if(targetRPM_shooter==Constants.ShooterIdleRPM){
+            shooterPow=0.0;
+        }
         robot.shooterM1.setPower(shooterPow);
-//        robot.shooterM1.setPower(0.9);
+
         if (Global_Configs.shooterM2Status == Global_Configs.DOFStatus.ACTIVE)
             robot.shooterM2.setPower(shooterPow);
-//            robot.shooterM2.setPower(0.9);
         else {
             robot.shooterM2.setPower(0);
         }

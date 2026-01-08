@@ -1,16 +1,7 @@
-This file contians the TOOD List of programming tasks, in the order they should be completed in
+-- add color sensors
 
-- retune drive
-    - old constants: .drivePIDFCoefficients(new FilteredPIDFCoefficients(0.0018,0,0.00001,0.7,0));
-- test and do new autos
-    - specifically look for far autos shooting in the right place since this was a problem
+-- get instant shooting commands with waits
 
-- drive practice training program
-    - intake from gate (both sides since intake is offset they are different)
-    - shooting with feed (dhairya)
-    - shooting with intake from gate (dhairya and ved swap)
-        - add two competing tunes, make it harder
-    - fixing issues in match (every 30s new issue)
-    - hp feed
-    - small intake from anywhere practice
-    - practice matches
+-- current detection and compensation for shooter
+
+-- when shooter target is 0rpm, make the shooter float and ramp down by itself to add current to battery and make it spin for longer
