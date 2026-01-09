@@ -40,7 +40,9 @@ public class Constants {
             .rightFrontMotorDirection(DcMotorSimple.Direction.FORWARD)
             .rightRearMotorDirection(DcMotorSimple.Direction.FORWARD)
             .xVelocity(73.92097787589588)
-            .yVelocity(79.29183977);
+            .yVelocity(79.29183977)
+            .useVoltageCompensation(true);
+
 
     public static ThreeWheelIMUConstants localizerConstants =
             new ThreeWheelIMUConstants()

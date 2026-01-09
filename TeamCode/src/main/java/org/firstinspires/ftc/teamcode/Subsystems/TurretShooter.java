@@ -187,8 +187,8 @@ public class TurretShooter extends SubsystemBase {
 
 
     private double[] calculateShot2(double xTarget, double yTarget){
-        double dy = yTarget - robot.y-robot.yVelo*0.5;
-        double dx = xTarget - robot.x-robot.xVelo*0.5;
+        double dy = yTarget - robot.turretY-robot.yVelo*0.5;
+        double dx = xTarget - robot.turretX-robot.xVelo*0.5;
         double horizontalDistance = Math.hypot(dy, dx);
 
 

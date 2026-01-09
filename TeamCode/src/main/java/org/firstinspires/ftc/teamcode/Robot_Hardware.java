@@ -71,6 +71,8 @@ public class Robot_Hardware{
 
     public double x, xVelo;
     public double y,yVelo;
+
+    public double turretX,turretY;
     public double heading, headingVelo;
 
     public static boolean firing=false;
@@ -190,7 +192,9 @@ public class Robot_Hardware{
         }
         try{
             follower.update();
+
             pose=follower.getPose();
+
             driveVector=follower.getVelocity();
             x=pose.getX();
             y= pose.getY();
@@ -198,6 +202,8 @@ public class Robot_Hardware{
             xVelo=driveVector.getXComponent();
             yVelo=driveVector.getYComponent();
             headingVelo=follower.getAngularVelocity();
+            turretX = x + Constants.turretOffsetX * Math.cos(heading) - Constants.turretOffsetY * Math.sin(heading);
+            turretY = y + Constants.turretOffsetX * Math.sin(heading) + Constants.turretOffsetY * Math.cos(heading);
 //            telem.addLine("goal"+ y);
 //            telem.addLine("pose"+ x);
 

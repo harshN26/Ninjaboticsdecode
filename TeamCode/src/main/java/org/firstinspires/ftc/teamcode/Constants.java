@@ -109,6 +109,8 @@ public class Constants {
     public static final double filterR=5.0;
     public static final int filterN=3;
 
+    public static double turretOffsetX=1, turretOffsetY=-1;
+
 
 
 
