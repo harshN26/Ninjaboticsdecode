@@ -194,7 +194,6 @@ public class TurretShooter extends SubsystemBase {
 
 
         double fieldAngle = Math.atan2(dy, dx);
-        double robotdAngle = (fieldAngle - robot.heading);
 
         double turretCurrAngle = robot.heading - Math.PI; //change math.pi here only depending on turret zero offset. if the offset is 0 (turret zero faces forward), remove Math.PI
         while (turretCurrAngle <= Math.toRadians(-180)) {
