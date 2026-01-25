@@ -17,6 +17,7 @@ public class ShootAll3Inertia extends SequentialCommandGroup {
     public ShootAll3Inertia(TurretShooter shooter, ChamberSort chamberSort, Intake intake){
         super(
             new SequentialCommandGroup(
+                    new InstantCommand(()->shooter.update(TurretShooter.shooterState.FIRE)),
                     new InstantCommand(()-> Robot_Hardware.getInstance().firing=true),
                     new WaitUntilCommand(()->shooter.inRange),
                     new InstantCommand(()->intake.update(Intake.INTAKE_STATE.IN)),
