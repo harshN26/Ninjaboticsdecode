@@ -73,7 +73,7 @@ public class redPreloadClose extends OpMode {
         follower.setStartingPose(robot.pose);
         follower.update();
 
-        shooter.offsetConstant=15;
+//        shooter.offsetConstant=15;
         shooter.hoodOffset-=0.1;
 
         initPaths();
@@ -100,8 +100,9 @@ public class redPreloadClose extends OpMode {
 
                         new ParallelRaceGroup(
                                 new ShootAllAUTOCLOSE(shooter,sort,intake),
-                                new WaitUntilCommand(()->timer.milliseconds()>3000)
+                                new WaitUntilCommand(()->timer.milliseconds()>1500)
                         ),
+                        new InstantCommand(()-> shooter.update(TurretShooter.shooterState.IDLE)),
 
 
                         //collect and shoot 1
@@ -117,7 +118,7 @@ public class redPreloadClose extends OpMode {
 
                         new InstantCommand(()->intake.update(Intake.INTAKE_STATE.IN)),
                         new InstantCommand(()->sort.update(ChamberSort.CHAMBER_STATE.IN)),
-                        new InstantCommand(()->shooter.update(TurretShooter.shooterState.IDLE)),
+
                         new InstantCommand(()->follower.followPath(park)),
                         new WaitUntilCommand(()->timer.milliseconds()>=29000)
                 )

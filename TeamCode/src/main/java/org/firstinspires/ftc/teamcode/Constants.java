@@ -19,9 +19,9 @@ public class Constants {
     public static final int ShooterIdleRPM =0;
     public static final int ShooterStopRPM =0;
 
-    public static final double hoodMaxPos =0.6;
+    public static final double hoodMaxPos =0.5;
     public static double hoodMinPos =0.1;
-    public static final double hoodResetPos =0.5;
+    public static final double hoodResetPos =0.2;
     public static final double hoodTolerance=0.02;
 
     public static double shooterMinAngle=15;//deg
@@ -31,8 +31,8 @@ public class Constants {
 
 
 
-    public static final Pose redGoal=new Pose(142,142);
-    public static final Pose blueGoal=new Pose(0,138);
+    public static final Pose redGoal=new Pose(142,140);
+    public static final Pose blueGoal=new Pose(0,142);
     public static double zGoal=40; //in
 
     public static double shooterHeight=16;//in
@@ -43,13 +43,13 @@ public class Constants {
 
 
 
-    public static final double MIN_WHEEL_RPM = 2925.0;
-    public static final double MAX_WHEEL_RPM = 5000.0;
+    public static double MIN_WHEEL_RPM = 2300.0;
+    public static double MAX_WHEEL_RPM = 5000.0;
 
 
     public static double EFFECTIVE_RPM_FACTOR = 0.5;
 
-    public static double ShooterDistanceSlope=13;
+    public static double ShooterDistanceSlope=12.5;
 
 
 
@@ -57,7 +57,7 @@ public class Constants {
     public static double[] pidCoeffs_turret ={0.02,0.012,0.0007};
     public static final int tolerance_turret=5;
 
-    public static double tolerance_shooter=120;
+    public static double tolerance_shooter=500;
 
     public static final double TICKS_PER_REV_Shooter = 28;
 
@@ -109,7 +109,7 @@ public class Constants {
     public static final double filterR=5.0;
     public static final int filterN=3;
 
-    public static double turretOffsetX=-1.125, turretOffsetY=-2.3125;
+    public static double turretOffsetX=-4.3125, turretOffsetY=-1.125;
 
 
 

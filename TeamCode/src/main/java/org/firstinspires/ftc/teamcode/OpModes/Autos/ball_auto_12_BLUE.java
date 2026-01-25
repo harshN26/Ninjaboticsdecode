@@ -75,7 +75,7 @@ public class ball_auto_12_BLUE extends OpMode {
         follower = org.firstinspires.ftc.teamcode.pedroPathing.Constants.createFollower(hardwareMap);
         follower.setStartingPose(robot.pose);
         follower.update();
-        shooter.offsetConstant=-14;
+//        shooter.offsetConstant=-14;
         shooter.hoodOffset-=0.1;
 
         initPaths();
@@ -96,7 +96,7 @@ public class ball_auto_12_BLUE extends OpMode {
                             new InstantCommand(()->timer.reset()),
                             new ParallelRaceGroup(
                                     new ShootAllAUTOCLOSE(shooter,sort,intake),
-                                    new WaitUntilCommand(()->timer.milliseconds()>3000)
+                                    new WaitUntilCommand(()->timer.milliseconds()>1500)
                             ),
                             //Collect balls1
                             new InstantCommand(()->follower.followPath(collectBalls1)),
@@ -123,7 +123,7 @@ public class ball_auto_12_BLUE extends OpMode {
                             new InstantCommand(()->timer.reset()),
                             new ParallelRaceGroup(
                                     new ShootAllAUTOCLOSE(shooter,sort,intake),
-                                    new WaitUntilCommand(()->timer.milliseconds()>3000)
+                                    new WaitUntilCommand(()->timer.milliseconds()>1500)
                             ),
 
                             //Collect balls 2
@@ -143,7 +143,7 @@ public class ball_auto_12_BLUE extends OpMode {
                             new InstantCommand(()->timer.reset()),
                             new ParallelRaceGroup(
                                     new ShootAllAUTOCLOSE(shooter,sort,intake),
-                                    new WaitUntilCommand(()->timer.milliseconds()>3000)
+                                    new WaitUntilCommand(()->timer.milliseconds()>1500)
                             ),
 
                             //Collect balls 3
@@ -162,11 +162,12 @@ public class ball_auto_12_BLUE extends OpMode {
                             new InstantCommand(()->timer.reset()),
                             new ParallelRaceGroup(
                                     new ShootAllAUTOCLOSE(shooter,sort,intake),
-                                    new WaitUntilCommand(()->timer.milliseconds()>3000)
+                                    new WaitUntilCommand(()->timer.milliseconds()>1500)
                             ),
+                            new InstantCommand(()-> shooter.update(TurretShooter.shooterState.IDLE)),
                             new InstantCommand(()->follower.followPath(nextToGate)),
                             new WaitUntilCommand(()->!follower.isBusy()),
-                            new InstantCommand(()-> shooter.update(TurretShooter.shooterState.IDLE)),
+
                             new InstantCommand(()->intake.update(Intake.INTAKE_STATE.STOP)),
                             new InstantCommand(()->sort.update(ChamberSort.CHAMBER_STATE.STOP)),
                             new WaitUntilCommand(()->timer.milliseconds()>=29000)
@@ -224,8 +225,8 @@ public class ball_auto_12_BLUE extends OpMode {
                 .addPath(
                         new BezierCurve(
                                 new Pose(Constants.autoCloseBLUEShoot.getX()+2,Constants.autoCloseBLUEShoot.getY()+5),
-                                new Pose(59.000, 62.000),
-                                new Pose(16.000, 64.000)
+                                new Pose(59.000, 65.000),
+                                new Pose(16.000, 65.000)
                         )
                 )
                 .setLinearHeadingInterpolation(Math.toRadians(180), Math.toRadians(180))

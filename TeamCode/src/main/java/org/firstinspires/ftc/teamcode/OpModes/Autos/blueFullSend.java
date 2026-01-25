@@ -76,7 +76,7 @@ public class blueFullSend extends OpMode {
         follower.setStartingPose(robot.pose);
         follower.update();
 
-        shooter.offsetConstant=-10;
+//        shooter.offsetConstant=-10;
         shooter.hoodOffset-=0.1;
 
 
@@ -100,7 +100,7 @@ public class blueFullSend extends OpMode {
                             new InstantCommand(()->timer.reset()),
                             new ParallelRaceGroup(
                                     new ShootAllAUTOCLOSE(shooter,sort,intake),
-                                    new WaitUntilCommand(()->timer.milliseconds()>3000)
+                                    new WaitUntilCommand(()->timer.milliseconds()>1500)
                             ),
 
 
@@ -115,7 +115,7 @@ public class blueFullSend extends OpMode {
                             new InstantCommand(()->timer.reset()),
                             new ParallelRaceGroup(
                                     new ShootAllAUTOCLOSE(shooter,sort,intake),
-                                    new WaitUntilCommand(()->timer.milliseconds()>3000)
+                                    new WaitUntilCommand(()->timer.milliseconds()>1500)
                             ),
 
 
@@ -133,7 +133,7 @@ public class blueFullSend extends OpMode {
                             new InstantCommand(()->timer.reset()),
                             new ParallelRaceGroup(
                                     new ShootAllAUTOCLOSE(shooter,sort,intake),
-                                    new WaitUntilCommand(()->timer.milliseconds()>3000)
+                                    new WaitUntilCommand(()->timer.milliseconds()>1500)
                             ),
 
 
@@ -149,7 +149,7 @@ public class blueFullSend extends OpMode {
                             new InstantCommand(()->timer.reset()),
                             new ParallelRaceGroup(
                                     new ShootAllAUTOCLOSE(shooter,sort,intake),
-                                    new WaitUntilCommand(()->timer.milliseconds()>3000)
+                                    new WaitUntilCommand(()->timer.milliseconds()>1500)
                             ),
 
                             //ball line 3
@@ -163,13 +163,13 @@ public class blueFullSend extends OpMode {
                             new InstantCommand(()->timer.reset()),
                             new ParallelRaceGroup(
                                     new ShootAllAUTOCLOSE(shooter,sort,intake),
-                                    new WaitUntilCommand(()->timer.milliseconds()>3000)
+                                    new WaitUntilCommand(()->timer.milliseconds()>1500)
                             ),
+                            new InstantCommand(()-> shooter.update(TurretShooter.shooterState.IDLE)),
 
 
                             new InstantCommand(()->follower.followPath(nextToGate)),
                             new WaitUntilCommand(()->!follower.isBusy()),
-                            new InstantCommand(()-> shooter.update(TurretShooter.shooterState.IDLE)),
                             new InstantCommand(()->intake.update(Intake.INTAKE_STATE.IN)),
                             new InstantCommand(()->sort.update(ChamberSort.CHAMBER_STATE.IN)),
                             new WaitUntilCommand(()->timer.milliseconds()>=29000)

@@ -44,7 +44,7 @@ public class TurretShooter extends SubsystemBase {
 
 
 
-
+    public static double horizontalDistance=0;
     public double tol_turret;
     public int turretTarget;
     private int turretCurrPos;
@@ -187,21 +187,19 @@ public class TurretShooter extends SubsystemBase {
 
 
     private double[] calculateShot2(double xTarget, double yTarget){
-        double dy = yTarget - robot.turretY-robot.yVelo*0.5;
-        double dx = xTarget - robot.turretX-robot.xVelo*0.5;
-        double horizontalDistance = Math.hypot(dy, dx);
-
-
-
+        double dy = yTarget - robot.turretY-robot.yVelo*0.1;
+        double dx = xTarget - robot.turretX-robot.xVelo*0.1;
+        horizontalDistance = Math.hypot(dx, dy);
         double fieldAngle = Math.atan2(dy, dx);
 
         double turretCurrAngle = robot.heading - Math.PI; //change math.pi here only depending on turret zero offset. if the offset is 0 (turret zero faces forward), remove Math.PI
-        while (turretCurrAngle <= Math.toRadians(-180)) {
-            turretCurrAngle += 2 * Math.PI;
-        }
-        while (turretCurrAngle > Math.toRadians(180)) {
-            turretCurrAngle -= 2 * Math.PI;
-        }
+//        while (turretCurrAngle <= Math.toRadians(-180)) {
+//            turretCurrAngle += 2 * Math.PI;
+//        }
+//        while (turretCurrAngle > Math.toRadians(180)) {
+//            turretCurrAngle -= 2 * Math.PI;
+//        }
+        turretCurrAngle = Math.atan2(Math.sin(turretCurrAngle), Math.cos(turretCurrAngle));
 
         double dtheta1 = (turretCurrAngle - fieldAngle) % (2 * Math.PI);
         double dtheta2 = ((turretCurrAngle + 2 * Math.PI) - fieldAngle) % (2 * Math.PI);
@@ -373,7 +371,7 @@ public class TurretShooter extends SubsystemBase {
         }
 
         telem(); 
-//        telemP();
+        telemP();
     }
 
     public void telem() {

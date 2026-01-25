@@ -73,7 +73,7 @@ public class blue9Close extends OpMode {
         follower.setStartingPose(robot.pose);
         follower.update();
 
-        shooter.offsetConstant=-10;
+//        shooter.offsetConstant=-10;
         shooter.hoodOffset-=0.1;
 
 
@@ -100,7 +100,7 @@ public class blue9Close extends OpMode {
 
                         new ParallelRaceGroup(
                                 new ShootAllAUTOCLOSE(shooter,sort,intake),
-                                new WaitUntilCommand(()->timer.milliseconds()>3000)
+                                new WaitUntilCommand(()->timer.milliseconds()>1500)
                         ),
 
 
@@ -115,7 +115,7 @@ public class blue9Close extends OpMode {
                         new InstantCommand(()->timer.reset()),
                         new ParallelRaceGroup(
                                 new ShootAllAUTOCLOSE(shooter,sort,intake),
-                                new WaitUntilCommand(()->timer.milliseconds()>3000)
+                                new WaitUntilCommand(()->timer.milliseconds()>1500)
                         ),
 
                         //collect and shoot 2
@@ -129,8 +129,9 @@ public class blue9Close extends OpMode {
                         new InstantCommand(()->timer.reset()),
                         new ParallelRaceGroup(
                                 new ShootAllAUTOCLOSE(shooter,sort,intake),
-                                new WaitUntilCommand(()->timer.milliseconds()>3000)
+                                new WaitUntilCommand(()->timer.milliseconds()>1500)
                         ),
+                        new InstantCommand(()-> shooter.update(TurretShooter.shooterState.IDLE)),
 
 
 
@@ -138,7 +139,7 @@ public class blue9Close extends OpMode {
 
                         new InstantCommand(()->intake.update(Intake.INTAKE_STATE.IN)),
                         new InstantCommand(()->sort.update(ChamberSort.CHAMBER_STATE.IN)),
-                        new InstantCommand(()->shooter.update(TurretShooter.shooterState.IDLE)),
+
                         new InstantCommand(()->follower.followPath(park)),
                         new WaitUntilCommand(()->timer.milliseconds()>=29000)
                 )

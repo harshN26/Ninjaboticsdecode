@@ -96,7 +96,7 @@ public class ball_auto_12_RED extends OpMode {
                         new InstantCommand(()->timer.reset()),
                         new ParallelRaceGroup(
                                 new ShootAllAUTOCLOSE(shooter,sort,intake),
-                                new WaitUntilCommand(()->timer.milliseconds()>3000)
+                                new WaitUntilCommand(()->timer.milliseconds()>1500)
                         ),
                         //Collect balls1
                         new InstantCommand(()->follower.followPath(collectBalls1)),
@@ -124,7 +124,7 @@ public class ball_auto_12_RED extends OpMode {
                         new InstantCommand(()->timer.reset()),
                         new ParallelRaceGroup(
                                 new ShootAllAUTOCLOSE(shooter,sort,intake),
-                                new WaitUntilCommand(()->timer.milliseconds()>3000)
+                                new WaitUntilCommand(()->timer.milliseconds()>1500)
                         ),
 
                         //Collect balls 2
@@ -144,7 +144,7 @@ public class ball_auto_12_RED extends OpMode {
                         new InstantCommand(()->timer.reset()),
                         new ParallelRaceGroup(
                                 new ShootAllAUTOCLOSE(shooter,sort,intake),
-                                new WaitUntilCommand(()->timer.milliseconds()>3000)
+                                new WaitUntilCommand(()->timer.milliseconds()>1500)
                         ),
 
                         //Collect balls 3
@@ -163,11 +163,12 @@ public class ball_auto_12_RED extends OpMode {
                         new InstantCommand(()->timer.reset()),
                         new ParallelRaceGroup(
                                 new ShootAllAUTOCLOSE(shooter,sort,intake),
-                                new WaitUntilCommand(()->timer.milliseconds()>3000)
+                                new WaitUntilCommand(()->timer.milliseconds()>1500)
                         ),
+                        new InstantCommand(()-> shooter.update(TurretShooter.shooterState.IDLE)),
                         new InstantCommand(()->follower.followPath(nextToGate)),
                         new WaitUntilCommand(()->!follower.isBusy()),
-                        new InstantCommand(()-> shooter.update(TurretShooter.shooterState.IDLE)),
+
                         new InstantCommand(()->intake.update(Intake.INTAKE_STATE.IN)),
                         new InstantCommand(()->sort.update(ChamberSort.CHAMBER_STATE.IN)),
                         new WaitUntilCommand(()->timer.milliseconds()>=29000)
@@ -228,7 +229,7 @@ public class ball_auto_12_RED extends OpMode {
                 .addPath(
                         new BezierCurve(
                                 Constants.autoCloseREDShoot,
-                                new Pose(83.000, 59.000),
+                                new Pose(83.000, 61.000),
                                 new Pose(132.000, 61.000)
                         )
                 )

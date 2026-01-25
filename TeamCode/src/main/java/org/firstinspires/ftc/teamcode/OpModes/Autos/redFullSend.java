@@ -76,7 +76,7 @@ public class redFullSend extends OpMode {
         follower.setStartingPose(robot.pose);
         follower.update();
 
-        shooter.offsetConstant=15;
+//        shooter.offsetConstant=15;
         shooter.hoodOffset-=0.1;
 
         initPaths();
@@ -100,7 +100,7 @@ public class redFullSend extends OpMode {
                             new InstantCommand(()->timer.reset()),
                             new ParallelRaceGroup(
                                     new ShootAllAUTOCLOSE(shooter,sort,intake),
-                                    new WaitUntilCommand(()->timer.milliseconds()>2500)
+                                    new WaitUntilCommand(()->timer.milliseconds()>1500)
                             ),
                             new InstantCommand(()->shooter.update(TurretShooter.shooterState.IDLE)),
 
@@ -116,7 +116,7 @@ public class redFullSend extends OpMode {
                             new InstantCommand(()->timer.reset()),
                             new ParallelRaceGroup(
                                     new ShootAllAUTOCLOSE(shooter,sort,intake),
-                                    new WaitUntilCommand(()->timer.milliseconds()>2500)
+                                    new WaitUntilCommand(()->timer.milliseconds()>1500)
                             ),
                             new InstantCommand(()->shooter.update(TurretShooter.shooterState.IDLE)),
 
@@ -135,7 +135,7 @@ public class redFullSend extends OpMode {
                             new InstantCommand(()->timer.reset()),
                             new ParallelRaceGroup(
                                     new ShootAllAUTOCLOSE(shooter,sort,intake),
-                                    new WaitUntilCommand(()->timer.milliseconds()>2500)
+                                    new WaitUntilCommand(()->timer.milliseconds()>1500)
                             ),
                             new InstantCommand(()->shooter.update(TurretShooter.shooterState.IDLE)),
 
@@ -152,7 +152,7 @@ public class redFullSend extends OpMode {
                             new InstantCommand(()->timer.reset()),
                             new ParallelRaceGroup(
                                     new ShootAllAUTOCLOSE(shooter,sort,intake),
-                                    new WaitUntilCommand(()->timer.milliseconds()>2500)
+                                    new WaitUntilCommand(()->timer.milliseconds()>1500)
                             ),
                             new InstantCommand(()->shooter.update(TurretShooter.shooterState.IDLE)),
 
@@ -167,14 +167,14 @@ public class redFullSend extends OpMode {
                             new InstantCommand(()->timer.reset()),
                             new ParallelRaceGroup(
                                     new ShootAllAUTOCLOSE(shooter,sort,intake),
-                                    new WaitUntilCommand(()->timer.milliseconds()>2500)
+                                    new WaitUntilCommand(()->timer.milliseconds()>1500)
                             ),
                             new InstantCommand(()->shooter.update(TurretShooter.shooterState.IDLE)),
 
 
                             new InstantCommand(()->follower.followPath(nextToGate)),
                             new WaitUntilCommand(()->!follower.isBusy()),
-                            new InstantCommand(()-> shooter.update(TurretShooter.shooterState.IDLE)),
+
                             new InstantCommand(()->intake.update(Intake.INTAKE_STATE.IN)),
                             new InstantCommand(()->sort.update(ChamberSort.CHAMBER_STATE.IN)),
                             new WaitUntilCommand(()->timer.milliseconds()>=29000)

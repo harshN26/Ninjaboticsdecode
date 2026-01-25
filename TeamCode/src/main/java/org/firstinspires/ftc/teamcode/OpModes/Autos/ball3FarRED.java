@@ -69,7 +69,7 @@ public class ball3FarRED extends OpMode {
         follower = org.firstinspires.ftc.teamcode.pedroPathing.Constants.createFollower(hardwareMap);
         follower.setStartingPose(robot.pose);
         follower.update();
-        shooter.offsetConstant=-27;
+//        shooter.offsetConstant=-27;
 
         initPaths();
 
@@ -89,14 +89,15 @@ public class ball3FarRED extends OpMode {
                         new InstantCommand(()->timer.reset()),
                         new ParallelRaceGroup(
                                 new ShootAllAUTOFAR(shooter,sort,intake),
-                                new WaitUntilCommand(()->timer.milliseconds()>3000)
+                                new WaitUntilCommand(()->timer.milliseconds()>1500)
                         ),
+                        new InstantCommand(()-> shooter.update(TurretShooter.shooterState.IDLE)),
 
 
 //park
                         new InstantCommand(()->intake.update(Intake.INTAKE_STATE.STOP)),
                         new InstantCommand(()->sort.update(ChamberSort.CHAMBER_STATE.STOP)),
-                        new InstantCommand(()->shooter.update(TurretShooter.shooterState.IDLE)),
+
                         new InstantCommand(()->follower.followPath(park)),
                         new WaitUntilCommand(()->timer.milliseconds()>=29000)
                 )

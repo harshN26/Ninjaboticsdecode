@@ -11,11 +11,13 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.seattlesolvers.solverslib.command.InstantCommand;
+import com.seattlesolvers.solverslib.command.ParallelCommandGroup;
 
 
 import org.firstinspires.ftc.teamcode.Commands.BasicCommands.ResetCommand;
 import org.firstinspires.ftc.teamcode.Commands.BasicCommands.StartAll;
 import org.firstinspires.ftc.teamcode.Commands.multipartCommands.ShootAll;
+import org.firstinspires.ftc.teamcode.Commands.multipartCommands.ShootAll3Inertia;
 import org.firstinspires.ftc.teamcode.Commands.multipartCommands.ShootOnce;
 import org.firstinspires.ftc.teamcode.Subsystems.LLPort;
 import org.firstinspires.ftc.teamcode.Robot_Hardware;
@@ -86,6 +88,14 @@ public class Practice extends OpMode{
         CommandScheduler.getInstance().schedule(
                 new StartAll(follower,shooter,intake,sort, telemetry)
         );
+        CommandScheduler.getInstance().schedule(
+                new ParallelCommandGroup(
+                    new InstantCommand(()->intake.update(Intake.INTAKE_STATE.STOP)),
+                        new InstantCommand(()->shooter.update(TurretShooter.shooterState.IDLE)),
+                        new InstantCommand(()->sort.update(ChamberSort.CHAMBER_STATE.STOP))
+
+                )
+        );
 //        ll.start();
         //TODO: schedule default commands
         CommandScheduler.getInstance().run();
@@ -110,7 +120,10 @@ public class Practice extends OpMode{
         g2RTCurrent=gamepad2.right_trigger>0.5;
 
         if(g1ACurrent&&!g1ALast){
-            CommandScheduler.getInstance().schedule(new ShootAll(shooter,sort,intake));
+            if(shooter.horizontalDistance>90)
+                CommandScheduler.getInstance().schedule(new ShootAll(shooter,sort,intake));
+            else
+                CommandScheduler.getInstance().schedule(new ShootAll3Inertia(shooter,sort,intake));
         }
         if(g2ACurrent&&!g2ALast){
             CommandScheduler.getInstance().schedule((new ShootOnce(shooter,sort,intake)));

@@ -220,7 +220,7 @@ public class Robot_Hardware{
         loopTimer.reset();
 
         telem.addLine("pose"+ new Pose(x, y));
-        telem.update();
+//        telem.update();
 
     }
 

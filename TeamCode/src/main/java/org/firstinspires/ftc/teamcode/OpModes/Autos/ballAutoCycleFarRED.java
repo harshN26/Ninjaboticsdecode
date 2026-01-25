@@ -69,7 +69,7 @@ public class ballAutoCycleFarRED extends OpMode {
         follower = org.firstinspires.ftc.teamcode.pedroPathing.Constants.createFollower(hardwareMap);
         follower.setStartingPose(robot.pose);
         follower.update();
-        shooter.offsetConstant=-27;
+//        shooter.offsetConstant=-27;
 
         initPaths();
 
@@ -89,7 +89,7 @@ public class ballAutoCycleFarRED extends OpMode {
                         new InstantCommand(()->timer.reset()),
                         new ParallelRaceGroup(
                                 new ShootAllAUTOFAR(shooter,sort,intake),
-                                new WaitUntilCommand(()->timer.milliseconds()>3000)
+                                new WaitUntilCommand(()->timer.milliseconds()>1500)
                         ),
                         //Collect balls1
                         new InstantCommand(()->follower.followPath(collectBalls1)),
@@ -107,7 +107,7 @@ public class ballAutoCycleFarRED extends OpMode {
                         new InstantCommand(()->robot.autoPoseResetApproval=true),
                         new ParallelRaceGroup(
                                 new ShootAllAUTOFAR(shooter,sort,intake),
-                                new WaitUntilCommand(()->timer.milliseconds()>3000)
+                                new WaitUntilCommand(()->timer.milliseconds()>1500)
                         ),
                         new InstantCommand(()->robot.autoPoseResetApproval=false),
 
@@ -126,15 +126,16 @@ public class ballAutoCycleFarRED extends OpMode {
                         new InstantCommand(()->robot.autoPoseResetApproval=true),
                         new ParallelRaceGroup(
                                 new ShootAllAUTOFAR(shooter,sort,intake),
-                                new WaitUntilCommand(()->timer.milliseconds()>3000)
+                                new WaitUntilCommand(()->timer.milliseconds()>1500)
                         ),
                         new InstantCommand(()->robot.autoPoseResetApproval=false),
+                        new InstantCommand(()-> shooter.update(TurretShooter.shooterState.IDLE)),
 
 
 
                         new InstantCommand(()->intake.update(Intake.INTAKE_STATE.IN)),
                         new InstantCommand(()->sort.update(ChamberSort.CHAMBER_STATE.IN)),
-                        new InstantCommand(()->shooter.update(TurretShooter.shooterState.IDLE)),
+
                         new InstantCommand(()->follower.followPath(park)),
                         new WaitUntilCommand(()->timer.milliseconds()>=29000)
                 )
