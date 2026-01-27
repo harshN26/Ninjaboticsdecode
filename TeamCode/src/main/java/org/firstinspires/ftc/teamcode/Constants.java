@@ -16,7 +16,7 @@ public class Constants {
 
     //TODO: add all positions and update
     public static final int ShooterResetRPM =0;
-    public static final int ShooterIdleRPM =0;
+    public static final int ShooterIdleRPM =3000;
     public static final int ShooterStopRPM =0;
 
     public static final double hoodMaxPos =0.5;
@@ -35,7 +35,7 @@ public class Constants {
     public static final Pose blueGoal=new Pose(0,142);
     public static double zGoal=40; //in
 
-    public static double shooterHeight=16;//in
+    public static double shooterHeight=14;//in
     public static final double shooterWheelRadius=1.5;//in
 
     public static final double g = 386.09; // in/s^2
@@ -54,7 +54,7 @@ public class Constants {
 
 
 
-    public static double[] pidCoeffs_turret ={0.02,0.012,0.0007};
+    public static double[] pidCoeffs_turret ={0.012,0.012,0.0007};
     public static final int tolerance_turret=5;
 
     public static double tolerance_shooter=500;
@@ -63,7 +63,7 @@ public class Constants {
 
     public static final double TICKS_PER_REV_Turret = 537.7;
 
-    public static double shooter_kp=0.0009;
+    public static double shooter_kp=0.0012;
     public static double shooter_kv=0.0002;
     public static double shooter_ks=0.0;
 
@@ -109,7 +109,7 @@ public class Constants {
     public static final double filterR=5.0;
     public static final int filterN=3;
 
-    public static double turretOffsetX=-4.3125, turretOffsetY=-1.125;
+    public static double turretOffsetX=-1.26, turretOffsetY=-1.5;
 
 
 

@@ -220,7 +220,7 @@ public class blueFullSend extends OpMode {
                         new BezierCurve(
                                 Constants.autoCloseBLUEShoot,
                                 new Pose(24.500, 63.000),
-                                new Pose(12.500, 61.000)
+                                new Pose(12.500, 67.000)
                         )
                 )
                 .setLinearHeadingInterpolation(Math.toRadians(175), Math.toRadians(150))
@@ -230,7 +230,7 @@ public class blueFullSend extends OpMode {
                 .pathBuilder()
                 .addPath(
                         new BezierCurve(
-                                new Pose(12.500, 61.000),
+                                new Pose(12.500, 67.000),
                                 new Pose(16.000, 54.000),
                                 new Pose(9.000, 57.000)
                         )

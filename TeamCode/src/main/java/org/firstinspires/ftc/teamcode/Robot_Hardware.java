@@ -202,8 +202,8 @@ public class Robot_Hardware{
             xVelo=driveVector.getXComponent();
             yVelo=driveVector.getYComponent();
             headingVelo=follower.getAngularVelocity();
-            turretX = x + Constants.turretOffsetX * Math.cos(heading) - Constants.turretOffsetY * Math.sin(heading);
-            turretY = y + Constants.turretOffsetX * Math.sin(heading) + Constants.turretOffsetY * Math.cos(heading);
+            turretX = x + (Constants.turretOffsetX * Math.cos(heading) - Constants.turretOffsetY * Math.sin(heading));
+            turretY = y + (Constants.turretOffsetX * Math.sin(heading) + Constants.turretOffsetY * Math.cos(heading));
 //            telem.addLine("goal"+ y);
 //            telem.addLine("pose"+ x);
 
@@ -219,7 +219,7 @@ public class Robot_Hardware{
         telem.addLine("Loop time (milliseconds): "+loopTimer.milliseconds());
         loopTimer.reset();
 
-        telem.addLine("pose"+ new Pose(x, y));
+        telem.addLine("pose"+ new Pose(x, y,heading));
 //        telem.update();
 
     }

@@ -25,7 +25,7 @@ public class ShootAll extends SequentialCommandGroup {
                         new WaitCommand(100),
                     new ShootOnce(shooter,chamberSort,intake),
                     new WaitCommand(500),
-                    new InstantCommand(()->shooter.update(TurretShooter.shooterState.STOP)),
+                    new InstantCommand(()->shooter.update(TurretShooter.shooterState.IDLE)),
                     new InstantCommand(()->intake.update(Intake.INTAKE_STATE.STOP)),
                     new InstantCommand(()->chamberSort.update(ChamberSort.CHAMBER_STATE.STOP))
 
