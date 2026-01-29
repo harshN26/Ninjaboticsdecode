@@ -208,7 +208,9 @@ public class TurretShooter extends SubsystemBase {
         double motorRevs = (dtheta / (2.0 * Math.PI)) * 3.0;
         int targetTicks = (int)(motorRevs * Constants.TICKS_PER_REV_Turret);
         targetTicks = Math.max(-Constants.turretMaxTicks, Math.min(Constants.turretMaxTicks, targetTicks));
-
+        if(LLPort.resultValid){
+            targetTicks=(int)LLPort.getRotation();
+        }
 
 
 
@@ -371,7 +373,7 @@ public class TurretShooter extends SubsystemBase {
         }
 
         telem(); 
-        telemP();
+//        telemP();
     }
 
     public void telem() {

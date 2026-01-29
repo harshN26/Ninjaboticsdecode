@@ -1,5 +1,8 @@
 package org.firstinspires.ftc.teamcode;
 
+import static org.firstinspires.ftc.teamcode.Subsystems.TurretShooter.shooterState.FIRE;
+import static org.firstinspires.ftc.teamcode.Subsystems.TurretShooter.shooterState.FIRENOTURRET;
+
 import com.pedropathing.follower.Follower;
 import com.pedropathing.geometry.Pose;
 import com.pedropathing.math.Vector;
@@ -139,10 +142,10 @@ public class Robot_Hardware{
         turretZero=hardwareMap.get(RevTouchSensor.class,Global_Configs.turretZeroName);
 
 
-//        limelight=hardwareMap.get(Limelight3A.class,Global_Configs.limelightName);
-//        limelight.setPollRateHz(200);
-//        limelight.pipelineSwitch(0);
-////        limelight.start();
+        limelight=hardwareMap.get(Limelight3A.class,Global_Configs.limelightName);
+        limelight.setPollRateHz(200);
+        limelight.pipelineSwitch(0);
+        limelight.start();
 
         telem=telemetry;
 
@@ -172,11 +175,11 @@ public class Robot_Hardware{
             telem.addLine("New Chamber error: "+ignored);
         }
         try {
-//            ll.loop();
-//            if(ll.resultValid&&(currGameState==GameState.TELE)){
-//                follower.setPose(ll.returnPose());
-//            }
-//            ll.telem();
+            ll.loop();
+            if(ll.resultValid&&(shooter.state==FIRE||shooter.state==FIRENOTURRET)){
+               shooter.set_target_turret((int)shooter.getTurretPos()+ ll.getRotation());
+            }
+            ll.telem();
         }catch(Exception ignored){
             telem.addLine("New Limelight error: "+ignored);
         }
@@ -220,7 +223,7 @@ public class Robot_Hardware{
         loopTimer.reset();
 
         telem.addLine("pose"+ new Pose(x, y,heading));
-//        telem.update();
+        telem.update();
 
     }
 
