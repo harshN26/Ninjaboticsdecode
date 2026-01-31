@@ -21,7 +21,6 @@ public class Switchboard extends OpMode {
 
             if (gamepad1.a) {
                 robot.alliance = Robot_Hardware.AllianceColor.RED;
-
                 robot.resetPose=Constants.redResetPose;
             }
             if (gamepad1.b) {

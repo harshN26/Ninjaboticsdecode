@@ -231,6 +231,24 @@ public class Practice extends OpMode{
         if (g1BCurrent&&!g1BLast) {
             follower.setPose(robot.resetPose);
         }
+
+        if(g2RTCurrent&&!g2RTLast&&g2LTCurrent&&!g2LTLast){
+            switch(robot.alliance){
+                case RED:
+                    robot.alliance=Robot_Hardware.AllianceColor.BLUE;
+                    robot.goal= org.firstinspires.ftc.teamcode.Constants.blueGoal;
+                    robot.resetPose=org.firstinspires.ftc.teamcode.Constants.blueResetPose;
+                    robot.aprilTagID=20;
+                    break;
+                case BLUE:
+                    robot.alliance=Robot_Hardware.AllianceColor.RED;
+                    robot.goal= org.firstinspires.ftc.teamcode.Constants.redGoal;
+                    robot.resetPose=org.firstinspires.ftc.teamcode.Constants.redResetPose;
+                    robot.aprilTagID=24;
+                    break;
+                default:
+            }
+        }
         CommandScheduler.getInstance().run();
 
 
