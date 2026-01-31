@@ -50,7 +50,11 @@ public class LLPort {
         LLResult result=robot.limelight.getLatestResult();
 
 
-        if((resultValid = result.isValid())) tx = result.getTx();
+        if((resultValid = result!=null &&
+                result.isValid() &&
+                result.getFiducialResults().size()>0 &&
+                result.getFiducialResults().get(0).getFiducialId()==robot.aprilTagID)
+        ) tx = result.getTx();
         else tx=0.0;
     }
     public static double getRotation() {

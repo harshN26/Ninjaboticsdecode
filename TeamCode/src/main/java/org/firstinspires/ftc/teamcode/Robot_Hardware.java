@@ -80,6 +80,8 @@ public class Robot_Hardware{
 
     public static boolean firing=false;
 
+    public static int aprilTagID=24;
+
     Telemetry telem;
 
 
@@ -156,10 +158,10 @@ public class Robot_Hardware{
 
         if(alliance==AllianceColor.RED){
             goal= Constants.redGoal;
-
+            aprilTagID=24;
         }else{
             goal= Constants.blueGoal;
-
+            aprilTagID=20;
         }
 
     }
