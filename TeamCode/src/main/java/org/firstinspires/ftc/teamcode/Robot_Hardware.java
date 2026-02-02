@@ -84,6 +84,8 @@ public class Robot_Hardware{
 
     Telemetry telem;
 
+    public static int turretPos=0;
+
 
 
 
@@ -116,7 +118,7 @@ public class Robot_Hardware{
             turret.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             turret.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
             turret.setDirection(DcMotorSimple.Direction.REVERSE);
-            turret.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+            turret.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
         }
         if(Global_Configs.intakeStatus== Global_Configs.DOFStatus.ACTIVE) {
             intake=hwMap.get(DcMotorEx.class, Global_Configs.intakeName);
@@ -187,6 +189,7 @@ public class Robot_Hardware{
         }
         try {
             shooter.loop();
+            turretPos=shooter.getTurretPos();
         }catch(Exception ignored){
             telem.addLine("New Shooter error: "+ignored);
         }
