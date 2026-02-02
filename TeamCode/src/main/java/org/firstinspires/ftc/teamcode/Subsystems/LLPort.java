@@ -70,7 +70,7 @@ public class LLPort {
     }
     public static double getRotation() {
 
-        double motorRevs = (tx / (360));
+        double motorRevs = -(tx / (360));
         int targetTicks = (int)(motorRevs * Constants.TICKS_PER_REV_Turret)+robot.turretPos;
         targetTicks = Math.max(-Constants.turretMaxTicks, Math.min(Constants.turretMaxTicks, targetTicks));
         return targetTicks;
