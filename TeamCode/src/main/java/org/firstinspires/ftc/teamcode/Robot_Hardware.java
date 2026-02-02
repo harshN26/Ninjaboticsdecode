@@ -147,7 +147,7 @@ public class Robot_Hardware{
 
 
         limelight=hardwareMap.get(Limelight3A.class,Global_Configs.limelightName);
-        limelight.setPollRateHz(200);
+        limelight.setPollRateHz(250);
         limelight.pipelineSwitch(0);
         limelight.start();
 
@@ -180,9 +180,6 @@ public class Robot_Hardware{
         }
         try {
             ll.loop();
-            if(ll.resultValid&&(shooter.state==FIRE||shooter.state==FIRENOTURRET)){
-               shooter.set_target_turret((int)shooter.getTurretPos()+ ll.getRotation());
-            }
             ll.telem();
         }catch(Exception ignored){
             telem.addLine("New Limelight error: "+ignored);
