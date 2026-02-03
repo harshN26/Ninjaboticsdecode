@@ -62,7 +62,7 @@ public class LLPort {
                 result.getFiducialResults().get(0).getFiducialId()==robot.aprilTagID)
         ){
             tx=result.getFiducialResults().get(0).getTargetXDegrees();
-            if(TurretShooter.state==FIRE||TurretShooter.state==AUTOCLOSE||TurretShooter.state==AUTOFAR){
+            if((TurretShooter.state==FIRE||TurretShooter.state==AUTOCLOSE||TurretShooter.state==AUTOFAR)&&robot.x==0){
                 takeover=true;
             }
         }
