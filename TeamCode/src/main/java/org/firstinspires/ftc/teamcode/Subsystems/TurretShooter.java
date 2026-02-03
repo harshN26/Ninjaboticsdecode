@@ -23,7 +23,7 @@ public class TurretShooter extends SubsystemBase {
     Robot_Hardware robot;
 
 
-    public enum shooterState {FIRE, IDLE, STOP, RESET, AUTOCLOSE, AUTOFAR, FIRENOTURRET}
+    public enum shooterState {FIRE, IDLE, STOP, RESET, AUTOCLOSE, AUTOFAR, FIRENOTURRET,TRACKING_TURRET}
     public int offsetConstant;
     public double hoodPosC;
     public static shooterState state = shooterState.IDLE;
@@ -307,6 +307,13 @@ public class TurretShooter extends SubsystemBase {
                 set_targetRPM_shooter(Constants.ShooterStopRPM);
                 setHoodTarget(Constants.hoodMaxPos+hoodOffset);
                 set_target_turret(offsetConstant);
+                LLPort.takeover=false;
+                break;
+            case TRACKING_TURRET:
+                // complete standstill, analysing if something is wrong or on low voltage
+                set_targetRPM_shooter(Constants.ShooterStopRPM);
+                setHoodTarget(results[2]);
+                set_target_turret((int)results[3]);
                 LLPort.takeover=false;
                 break;
             case RESET:
