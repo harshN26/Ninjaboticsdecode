@@ -31,7 +31,7 @@ public class Constants {
 
 
 
-    public static final Pose redGoal=new Pose(142,140);
+    public static final Pose redGoal=new Pose(142,142);
     public static final Pose blueGoal=new Pose(0,142);
     public static double zGoal=40; //in
 

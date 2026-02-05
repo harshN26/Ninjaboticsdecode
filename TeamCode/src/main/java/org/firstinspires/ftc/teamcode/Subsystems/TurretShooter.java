@@ -200,6 +200,7 @@ public class TurretShooter extends SubsystemBase {
 //            turretCurrAngle -= 2 * Math.PI;
 //        }
         turretCurrAngle = Math.atan2(Math.sin(turretCurrAngle), Math.cos(turretCurrAngle));
+        
 
         double dtheta1 = (turretCurrAngle - fieldAngle) % (2 * Math.PI);
         double dtheta2 = ((turretCurrAngle + 2 * Math.PI) - fieldAngle) % (2 * Math.PI);
