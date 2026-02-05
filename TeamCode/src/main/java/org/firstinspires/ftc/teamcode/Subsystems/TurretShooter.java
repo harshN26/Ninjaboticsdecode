@@ -200,7 +200,7 @@ public class TurretShooter extends SubsystemBase {
 //            turretCurrAngle -= 2 * Math.PI;
 //        }
         turretCurrAngle = Math.atan2(Math.sin(turretCurrAngle), Math.cos(turretCurrAngle));
-        
+
 
         double dtheta1 = (turretCurrAngle - fieldAngle) % (2 * Math.PI);
         double dtheta2 = ((turretCurrAngle + 2 * Math.PI) - fieldAngle) % (2 * Math.PI);
@@ -385,7 +385,7 @@ public class TurretShooter extends SubsystemBase {
         }
 
         telem(); 
-//        telemP();
+        telemP();
     }
 
     public void telem() {
@@ -406,7 +406,7 @@ public class TurretShooter extends SubsystemBase {
         telemetry.addLine("target RPM: "+targetRPM_shooter);
         telemetry.addLine("current RPM: " + currentRPM_shooter);
         telemetry.addLine("target turret Pos: " + turretTarget);
-        telemetry.addLine("current turret Pos: " + turretTarget);
+        telemetry.addLine("current turret Pos: " + turretCurrPos);
         telemetry.addLine("target hood Pos: " + targetHoodPos);
         telemetry.addLine("current hood Pos: " + targetHoodPos);
         telemetry.addLine("shooter in range: " + inRange);

@@ -48,31 +48,31 @@ public class Constants {
             .useVoltageCompensation(true);
 
 
-    public static ThreeWheelIMUConstants localizerConstants =
-            new ThreeWheelIMUConstants()
-                    .forwardTicksToInches(0.0010609088278141003)
-                    .strafeTicksToInches(0.0010486712643076903)
-                    .turnTicksToInches(0.001428505931999635)
-                    .leftPodY(3.75)
-                    .rightPodY(-3.75)
-                    .strafePodX(-7)
-                    .leftEncoder_HardwareMapName("frontLeft")
-                    .rightEncoder_HardwareMapName("frontRight")
-                    .strafeEncoder_HardwareMapName("backRight")
-                    .leftEncoderDirection(Encoder.REVERSE)
-                    .rightEncoderDirection(Encoder.REVERSE)
-                    .strafeEncoderDirection(Encoder.REVERSE)
-                    .IMU_HardwareMapName("imu")
-                    .IMU_Orientation(new RevHubOrientationOnRobot(RevHubOrientationOnRobot.LogoFacingDirection.LEFT, RevHubOrientationOnRobot.UsbFacingDirection.FORWARD));
+//    public static ThreeWheelIMUConstants localizerConstants =
+//            new ThreeWheelIMUConstants()
+//                    .forwardTicksToInches(0.0010609088278141003)
+//                    .strafeTicksToInches(0.0010486712643076903)
+//                    .turnTicksToInches(0.001428505931999635)
+//                    .leftPodY(3.75)
+//                    .rightPodY(-3.75)
+//                    .strafePodX(-7)
+//                    .leftEncoder_HardwareMapName("frontLeft")
+//                    .rightEncoder_HardwareMapName("frontRight")
+//                    .strafeEncoder_HardwareMapName("backRight")
+//                    .leftEncoderDirection(Encoder.REVERSE)
+//                    .rightEncoderDirection(Encoder.REVERSE)
+//                    .strafeEncoderDirection(Encoder.REVERSE)
+//                    .IMU_HardwareMapName("imu")
+//                    .IMU_Orientation(new RevHubOrientationOnRobot(RevHubOrientationOnRobot.LogoFacingDirection.LEFT, RevHubOrientationOnRobot.UsbFacingDirection.FORWARD));
 
-//    public static PinpointConstants localizerConstants = new PinpointConstants()
-//            .forwardPodY(3.75)
-//            .strafePodX(-7)
-//            .distanceUnit(DistanceUnit.INCH)
-//            .hardwareMapName("pinpoint")
-//            .customEncoderResolution((double)4096/(35*Math.PI))
-//            .forwardEncoderDirection(GoBildaPinpointDriver.EncoderDirection.REVERSED)
-//            .strafeEncoderDirection(GoBildaPinpointDriver.EncoderDirection.REVERSED);
+    public static PinpointConstants localizerConstants = new PinpointConstants()
+            .forwardPodY(3.75)
+            .strafePodX(-7)
+            .distanceUnit(DistanceUnit.INCH)
+            .hardwareMapName("pinpoint")
+            .customEncoderResolution((double)4096/(1.37795257*Math.PI))
+            .forwardEncoderDirection(GoBildaPinpointDriver.EncoderDirection.REVERSED)
+            .strafeEncoderDirection(GoBildaPinpointDriver.EncoderDirection.REVERSED);
 
     public static PathConstraints pathConstraints = new PathConstraints(
             0.8,
@@ -87,7 +87,7 @@ public class Constants {
 
     public static Follower createFollower(HardwareMap hardwareMap) {
         return new FollowerBuilder(followerConstants, hardwareMap)
-                .threeWheelIMULocalizer(localizerConstants)
+                .pinpointLocalizer(localizerConstants)
                 .pathConstraints(pathConstraints)
                 .mecanumDrivetrain(driveConstants)
                 .build();

@@ -1,6 +1,5 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.OpModes.Teles;
 
-import com.acmerobotics.dashboard.config.Config;
 import com.bylazar.configurables.annotations.Configurable;
 import com.bylazar.telemetry.PanelsTelemetry;
 import com.bylazar.telemetry.TelemetryManager;
@@ -9,6 +8,9 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.seattlesolvers.solverslib.controller.PIDController;
+
+import org.firstinspires.ftc.teamcode.Constants;
+import org.firstinspires.ftc.teamcode.Global_Configs;
 
 
 @Configurable
@@ -24,7 +26,7 @@ public class TurretTuner extends LinearOpMode {
         DcMotor turretMotor;
         PIDController pid;
         pid=new PIDController(0,0,0);
-        turretMotor=hardwareMap.get(DcMotor.class,Global_Configs.turretName);
+        turretMotor=hardwareMap.get(DcMotor.class, Global_Configs.turretName);
         sensor=hardwareMap.get(RevTouchSensor.class, Global_Configs.turretZeroName);
         telem= PanelsTelemetry.INSTANCE.getTelemetry();
 
