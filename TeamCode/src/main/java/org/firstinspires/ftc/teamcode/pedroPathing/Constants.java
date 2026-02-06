@@ -70,7 +70,7 @@ public class Constants {
             .strafePodX(-7)
             .distanceUnit(DistanceUnit.INCH)
             .hardwareMapName("pinpoint")
-            .customEncoderResolution((double)4096/(1.37795257*Math.PI))
+            .customEncoderResolution((double)4096/(35*Math.PI*2))
             .forwardEncoderDirection(GoBildaPinpointDriver.EncoderDirection.REVERSED)
             .strafeEncoderDirection(GoBildaPinpointDriver.EncoderDirection.REVERSED);
 

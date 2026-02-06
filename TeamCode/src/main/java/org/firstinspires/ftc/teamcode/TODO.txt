@@ -1,7 +1,7 @@
--- add color sensors
+-- pinpoint isnt tracking well for some reason..... test localization on pedro
 
--- get instant shooting commands with waits
+-- rpm tuning
 
--- current detection and compensation for shooter
+-- maybe retune turret?
 
--- when shooter target is 0rpm, make the shooter float and ramp down by itself to add current to battery and make it spin for longer
+-- sotm
