@@ -14,11 +14,7 @@ import com.seattlesolvers.solverslib.command.InstantCommand;
 import com.seattlesolvers.solverslib.command.ParallelCommandGroup;
 
 
-import org.firstinspires.ftc.teamcode.Commands.BasicCommands.ResetCommand;
 import org.firstinspires.ftc.teamcode.Commands.BasicCommands.StartAll;
-import org.firstinspires.ftc.teamcode.Commands.multipartCommands.ShootAll;
-import org.firstinspires.ftc.teamcode.Commands.multipartCommands.ShootAll3Inertia;
-import org.firstinspires.ftc.teamcode.Commands.multipartCommands.ShootOnce;
 import org.firstinspires.ftc.teamcode.Subsystems.LLPort;
 import org.firstinspires.ftc.teamcode.Robot_Hardware;
 import org.firstinspires.ftc.teamcode.Subsystems.ChamberSort;
@@ -29,7 +25,7 @@ import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
 
 
 @TeleOp(name="turret_tracking", group="P3")
-public class tracking_tester extends OpMode{
+public class turret_tracking_tester extends OpMode{
     Robot_Hardware robot=Robot_Hardware.getInstance();
     ElapsedTime timer;
 
