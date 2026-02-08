@@ -16,7 +16,7 @@ public class Constants {
 
     //TODO: add all positions and update
     public static final int ShooterResetRPM =0;
-    public static final int ShooterIdleRPM =1000;
+    public static final int ShooterIdleRPM =2000;
     public static final int ShooterStopRPM =0;
 
     public static final double hoodMaxPos =0.5;

@@ -38,8 +38,9 @@ public class Global_Configs {
     public final static String turretZeroName="turretZero";
     public final static String limelightName="limelight";
 
-
-//    public final static String ledsName="leds";
+    public final static String colorIn="colorIn";
+    public final static String colorOut="colorOut";
+    public final static String ledsName="leds";
 
 
 }

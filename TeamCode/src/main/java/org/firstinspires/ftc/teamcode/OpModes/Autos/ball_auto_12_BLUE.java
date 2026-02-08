@@ -24,6 +24,8 @@ import org.firstinspires.ftc.teamcode.Robot_Hardware;
 import org.firstinspires.ftc.teamcode.Subsystems.ChamberSort;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake;
 import org.firstinspires.ftc.teamcode.Subsystems.TurretShooter;
+import org.firstinspires.ftc.teamcode.Subsystems.colorLeds;
+
 //@Disabled
 @Autonomous(name="Goal12BlueWithGate")
 public class ball_auto_12_BLUE extends OpMode {
@@ -41,6 +43,7 @@ public class ball_auto_12_BLUE extends OpMode {
     TurretShooter shooter;
 
     LLPort ll;
+    colorLeds led;
 
 
 
@@ -69,6 +72,7 @@ public class ball_auto_12_BLUE extends OpMode {
         shooter=new TurretShooter(robot,telemetry);
 
         ll=new LLPort(telemetry,robot);
+        led=new colorLeds(robot,telemetry);
 
         robot.init(hardwareMap,telemetry);
 
@@ -289,7 +293,7 @@ public class ball_auto_12_BLUE extends OpMode {
     }
     public void loop(){
 
-        robot.loop(sort, shooter, intake, follower,ll);
+        robot.loop(sort, shooter, intake, follower,ll,led);
 
 
         CommandScheduler.getInstance().run();

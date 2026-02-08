@@ -7,6 +7,7 @@ import com.pedropathing.follower.Follower;
 import com.pedropathing.geometry.Pose;
 import com.pedropathing.math.Vector;
 import com.qualcomm.hardware.limelightvision.Limelight3A;
+import com.qualcomm.hardware.rev.RevColorSensorV3;
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.hardware.rev.RevTouchSensor;
 import com.qualcomm.robotcore.hardware.CRServo;
@@ -25,6 +26,7 @@ import org.firstinspires.ftc.teamcode.Subsystems.LLPort;
 import org.firstinspires.ftc.teamcode.Subsystems.ChamberSort;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake;
 import org.firstinspires.ftc.teamcode.Subsystems.TurretShooter;
+import org.firstinspires.ftc.teamcode.Subsystems.colorLeds;
 
 
 public class Robot_Hardware{
@@ -85,6 +87,11 @@ public class Robot_Hardware{
     Telemetry telem;
 
     public static int turretPos=0;
+
+    public static RevColorSensorV3 colorin;
+    public static RevColorSensorV3 colorout;
+
+    public static Servo led;
 
 
 
@@ -151,6 +158,11 @@ public class Robot_Hardware{
         limelight.pipelineSwitch(0);
         limelight.start();
 
+        colorin=hardwareMap.get(RevColorSensorV3.class, Global_Configs.colorIn);
+        colorin.initialize();
+        colorout=hardwareMap.get(RevColorSensorV3.class, Global_Configs.colorOut);
+        colorout.initialize();
+        led=hardwareMap.get(Servo.class,Global_Configs.ledsName);
         telem=telemetry;
 
 
@@ -170,7 +182,7 @@ public class Robot_Hardware{
 
 
 
-    public void loop(ChamberSort chamber, TurretShooter shooter, Intake intakeSubsystem, Follower follower, LLPort ll){
+    public void loop(ChamberSort chamber, TurretShooter shooter, Intake intakeSubsystem, Follower follower, LLPort ll, colorLeds led){
 
 
         try {
@@ -192,6 +204,11 @@ public class Robot_Hardware{
         }
         try{
             intakeSubsystem.loop();
+        }catch (Exception ignored){
+            telem.addLine("New Intake error: "+ignored);
+        }
+        try{
+            led.loop();
         }catch (Exception ignored){
             telem.addLine("New Intake error: "+ignored);
         }

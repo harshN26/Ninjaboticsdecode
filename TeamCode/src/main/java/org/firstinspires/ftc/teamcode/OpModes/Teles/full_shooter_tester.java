@@ -25,6 +25,7 @@ import org.firstinspires.ftc.teamcode.Subsystems.ChamberSort;
 
 import org.firstinspires.ftc.teamcode.Subsystems.Intake;
 import org.firstinspires.ftc.teamcode.Subsystems.TurretShooter;
+import org.firstinspires.ftc.teamcode.Subsystems.colorLeds;
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
 
 
@@ -51,6 +52,7 @@ public class full_shooter_tester extends OpMode{
     public double drive_mult_pow=1.0;
 
     ElapsedTime loopTimer;
+    colorLeds led;
 
     public void init(){
         timer=new ElapsedTime();
@@ -76,6 +78,7 @@ public class full_shooter_tester extends OpMode{
 
 
         ll=new LLPort(telemetry,robot);
+        led=new colorLeds(robot,telemetry);
 
 
 
@@ -172,7 +175,7 @@ public class full_shooter_tester extends OpMode{
         }
 
 
-        robot.loop(sort, shooter, intake, follower,ll);
+        robot.loop(sort, shooter, intake, follower,ll,led);
 
 
         if (g1BCurrent&&!g1BLast) {

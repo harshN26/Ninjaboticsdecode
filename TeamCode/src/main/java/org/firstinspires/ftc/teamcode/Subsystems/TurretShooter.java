@@ -385,7 +385,7 @@ public class TurretShooter extends SubsystemBase {
         }
 
         telem(); 
-        telemP();
+//        telemP();
     }
 
     public void telem() {

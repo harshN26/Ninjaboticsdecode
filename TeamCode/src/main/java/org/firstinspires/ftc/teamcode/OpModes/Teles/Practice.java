@@ -25,6 +25,7 @@ import org.firstinspires.ftc.teamcode.Subsystems.ChamberSort;
 
 import org.firstinspires.ftc.teamcode.Subsystems.Intake;
 import org.firstinspires.ftc.teamcode.Subsystems.TurretShooter;
+import org.firstinspires.ftc.teamcode.Subsystems.colorLeds;
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
 
 
@@ -51,6 +52,7 @@ public class Practice extends OpMode{
     public double drive_mult_pow=1.0;
 
     ElapsedTime loopTimer;
+    colorLeds led;
 
     public void init(){
         timer=new ElapsedTime();
@@ -63,6 +65,7 @@ public class Practice extends OpMode{
         sort=new ChamberSort(robot, telemetry);
         intake=new Intake(robot, telemetry);
         shooter=new TurretShooter(robot, telemetry);
+        led=new colorLeds(robot,telemetry);
 
         follower = Constants.createFollower(hardwareMap);
 
@@ -121,7 +124,7 @@ public class Practice extends OpMode{
         g2RTCurrent=gamepad2.right_trigger>0.5;
 
         if(g1ACurrent&&!g1ALast){
-            if(shooter.horizontalDistance>100)
+            if(shooter.horizontalDistance>160)
                 CommandScheduler.getInstance().schedule(new ShootAll(shooter,sort,intake));
             else
                 CommandScheduler.getInstance().schedule(new ShootAll3Inertia(shooter,sort,intake));
@@ -225,7 +228,7 @@ public class Practice extends OpMode{
         }
 
 
-        robot.loop(sort, shooter, intake, follower,ll);
+        robot.loop(sort, shooter, intake, follower,ll, led);
 
 
         if (g1BCurrent&&!g1BLast) {
