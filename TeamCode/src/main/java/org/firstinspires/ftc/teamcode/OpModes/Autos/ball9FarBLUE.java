@@ -24,7 +24,7 @@ import org.firstinspires.ftc.teamcode.Subsystems.ChamberSort;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake;
 import org.firstinspires.ftc.teamcode.Subsystems.LLPort;
 import org.firstinspires.ftc.teamcode.Subsystems.TurretShooter;
-import org.firstinspires.ftc.teamcode.Subsystems.colorLeds;
+import org.firstinspires.ftc.teamcode.Subsystems.ColorLeds;
 
 @Autonomous(name="FarBlue9")
 public class ball9FarBLUE extends OpMode {
@@ -42,7 +42,7 @@ public class ball9FarBLUE extends OpMode {
     TurretShooter shooter;
 
     LLPort ll;
-    colorLeds led;
+    ColorLeds led;
 
 
 
@@ -68,7 +68,7 @@ public class ball9FarBLUE extends OpMode {
         shooter=new TurretShooter(robot,telemetry);
 
         ll=new LLPort(telemetry,robot);
-        led=new colorLeds(robot,telemetry);
+        led=new ColorLeds(robot,telemetry);
 
         robot.init(hardwareMap,telemetry);
 

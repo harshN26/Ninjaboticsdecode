@@ -3,7 +3,6 @@ package org.firstinspires.ftc.teamcode.OpModes.Autos;
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.pedropathing.follower.Follower;
-import com.pedropathing.geometry.BezierCurve;
 import com.pedropathing.geometry.BezierLine;
 import com.pedropathing.geometry.Pose;
 import com.pedropathing.paths.PathChain;
@@ -17,7 +16,6 @@ import com.seattlesolvers.solverslib.command.SequentialCommandGroup;
 import com.seattlesolvers.solverslib.command.WaitCommand;
 import com.seattlesolvers.solverslib.command.WaitUntilCommand;
 
-import org.firstinspires.ftc.teamcode.Commands.multipartCommands.ShootAllAUTOCLOSE;
 import org.firstinspires.ftc.teamcode.Commands.multipartCommands.ShootAllAUTOFAR;
 import org.firstinspires.ftc.teamcode.Constants;
 import org.firstinspires.ftc.teamcode.Robot_Hardware;
@@ -25,7 +23,7 @@ import org.firstinspires.ftc.teamcode.Subsystems.ChamberSort;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake;
 import org.firstinspires.ftc.teamcode.Subsystems.LLPort;
 import org.firstinspires.ftc.teamcode.Subsystems.TurretShooter;
-import org.firstinspires.ftc.teamcode.Subsystems.colorLeds;
+import org.firstinspires.ftc.teamcode.Subsystems.ColorLeds;
 
 @Autonomous(name="FarBlueCycling")
 public class ballAutoCycleFarBLUE extends OpMode {
@@ -43,7 +41,7 @@ public class ballAutoCycleFarBLUE extends OpMode {
     TurretShooter shooter;
 
     LLPort ll;
-    colorLeds led;
+    ColorLeds led;
 
 
 
@@ -67,7 +65,7 @@ public class ballAutoCycleFarBLUE extends OpMode {
         shooter=new TurretShooter(robot,telemetry);
 
         ll=new LLPort(telemetry,robot);
-        led=new colorLeds(robot,telemetry);
+        led=new ColorLeds(robot,telemetry);
 
         robot.init(hardwareMap,telemetry);
 

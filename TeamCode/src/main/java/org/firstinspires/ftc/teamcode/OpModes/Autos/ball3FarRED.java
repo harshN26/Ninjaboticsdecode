@@ -23,7 +23,7 @@ import org.firstinspires.ftc.teamcode.Subsystems.ChamberSort;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake;
 import org.firstinspires.ftc.teamcode.Subsystems.LLPort;
 import org.firstinspires.ftc.teamcode.Subsystems.TurretShooter;
-import org.firstinspires.ftc.teamcode.Subsystems.colorLeds;
+import org.firstinspires.ftc.teamcode.Subsystems.ColorLeds;
 
 @Autonomous(name="FarRedPreload")
 public class ball3FarRED extends OpMode {
@@ -41,7 +41,7 @@ public class ball3FarRED extends OpMode {
     TurretShooter shooter;
 
     LLPort ll;
-    colorLeds led;
+    ColorLeds led;
 
 
 
@@ -70,7 +70,7 @@ public class ball3FarRED extends OpMode {
 
         follower = org.firstinspires.ftc.teamcode.pedroPathing.Constants.createFollower(hardwareMap);
         follower.setStartingPose(robot.pose);
-        led=new colorLeds(robot,telemetry);
+        led=new ColorLeds(robot,telemetry);
         follower.update();
 //        shooter.offsetConstant=-27;
 

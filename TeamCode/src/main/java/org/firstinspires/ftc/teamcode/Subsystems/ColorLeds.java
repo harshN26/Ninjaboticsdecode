@@ -1,22 +1,19 @@
 package org.firstinspires.ftc.teamcode.Subsystems;
 
-import android.graphics.Color;
-
 import com.qualcomm.robotcore.hardware.NormalizedRGBA;
 import com.seattlesolvers.solverslib.command.SubsystemBase;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
-import org.firstinspires.ftc.teamcode.Constants;
-import org.firstinspires.ftc.teamcode.Global_Configs;
 import org.firstinspires.ftc.teamcode.Robot_Hardware;
 
-public class colorLeds extends SubsystemBase {
+public class ColorLeds extends SubsystemBase {
 
     Robot_Hardware robot;
     Telemetry telem;
 
     public enum LED {ON, OFF}
+    public enum ARTIFACT_COLOR{GREEN,PURPLE,NONE}
 
     LED state = LED.OFF;
 
@@ -25,7 +22,9 @@ public class colorLeds extends SubsystemBase {
 
 
 
-    public colorLeds(Robot_Hardware hardware, Telemetry telemetry) {
+
+
+    public ColorLeds(Robot_Hardware hardware, Telemetry telemetry) {
         robot = hardware;
         telem = telemetry;
     }
@@ -37,6 +36,7 @@ public class colorLeds extends SubsystemBase {
 
     public void loop() {
         dataCollection();
+        processColors();
         colorDetection();
 
         switch (state) {
@@ -51,11 +51,15 @@ public class colorLeds extends SubsystemBase {
         telem();
     }
 
+
     public void dataCollection(){
         in=robot.colorin.getNormalizedColors();
         out=robot.colorout.getNormalizedColors();
         inDist= robot.colorin.getDistance(DistanceUnit.MM);
         outDist= robot.colorin.getDistance(DistanceUnit.MM);
+    }
+    public void processColors(){
+
     }
 
     public void colorDetection(){

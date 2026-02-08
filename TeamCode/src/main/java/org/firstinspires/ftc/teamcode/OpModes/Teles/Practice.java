@@ -14,7 +14,6 @@ import com.seattlesolvers.solverslib.command.InstantCommand;
 import com.seattlesolvers.solverslib.command.ParallelCommandGroup;
 
 
-import org.firstinspires.ftc.teamcode.Commands.BasicCommands.ResetCommand;
 import org.firstinspires.ftc.teamcode.Commands.BasicCommands.StartAll;
 import org.firstinspires.ftc.teamcode.Commands.multipartCommands.ShootAll;
 import org.firstinspires.ftc.teamcode.Commands.multipartCommands.ShootAll3Inertia;
@@ -25,7 +24,7 @@ import org.firstinspires.ftc.teamcode.Subsystems.ChamberSort;
 
 import org.firstinspires.ftc.teamcode.Subsystems.Intake;
 import org.firstinspires.ftc.teamcode.Subsystems.TurretShooter;
-import org.firstinspires.ftc.teamcode.Subsystems.colorLeds;
+import org.firstinspires.ftc.teamcode.Subsystems.ColorLeds;
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
 
 
@@ -52,7 +51,7 @@ public class Practice extends OpMode{
     public double drive_mult_pow=1.0;
 
     ElapsedTime loopTimer;
-    colorLeds led;
+    ColorLeds led;
 
     public void init(){
         timer=new ElapsedTime();
@@ -65,7 +64,7 @@ public class Practice extends OpMode{
         sort=new ChamberSort(robot, telemetry);
         intake=new Intake(robot, telemetry);
         shooter=new TurretShooter(robot, telemetry);
-        led=new colorLeds(robot,telemetry);
+        led=new ColorLeds(robot,telemetry);
 
         follower = Constants.createFollower(hardwareMap);
 

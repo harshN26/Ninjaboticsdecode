@@ -18,14 +18,13 @@ import com.seattlesolvers.solverslib.command.WaitCommand;
 import com.seattlesolvers.solverslib.command.WaitUntilCommand;
 
 import org.firstinspires.ftc.teamcode.Commands.multipartCommands.ShootAllAUTOCLOSE;
-import org.firstinspires.ftc.teamcode.Commands.multipartCommands.ShootAllAUTOFAR;
 import org.firstinspires.ftc.teamcode.Constants;
 import org.firstinspires.ftc.teamcode.Robot_Hardware;
 import org.firstinspires.ftc.teamcode.Subsystems.ChamberSort;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake;
 import org.firstinspires.ftc.teamcode.Subsystems.LLPort;
 import org.firstinspires.ftc.teamcode.Subsystems.TurretShooter;
-import org.firstinspires.ftc.teamcode.Subsystems.colorLeds;
+import org.firstinspires.ftc.teamcode.Subsystems.ColorLeds;
 
 @Autonomous(name="Goal9Red")
 public class red9Close extends OpMode {
@@ -44,7 +43,7 @@ public class red9Close extends OpMode {
 
     LLPort ll;
 
-    colorLeds led;
+    ColorLeds led;
 
     PathChain path1;
     PathChain collectBalls1, collectBalls2;
@@ -68,7 +67,7 @@ public class red9Close extends OpMode {
         shooter=new TurretShooter(robot,telemetry);
 
         ll=new LLPort(telemetry,robot);
-        led=new colorLeds(robot,telemetry);
+        led=new ColorLeds(robot,telemetry);
 
         robot.init(hardwareMap,telemetry);
 
