@@ -32,14 +32,14 @@ public class colorLeds extends SubsystemBase {
     public void update(LED newState) {
         state = newState;
     }
+    
 
-    public void setPowerAll(double pow) {
-        robot.sort1.setPower(pow);
-    }
+
 
     public void loop() {
 
         double colorInDistance = robot.colorin.getDistance(DistanceUnit.CM);
+
         double colorOutDistance = robot.colorout.getDistance(DistanceUnit.CM);
 
         colorDetection();

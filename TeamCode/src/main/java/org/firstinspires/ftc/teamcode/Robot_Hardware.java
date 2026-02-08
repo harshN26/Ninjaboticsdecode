@@ -16,6 +16,7 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.IMU;
+import com.qualcomm.robotcore.hardware.NormalizedColorSensor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.VoltageSensor;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -88,8 +89,7 @@ public class Robot_Hardware{
 
     public static int turretPos=0;
 
-    public static RevColorSensorV3 colorin;
-    public static RevColorSensorV3 colorout;
+    public static RevColorSensorV3 colorin,colorout;
 
     public static Servo led;
 
@@ -159,9 +159,13 @@ public class Robot_Hardware{
         limelight.start();
 
         colorin=hardwareMap.get(RevColorSensorV3.class, Global_Configs.colorIn);
+        colorin.enableLed(true);
         colorin.initialize();
+
         colorout=hardwareMap.get(RevColorSensorV3.class, Global_Configs.colorOut);
-        colorout.initialize();
+        colorout.enableLed(true);
+        colorin.initialize();
+
         led=hardwareMap.get(Servo.class,Global_Configs.ledsName);
         telem=telemetry;
 
@@ -230,8 +234,10 @@ public class Robot_Hardware{
 //            telem.addLine("pose"+ x);
 
         }catch (Exception ignored){
-            telem.addLine("New General error: "+ignored);
+            telem.addLine("New follower error: "+ignored);
         }
+
+
 
         if (voltageTimer.milliseconds() > 100) {
             voltageTimer.reset();
@@ -248,6 +254,8 @@ public class Robot_Hardware{
 
     public void end(){
         limelight.stop();
+        colorin.close();
+        colorout.close();
     }
 
 }
