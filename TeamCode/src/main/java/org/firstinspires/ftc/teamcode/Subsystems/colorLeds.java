@@ -21,6 +21,7 @@ public class colorLeds extends SubsystemBase {
     LED state = LED.OFF;
 
     NormalizedRGBA in,out;
+    double inDist=0,outDist=0;
 
 
 
@@ -32,16 +33,10 @@ public class colorLeds extends SubsystemBase {
     public void update(LED newState) {
         state = newState;
     }
-    
-
 
 
     public void loop() {
-
-        double colorInDistance = robot.colorin.getDistance(DistanceUnit.CM);
-
-        double colorOutDistance = robot.colorout.getDistance(DistanceUnit.CM);
-
+        dataCollection();
         colorDetection();
 
         switch (state) {
@@ -56,9 +51,18 @@ public class colorLeds extends SubsystemBase {
         telem();
     }
 
-    public void colorDetection(){
+    public void dataCollection(){
         in=robot.colorin.getNormalizedColors();
         out=robot.colorout.getNormalizedColors();
+        inDist= robot.colorin.getDistance(DistanceUnit.MM);
+        outDist= robot.colorin.getDistance(DistanceUnit.MM);
+    }
+
+    public void colorDetection(){
+
+
+
+
         if((in.green*10000>5&&in.blue*10000>5)&&(out.green*10000>9&&out.blue*10000>8)){
             update(LED.ON);
         }else {
