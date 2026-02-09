@@ -136,6 +136,48 @@ public class ballAutoCycleFarRED extends OpMode {
 
 
 
+                        new InstantCommand(()->follower.followPath(collectBalls)),
+                        new InstantCommand(()->sort.update(ChamberSort.CHAMBER_STATE.IN)),
+                        new InstantCommand(()->shooter.update(TurretShooter.shooterState.IDLE)),
+                        new InstantCommand(()->intake.update(Intake.INTAKE_STATE.IN)),
+                        new WaitUntilCommand(()->!follower.isBusy()),
+
+
+                        new InstantCommand(()->follower.followPath(backToShoot)),
+                        new InstantCommand(()->shooter.update(TurretShooter.shooterState.AUTOFAR)),
+                        new WaitUntilCommand(()->!follower.isBusy()&&shooter.isInRange()),
+                        new InstantCommand(()->timer.reset()),
+
+                        new InstantCommand(()->robot.autoPoseResetApproval=true),
+                        new ParallelRaceGroup(
+                                new ShootAllAUTOFAR(shooter,sort,intake),
+                                new WaitUntilCommand(()->timer.milliseconds()>1500)
+                        ),
+                        new InstantCommand(()->robot.autoPoseResetApproval=false),
+                        new InstantCommand(()-> shooter.update(TurretShooter.shooterState.IDLE)),
+
+
+                        new InstantCommand(()->follower.followPath(collectBalls)),
+                        new InstantCommand(()->sort.update(ChamberSort.CHAMBER_STATE.IN)),
+                        new InstantCommand(()->shooter.update(TurretShooter.shooterState.IDLE)),
+                        new InstantCommand(()->intake.update(Intake.INTAKE_STATE.IN)),
+                        new WaitUntilCommand(()->!follower.isBusy()),
+
+
+                        new InstantCommand(()->follower.followPath(backToShoot)),
+                        new InstantCommand(()->shooter.update(TurretShooter.shooterState.AUTOFAR)),
+                        new WaitUntilCommand(()->!follower.isBusy()&&shooter.isInRange()),
+                        new InstantCommand(()->timer.reset()),
+                        new InstantCommand(()->robot.autoPoseResetApproval=true),
+                        new ParallelRaceGroup(
+                                new ShootAllAUTOFAR(shooter,sort,intake),
+                                new WaitUntilCommand(()->timer.milliseconds()>1500)
+                        ),
+                        new InstantCommand(()->robot.autoPoseResetApproval=false),
+                        new InstantCommand(()-> shooter.update(TurretShooter.shooterState.IDLE)),
+
+
+
                         new InstantCommand(()->intake.update(Intake.INTAKE_STATE.IN)),
                         new InstantCommand(()->sort.update(ChamberSort.CHAMBER_STATE.IN)),
 
