@@ -27,8 +27,8 @@ import org.firstinspires.ftc.teamcode.Subsystems.TurretShooter;
 import org.firstinspires.ftc.teamcode.Subsystems.ColorLeds;
 
 //@Disabled
-@Autonomous(name="redFullSend")
-public class redFullSend extends OpMode {
+@Autonomous(name="red18")
+public class ball_auto_18_red extends OpMode {
     Robot_Hardware robot=Robot_Hardware.getInstance();
     ElapsedTime timer;
 
@@ -85,102 +85,102 @@ public class redFullSend extends OpMode {
 
         CommandScheduler.getInstance().schedule(
 
-                    new SequentialCommandGroup(
-                            //get everything in position
-                            new InstantCommand(()->sort.update(ChamberSort.CHAMBER_STATE.STOP)),
-                            new InstantCommand(()->shooter.update(TurretShooter.shooterState.IDLE)),
-                            new InstantCommand(()->intake.update(Intake.INTAKE_STATE.STOP)),
+                new SequentialCommandGroup(
+                        //get everything in position
+                        new InstantCommand(()->sort.update(ChamberSort.CHAMBER_STATE.STOP)),
+                        new InstantCommand(()->shooter.update(TurretShooter.shooterState.IDLE)),
+                        new InstantCommand(()->intake.update(Intake.INTAKE_STATE.STOP)),
 
 
-                            // preload
-                            new InstantCommand(()->follower.followPath(path1)),
-                            new InstantCommand(()-> intake.update(Intake.INTAKE_STATE.IN)),
-                            new InstantCommand(()->sort.update(ChamberSort.CHAMBER_STATE.IN)),
-                            new WaitCommand(500),
-                            new InstantCommand(()->shooter.update(TurretShooter.shooterState.AUTOCLOSE)),
-                            new WaitUntilCommand(()->!follower.isBusy()),
-                            new InstantCommand(()->timer.reset()),
-                            new ParallelRaceGroup(
-                                    new ShootAllAUTOCLOSE(shooter,sort,intake),
-                                    new WaitUntilCommand(()->timer.milliseconds()>1500)
-                            ),
-                            new InstantCommand(()->shooter.update(TurretShooter.shooterState.IDLE)),
+                        // preload
+                        new InstantCommand(()->follower.followPath(path1)),
+                        new InstantCommand(()-> intake.update(Intake.INTAKE_STATE.IN)),
+                        new InstantCommand(()->sort.update(ChamberSort.CHAMBER_STATE.IN)),
+                        new WaitCommand(500),
+                        new InstantCommand(()->shooter.update(TurretShooter.shooterState.AUTOCLOSE)),
+                        new WaitUntilCommand(()->!follower.isBusy()),
+                        new InstantCommand(()->timer.reset()),
+                        new ParallelRaceGroup(
+                                new ShootAllAUTOCLOSE(shooter,sort,intake),
+                                new WaitUntilCommand(()->timer.milliseconds()>1500)
+                        ),
+                        new InstantCommand(()->shooter.update(TurretShooter.shooterState.IDLE)),
 
 
-                            //ball line 2
-                            new InstantCommand(()->follower.followPath(collectBalls2)),
-                            new InstantCommand(()->intake.update(Intake.INTAKE_STATE.IN)),
-                            new InstantCommand(()->sort.update(ChamberSort.CHAMBER_STATE.IN)),
-                            new WaitUntilCommand(()->!follower.isBusy()),
-                            new InstantCommand(()->follower.followPath(shoot2)),
-                            new InstantCommand(()->shooter.update(TurretShooter.shooterState.AUTOCLOSE)),
-                            new WaitUntilCommand(()->!follower.isBusy()&&shooter.isInRange()),
-                            new InstantCommand(()->timer.reset()),
-                            new ParallelRaceGroup(
-                                    new ShootAllAUTOCLOSE(shooter,sort,intake),
-                                    new WaitUntilCommand(()->timer.milliseconds()>1500)
-                            ),
-                            new InstantCommand(()->shooter.update(TurretShooter.shooterState.IDLE)),
+                        //ball line 2
+                        new InstantCommand(()->follower.followPath(collectBalls2)),
+                        new InstantCommand(()->intake.update(Intake.INTAKE_STATE.IN)),
+                        new InstantCommand(()->sort.update(ChamberSort.CHAMBER_STATE.IN)),
+                        new WaitUntilCommand(()->!follower.isBusy()),
+                        new InstantCommand(()->follower.followPath(shoot2)),
+                        new InstantCommand(()->shooter.update(TurretShooter.shooterState.AUTOCLOSE)),
+                        new WaitUntilCommand(()->!follower.isBusy()&&shooter.isInRange()),
+                        new InstantCommand(()->timer.reset()),
+                        new ParallelRaceGroup(
+                                new ShootAllAUTOCLOSE(shooter,sort,intake),
+                                new WaitUntilCommand(()->timer.milliseconds()>1500)
+                        ),
+                        new InstantCommand(()->shooter.update(TurretShooter.shooterState.IDLE)),
 
 
-                            new InstantCommand(()->follower.followPath(openGate)),
-                            new WaitUntilCommand(()->!follower.isBusy()),
-                            new InstantCommand(()-> intake.update(Intake.INTAKE_STATE.IN)),
-                            new InstantCommand(()->sort.update(ChamberSort.CHAMBER_STATE.IN)),
+                        new InstantCommand(()->follower.followPath(openGate)),
+                        new WaitUntilCommand(()->!follower.isBusy()),
+                        new InstantCommand(()-> intake.update(Intake.INTAKE_STATE.IN)),
+                        new InstantCommand(()->sort.update(ChamberSort.CHAMBER_STATE.IN)),
 
-                            new InstantCommand(()->follower.followPath(collectBallsGate)),
-                            new WaitUntilCommand(()->!follower.isBusy()),
+                        new InstantCommand(()->follower.followPath(collectBallsGate)),
+                        new WaitUntilCommand(()->!follower.isBusy()),
 
-                            new InstantCommand(()->follower.followPath(shootFromGate)),
-                            new InstantCommand(()->shooter.update(TurretShooter.shooterState.AUTOCLOSE)),
-                            new WaitUntilCommand(()->!follower.isBusy()&&shooter.isInRange()),
-                            new InstantCommand(()->timer.reset()),
-                            new ParallelRaceGroup(
-                                    new ShootAllAUTOCLOSE(shooter,sort,intake),
-                                    new WaitUntilCommand(()->timer.milliseconds()>1500)
-                            ),
-                            new InstantCommand(()->shooter.update(TurretShooter.shooterState.IDLE)),
-
-
-
-                            //ball line 1
-                            new InstantCommand(()->follower.followPath(collectBalls1)),
-                            new InstantCommand(()->intake.update(Intake.INTAKE_STATE.IN)),
-                            new InstantCommand(()->sort.update(ChamberSort.CHAMBER_STATE.IN)),
-                            new WaitUntilCommand(()->!follower.isBusy()),
-                            new InstantCommand(()->follower.followPath(shoot1)),
-                            new InstantCommand(()->shooter.update(TurretShooter.shooterState.AUTOCLOSE)),
-                            new WaitUntilCommand(()->!follower.isBusy()&&shooter.isInRange()),
-                            new InstantCommand(()->timer.reset()),
-                            new ParallelRaceGroup(
-                                    new ShootAllAUTOCLOSE(shooter,sort,intake),
-                                    new WaitUntilCommand(()->timer.milliseconds()>1500)
-                            ),
-                            new InstantCommand(()->shooter.update(TurretShooter.shooterState.IDLE)),
-
-                            //ball line 3
-                            new InstantCommand(()->follower.followPath(collectBalls3)),
-                            new InstantCommand(()->intake.update(Intake.INTAKE_STATE.IN)),
-                            new InstantCommand(()->sort.update(ChamberSort.CHAMBER_STATE.IN)),
-                            new WaitUntilCommand(()->!follower.isBusy()),
-                            new InstantCommand(()->follower.followPath(shoot3)),
-                            new InstantCommand(()->shooter.update(TurretShooter.shooterState.AUTOCLOSE)),
-                            new WaitUntilCommand(()->!follower.isBusy()&&shooter.isInRange()),
-                            new InstantCommand(()->timer.reset()),
-                            new ParallelRaceGroup(
-                                    new ShootAllAUTOCLOSE(shooter,sort,intake),
-                                    new WaitUntilCommand(()->timer.milliseconds()>1500)
-                            ),
-                            new InstantCommand(()->shooter.update(TurretShooter.shooterState.IDLE)),
+                        new InstantCommand(()->follower.followPath(shootFromGate)),
+                        new InstantCommand(()->shooter.update(TurretShooter.shooterState.AUTOCLOSE)),
+                        new WaitUntilCommand(()->!follower.isBusy()&&shooter.isInRange()),
+                        new InstantCommand(()->timer.reset()),
+                        new ParallelRaceGroup(
+                                new ShootAllAUTOCLOSE(shooter,sort,intake),
+                                new WaitUntilCommand(()->timer.milliseconds()>1500)
+                        ),
+                        new InstantCommand(()->shooter.update(TurretShooter.shooterState.IDLE)),
 
 
-                            new InstantCommand(()->follower.followPath(nextToGate)),
-                            new WaitUntilCommand(()->!follower.isBusy()),
 
-                            new InstantCommand(()->intake.update(Intake.INTAKE_STATE.IN)),
-                            new InstantCommand(()->sort.update(ChamberSort.CHAMBER_STATE.IN)),
-                            new WaitUntilCommand(()->timer.milliseconds()>=29000)
-                    )
+                        //ball line 1
+                        new InstantCommand(()->follower.followPath(collectBalls1)),
+                        new InstantCommand(()->intake.update(Intake.INTAKE_STATE.IN)),
+                        new InstantCommand(()->sort.update(ChamberSort.CHAMBER_STATE.IN)),
+                        new WaitUntilCommand(()->!follower.isBusy()),
+                        new InstantCommand(()->follower.followPath(shoot1)),
+                        new InstantCommand(()->shooter.update(TurretShooter.shooterState.AUTOCLOSE)),
+                        new WaitUntilCommand(()->!follower.isBusy()&&shooter.isInRange()),
+                        new InstantCommand(()->timer.reset()),
+                        new ParallelRaceGroup(
+                                new ShootAllAUTOCLOSE(shooter,sort,intake),
+                                new WaitUntilCommand(()->timer.milliseconds()>1500)
+                        ),
+                        new InstantCommand(()->shooter.update(TurretShooter.shooterState.IDLE)),
+
+                        //ball line 3
+                        new InstantCommand(()->follower.followPath(collectBalls3)),
+                        new InstantCommand(()->intake.update(Intake.INTAKE_STATE.IN)),
+                        new InstantCommand(()->sort.update(ChamberSort.CHAMBER_STATE.IN)),
+                        new WaitUntilCommand(()->!follower.isBusy()),
+                        new InstantCommand(()->follower.followPath(shoot3)),
+                        new InstantCommand(()->shooter.update(TurretShooter.shooterState.AUTOCLOSE)),
+                        new WaitUntilCommand(()->!follower.isBusy()&&shooter.isInRange()),
+                        new InstantCommand(()->timer.reset()),
+                        new ParallelRaceGroup(
+                                new ShootAllAUTOCLOSE(shooter,sort,intake),
+                                new WaitUntilCommand(()->timer.milliseconds()>1500)
+                        ),
+                        new InstantCommand(()->shooter.update(TurretShooter.shooterState.IDLE)),
+
+
+                        new InstantCommand(()->follower.followPath(nextToGate)),
+                        new WaitUntilCommand(()->!follower.isBusy()),
+
+                        new InstantCommand(()->intake.update(Intake.INTAKE_STATE.IN)),
+                        new InstantCommand(()->sort.update(ChamberSort.CHAMBER_STATE.IN)),
+                        new WaitUntilCommand(()->timer.milliseconds()>=29000)
+                )
 
         );
     }
@@ -229,7 +229,7 @@ public class redFullSend extends OpMode {
                         new BezierCurve(
                                 Constants.autoCloseREDShoot,
                                 new Pose(120.500, 63.000),
-                                new Pose(134.500, 61.000)
+                                new Pose(134.500, 57.000)
                         )
                 )
                 .setLinearHeadingInterpolation(Math.toRadians(15), Math.toRadians(30))
@@ -238,9 +238,8 @@ public class redFullSend extends OpMode {
         collectBallsGate=follower
                 .pathBuilder()
                 .addPath(
-                        new BezierCurve(
-                                new Pose(134.500, 61.000),
-                                new Pose(134.500, 55.000),
+                        new BezierLine(
+                                new Pose(134.500, 57.000),
                                 new Pose(137.000, 55.000)
                         )
                 )
