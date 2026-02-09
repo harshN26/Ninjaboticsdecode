@@ -12,7 +12,7 @@ public class Intake extends SubsystemBase {
 
     public enum INTAKE_STATE{IN,STOP,OUT}
 
-    public INTAKE_STATE state=INTAKE_STATE.STOP;
+    public static INTAKE_STATE state=INTAKE_STATE.STOP;
     public Intake(Robot_Hardware hardware, Telemetry telemetry){
         robot=hardware;
         telem=telemetry;
