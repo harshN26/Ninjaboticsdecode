@@ -119,7 +119,7 @@ public class Robot_Hardware{
             turret.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             turret.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
             turret.setDirection(DcMotorSimple.Direction.REVERSE);
-            turret.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+            turret.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         }
         if(Global_Configs.intakeStatus== Global_Configs.DOFStatus.ACTIVE) {
             intake=hwMap.get(DcMotorEx.class, Global_Configs.intakeName);

@@ -31,8 +31,8 @@ public class Constants {
 
 
 
-    public static final Pose redGoal=new Pose(144-17.5,132.5);
-    public static final Pose blueGoal=new Pose(17.5,132.5);
+    public static final Pose redGoal=new Pose(142,142);
+    public static final Pose blueGoal=new Pose(2,142);
     public static double zGoal=40; //in
 
     public static double shooterHeight=14;//in
@@ -54,7 +54,7 @@ public class Constants {
 
 
 
-    public static double[] pidCoeffs_turret ={0.007,0.007,0.0002};
+    public static double[] pidCoeffs_turret ={0.02,0.012,0.0007};;
     public static final int tolerance_turret=5;
 
     public static double tolerance_shooter=100;
