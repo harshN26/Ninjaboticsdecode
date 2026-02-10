@@ -43,8 +43,8 @@ public class ColorLeds extends SubsystemBase {
 
     public void loop() {
         dataCollection();
-        cIN=processColors(in);
-        cOUT=processColors(out);
+        cIN=processColors(in,1);
+        cOUT=processColors(out,2);
         LEDProcessing();
         // black=0.0
         // red=0.277
@@ -59,37 +59,33 @@ public class ColorLeds extends SubsystemBase {
         // white=1.0
         switch (state) {
             case BALLS3:
-                lightColor(0.277);
+                lightColor(0.277); //red
                 break;
             case INTAKING:
-                lightColor(0.388);
+                lightColor(0.388); //yellow
                 break;
             case DISPLAYCOLOR:
                 if(cIN==ARTIFACT_COLOR.GREEN){
-                    lightColor(0.5);
+                    lightColor(0.5); //green
                 }else if(cIN==ARTIFACT_COLOR.PURPLE){
-                    lightColor(0.722);
+                    lightColor(0.722); //violet
                 }
                 else if(cOUT==ARTIFACT_COLOR.GREEN){
-                    lightColor(0.5);
+                    lightColor(0.5); //green
                 }
                 else if(cOUT==ARTIFACT_COLOR.PURPLE){
-                    lightColor(0.722);
+                    lightColor(0.722);//violet
                 }
                 else{
                     update(LED.INTAKING);
-                    lightColor(0.388);
+                    lightColor(0.388); //yellow
                 }
-
-
-
-
                 break;
             case OFF:
-                lightColor(0.0);
+                lightColor(0.0); //black
                 break;
             default:
-                lightColor(1.0);
+                lightColor(1.0); //white
 
         }
         telem();
@@ -102,11 +98,12 @@ public class ColorLeds extends SubsystemBase {
         inDist= robot.colorin.getDistance(DistanceUnit.MM);
         outDist= robot.colorin.getDistance(DistanceUnit.MM);
     }
-    public ARTIFACT_COLOR processColors(NormalizedRGBA rgba){
+    public ARTIFACT_COLOR processColors(NormalizedRGBA rgba, int number){
         double red= (double)rgba.red/Math.round(rgba.alpha);
         double green= (double)rgba.green/Math.round(rgba.alpha);
         double blue= (double)rgba.blue/Math.round(rgba.alpha);
-
+        telem.addData("C"+number+": ",new double[]{red,green,blue});
+        telem.addData("C"+number+" ratios: ",new double[]{green/red,blue/green});
         if((green/red)>2.0&&green>blue){
             return ARTIFACT_COLOR.GREEN;
         } else if ((blue/green)>1.3&&blue>red) {
@@ -130,7 +127,6 @@ public class ColorLeds extends SubsystemBase {
 
     public void telem(){
         telem.addLine("all 3: "+ (state==LED.BALLS3));
-        telem.addLine("color in rgb: "+ in.red*10000 +", "+in.green*10000+", "+in.blue*10000);
-        telem.addLine("color out rgb: "+ out.red*10000 +", "+out.green*10000+", "+out.blue*10000);
+
     }
 }
