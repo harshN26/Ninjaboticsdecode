@@ -15,8 +15,7 @@ public class pinpoint_tracking extends LinearOpMode {
     public void runOpMode() throws InterruptedException {
         GoBildaPinpointDriver pinpoint;
         pinpoint=hardwareMap.get(GoBildaPinpointDriver.class,"pinpoint");
-        pinpoint.resetPosAndIMU();
-        pinpoint.setOffsets(0, 0, DistanceUnit.INCH); //these are tuned for 3110-0002-0001 Product Insight #1
+        pinpoint.setOffsets(3.5, -7, DistanceUnit.INCH);
 
         /*
         Set the kind of pods used by your robot. If you're using goBILDA odometry pods, select either
@@ -25,19 +24,20 @@ public class pinpoint_tracking extends LinearOpMode {
         number of ticks per unit of your odometry pod.
          */
 
-        pinpoint.setEncoderResolution((4096/(((double)35)*Math.PI))/25.4,DistanceUnit.INCH);
-        pinpoint.setEncoderDirections(GoBildaPinpointDriver.EncoderDirection.REVERSED, GoBildaPinpointDriver.EncoderDirection.REVERSED);
-
+        pinpoint.setEncoderResolution(4096/(((double)35/24)*Math.PI),DistanceUnit.INCH);
+        pinpoint.setEncoderDirections(GoBildaPinpointDriver.EncoderDirection.FORWARD, GoBildaPinpointDriver.EncoderDirection.FORWARD);
+        pinpoint.resetPosAndIMU();
+        pinpoint.initialize();
 
 
         waitForStart();
 //        pinpoint.recalibrateIMU();
+        pinpoint.update();
+
         while(opModeIsActive()){
-            telemetry.addData("x raw: ",pinpoint.getEncoderX());
-            telemetry.addData("y raw: ",pinpoint.getEncoderY());
             telemetry.addData("heading raw: ",pinpoint.getHeading(AngleUnit.DEGREES));
             telemetry.addLine("pose: " +pinpoint.getPosX(DistanceUnit.INCH)+", "+pinpoint.getPosY(DistanceUnit.INCH)+", "+ pinpoint.getHeading(AngleUnit.DEGREES));
-
+            telemetry.addLine("encoder x: "+pinpoint.getEncoderX()+", "+"\npinpoint y: "+pinpoint.getEncoderY());
             telemetry.update();
             pinpoint.update();
 

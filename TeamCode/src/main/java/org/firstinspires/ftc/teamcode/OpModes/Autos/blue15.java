@@ -17,6 +17,7 @@ import com.seattlesolvers.solverslib.command.SequentialCommandGroup;
 import com.seattlesolvers.solverslib.command.WaitCommand;
 import com.seattlesolvers.solverslib.command.WaitUntilCommand;
 
+import org.firstinspires.ftc.teamcode.Commands.multipartCommands.ShootAll3Inertia;
 import org.firstinspires.ftc.teamcode.Commands.multipartCommands.ShootAllAUTOCLOSE;
 import org.firstinspires.ftc.teamcode.Constants;
 import org.firstinspires.ftc.teamcode.Robot_Hardware;
@@ -27,7 +28,7 @@ import org.firstinspires.ftc.teamcode.Subsystems.TurretShooter;
 import org.firstinspires.ftc.teamcode.Subsystems.ColorLeds;
 
 //@Disabled
-@Autonomous(name="blueFullSend")
+@Autonomous(name="blue15")
 public class blue15 extends OpMode {
     Robot_Hardware robot=Robot_Hardware.getInstance();
     ElapsedTime timer;
@@ -80,7 +81,7 @@ public class blue15 extends OpMode {
         follower.update();
 
 //        shooter.offsetConstant=-10;
-        shooter.hoodOffset-=0.1;
+        shooter.hoodOffset-=1.0;
 
 
         initPaths();
@@ -102,8 +103,8 @@ public class blue15 extends OpMode {
                             new WaitUntilCommand(()->!follower.isBusy()),
                             new InstantCommand(()->timer.reset()),
                             new ParallelRaceGroup(
-                                    new ShootAllAUTOCLOSE(shooter,sort,intake),
-                                    new WaitUntilCommand(()->timer.milliseconds()>1500)
+                                    new ShootAll3Inertia(shooter,sort,intake),
+                                    new WaitUntilCommand(()->timer.milliseconds()>2000)
                             ),
 
 
@@ -117,8 +118,8 @@ public class blue15 extends OpMode {
                             new WaitUntilCommand(()->!follower.isBusy()&&shooter.isInRange()),
                             new InstantCommand(()->timer.reset()),
                             new ParallelRaceGroup(
-                                    new ShootAllAUTOCLOSE(shooter,sort,intake),
-                                    new WaitUntilCommand(()->timer.milliseconds()>1500)
+                                    new ShootAll3Inertia(shooter,sort,intake),
+                                    new WaitUntilCommand(()->timer.milliseconds()>2000)
                             ),
 
 
@@ -135,8 +136,8 @@ public class blue15 extends OpMode {
                             new WaitUntilCommand(()->!follower.isBusy()&&shooter.isInRange()),
                             new InstantCommand(()->timer.reset()),
                             new ParallelRaceGroup(
-                                    new ShootAllAUTOCLOSE(shooter,sort,intake),
-                                    new WaitUntilCommand(()->timer.milliseconds()>1500)
+                                    new ShootAll3Inertia(shooter,sort,intake),
+                                    new WaitUntilCommand(()->timer.milliseconds()>2000)
                             ),
 
 
@@ -151,8 +152,8 @@ public class blue15 extends OpMode {
                             new WaitUntilCommand(()->!follower.isBusy()&&shooter.isInRange()),
                             new InstantCommand(()->timer.reset()),
                             new ParallelRaceGroup(
-                                    new ShootAllAUTOCLOSE(shooter,sort,intake),
-                                    new WaitUntilCommand(()->timer.milliseconds()>1500)
+                                    new ShootAll3Inertia(shooter,sort,intake),
+                                    new WaitUntilCommand(()->timer.milliseconds()>2000)
                             ),
 
                             //ball line 3
@@ -165,7 +166,7 @@ public class blue15 extends OpMode {
                             new WaitUntilCommand(()->!follower.isBusy()&&shooter.isInRange()),
                             new InstantCommand(()->timer.reset()),
                             new ParallelRaceGroup(
-                                    new ShootAllAUTOCLOSE(shooter,sort,intake),
+                                    new ShootAll3Inertia(shooter,sort,intake),
                                     new WaitUntilCommand(()->timer.milliseconds()>1500)
                             ),
                             new InstantCommand(()-> shooter.update(TurretShooter.shooterState.IDLE)),
@@ -223,7 +224,7 @@ public class blue15 extends OpMode {
                         new BezierCurve(
                                 Constants.autoCloseBLUEShoot,
                                 new Pose(24.500, 63.000),
-                                new Pose(12.500, 64.000)
+                                new Pose(12.500, 59.000)
                         )
                 )
                 .setLinearHeadingInterpolation(Math.toRadians(175), Math.toRadians(150))
@@ -233,8 +234,8 @@ public class blue15 extends OpMode {
                 .pathBuilder()
                 .addPath(
                         new BezierLine(
-                                new Pose(12.500, 64.000),
-                                new Pose(9.000, 57.000)
+                                new Pose(12.500, 59.000),
+                                new Pose(9.000, 55.000)
                         )
                 )
                 .setLinearHeadingInterpolation(Math.toRadians(150), Math.toRadians(135))
@@ -242,7 +243,7 @@ public class blue15 extends OpMode {
         shootFromGate=follower
                 .pathBuilder()
                 .addPath(
-                        new BezierLine(new Pose(9.000, 57.000),Constants.autoCloseBLUEShoot)
+                        new BezierLine(new Pose(9.000, 55.000),Constants.autoCloseBLUEShoot)
                 )
                 .setLinearHeadingInterpolation(Math.toRadians(135), Math.toRadians(180))
                 .build();
