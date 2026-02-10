@@ -1,7 +1,7 @@
--- pinpoint isnt tracking well for some reason..... test localization on pedro
-
 -- rpm tuning
 
--- maybe retune turret?
+-- turret tuning on brake mode
+
+--retune drive bc its slow asf
 
 -- sotm
