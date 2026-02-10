@@ -105,6 +105,7 @@ public class ball_auto_18_blue extends OpMode {
                                 new ShootAllAUTOCLOSE(shooter,sort,intake),
                                 new WaitUntilCommand(()->timer.milliseconds()>1500)
                         ),
+                        new InstantCommand(()->shooter.update(TurretShooter.shooterState.IDLE)),
 
 
                         //ball line 2
@@ -120,6 +121,7 @@ public class ball_auto_18_blue extends OpMode {
                                 new ShootAllAUTOCLOSE(shooter,sort,intake),
                                 new WaitUntilCommand(()->timer.milliseconds()>1500)
                         ),
+                        new InstantCommand(()->shooter.update(TurretShooter.shooterState.IDLE)),
 
 
                         new InstantCommand(()->follower.followPath(openGate)),
@@ -138,6 +140,7 @@ public class ball_auto_18_blue extends OpMode {
                                 new ShootAllAUTOCLOSE(shooter,sort,intake),
                                 new WaitUntilCommand(()->timer.milliseconds()>1500)
                         ),
+                        new InstantCommand(()->shooter.update(TurretShooter.shooterState.IDLE)),
 
                         new InstantCommand(()->follower.followPath(openGate)),
                         new WaitUntilCommand(()->!follower.isBusy()),
@@ -155,6 +158,7 @@ public class ball_auto_18_blue extends OpMode {
                                 new ShootAllAUTOCLOSE(shooter,sort,intake),
                                 new WaitUntilCommand(()->timer.milliseconds()>1500)
                         ),
+                        new InstantCommand(()->shooter.update(TurretShooter.shooterState.IDLE)),
 
 
 
@@ -171,6 +175,7 @@ public class ball_auto_18_blue extends OpMode {
                                 new ShootAllAUTOCLOSE(shooter,sort,intake),
                                 new WaitUntilCommand(()->timer.milliseconds()>1500)
                         ),
+                        new InstantCommand(()->shooter.update(TurretShooter.shooterState.IDLE)),
 
                         //ball line 3
                         new InstantCommand(()->follower.followPath(collectBalls3)),

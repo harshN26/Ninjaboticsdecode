@@ -106,6 +106,7 @@ public class blue15 extends OpMode {
                                     new ShootAll3Inertia(shooter,sort,intake),
                                     new WaitUntilCommand(()->timer.milliseconds()>2000)
                             ),
+                            new InstantCommand(()->shooter.update(TurretShooter.shooterState.IDLE)),
 
 
                             //ball line 2
@@ -121,6 +122,7 @@ public class blue15 extends OpMode {
                                     new ShootAll3Inertia(shooter,sort,intake),
                                     new WaitUntilCommand(()->timer.milliseconds()>2000)
                             ),
+                            new InstantCommand(()->shooter.update(TurretShooter.shooterState.IDLE)),
 
 
                             new InstantCommand(()->follower.followPath(openGate)),
@@ -139,6 +141,7 @@ public class blue15 extends OpMode {
                                     new ShootAll3Inertia(shooter,sort,intake),
                                     new WaitUntilCommand(()->timer.milliseconds()>2000)
                             ),
+                            new InstantCommand(()->shooter.update(TurretShooter.shooterState.IDLE)),
 
 
 
@@ -155,6 +158,7 @@ public class blue15 extends OpMode {
                                     new ShootAll3Inertia(shooter,sort,intake),
                                     new WaitUntilCommand(()->timer.milliseconds()>2000)
                             ),
+                            new InstantCommand(()->shooter.update(TurretShooter.shooterState.IDLE)),
 
                             //ball line 3
                             new InstantCommand(()->follower.followPath(collectBalls3)),
