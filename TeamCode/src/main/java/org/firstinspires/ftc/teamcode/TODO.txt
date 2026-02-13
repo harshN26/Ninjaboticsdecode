@@ -1,7 +1,6 @@
--- rpm tuning
 
--- turret tuning on brake mode
+-- turret tuning -> the turret is oscillating a lot when trying to reach 0
 
---retune drive bc its slow asf
+-- led tuning
 
--- sotm
+-- auto 1.5k base rpm and tele 1k base rpm

@@ -80,8 +80,8 @@ public class blue15 extends OpMode {
         follower.setStartingPose(robot.pose);
         follower.update();
 
-//        shooter.offsetConstant=-10;
-        shooter.hoodOffset-=1.0;
+//        shooter.offsetConstant=-12;
+        shooter.hoodOffset-=0.5;
 
 
         initPaths();
@@ -98,7 +98,7 @@ public class blue15 extends OpMode {
                             // preload
                             new InstantCommand(()->follower.followPath(path1)),
                             new InstantCommand(()-> intake.update(Intake.INTAKE_STATE.IN)),
-                            new WaitCommand(500),
+                            new WaitCommand(200),
                             new InstantCommand(()->shooter.update(TurretShooter.shooterState.AUTOCLOSE)),
                             new WaitUntilCommand(()->!follower.isBusy()),
                             new InstantCommand(()->timer.reset()),
@@ -120,7 +120,7 @@ public class blue15 extends OpMode {
                             new InstantCommand(()->timer.reset()),
                             new ParallelRaceGroup(
                                     new ShootAll3Inertia(shooter,sort,intake),
-                                    new WaitUntilCommand(()->timer.milliseconds()>2000)
+                                    new WaitUntilCommand(()->timer.milliseconds()>1800)
                             ),
                             new InstantCommand(()->shooter.update(TurretShooter.shooterState.IDLE)),
 
@@ -132,6 +132,7 @@ public class blue15 extends OpMode {
 
                             new InstantCommand(()->follower.followPath(collectBallsGate)),
                             new WaitUntilCommand(()->!follower.isBusy()),
+                            new WaitCommand(600),
 
                             new InstantCommand(()->follower.followPath(shootFromGate)),
                             new InstantCommand(()->shooter.update(TurretShooter.shooterState.AUTOCLOSE)),
@@ -139,7 +140,7 @@ public class blue15 extends OpMode {
                             new InstantCommand(()->timer.reset()),
                             new ParallelRaceGroup(
                                     new ShootAll3Inertia(shooter,sort,intake),
-                                    new WaitUntilCommand(()->timer.milliseconds()>2000)
+                                    new WaitUntilCommand(()->timer.milliseconds()>1800)
                             ),
                             new InstantCommand(()->shooter.update(TurretShooter.shooterState.IDLE)),
 
@@ -156,7 +157,7 @@ public class blue15 extends OpMode {
                             new InstantCommand(()->timer.reset()),
                             new ParallelRaceGroup(
                                     new ShootAll3Inertia(shooter,sort,intake),
-                                    new WaitUntilCommand(()->timer.milliseconds()>2000)
+                                    new WaitUntilCommand(()->timer.milliseconds()>1800)
                             ),
                             new InstantCommand(()->shooter.update(TurretShooter.shooterState.IDLE)),
 
@@ -171,7 +172,7 @@ public class blue15 extends OpMode {
                             new InstantCommand(()->timer.reset()),
                             new ParallelRaceGroup(
                                     new ShootAll3Inertia(shooter,sort,intake),
-                                    new WaitUntilCommand(()->timer.milliseconds()>1500)
+                                    new WaitUntilCommand(()->timer.milliseconds()>1800)
                             ),
                             new InstantCommand(()-> shooter.update(TurretShooter.shooterState.IDLE)),
 
@@ -207,16 +208,17 @@ public class blue15 extends OpMode {
                         new BezierCurve(
                                 Constants.autoCloseBLUEShoot,
                                 new Pose(59.000, 58.000),
-                                new Pose(19.000, 58.000)
+                                new Pose(18.000, 58.000)
                         )
                 )
                 .setLinearHeadingInterpolation(Math.toRadians(190), Math.toRadians(180))
+                .setBrakingStart(2)
                 .build();
 
         shoot2 = follower
                 .pathBuilder()
                 .addPath(
-                        new BezierLine(new Pose(19.000, 58.000), Constants.autoCloseBLUEShoot)
+                        new BezierLine(new Pose(18.000, 58.000), Constants.autoCloseBLUEShoot)
                 )
                 .setLinearHeadingInterpolation(Math.toRadians(180), Math.toRadians(175))
                 .build();
@@ -228,28 +230,29 @@ public class blue15 extends OpMode {
                         new BezierCurve(
                                 Constants.autoCloseBLUEShoot,
                                 new Pose(24.500, 63.000),
-                                new Pose(12.500, 59.000)
+                                new Pose(12.00, 59.000)
                         )
                 )
                 .setLinearHeadingInterpolation(Math.toRadians(175), Math.toRadians(150))
+                .setBrakingStart(2)
                 .build();
 
         collectBallsGate=follower
                 .pathBuilder()
                 .addPath(
                         new BezierLine(
-                                new Pose(12.500, 59.000),
+                                new Pose(12.00, 59.000),
                                 new Pose(9.000, 55.000)
                         )
                 )
-                .setLinearHeadingInterpolation(Math.toRadians(150), Math.toRadians(135))
+                .setLinearHeadingInterpolation(Math.toRadians(150), Math.toRadians(115))
                 .build();
         shootFromGate=follower
                 .pathBuilder()
                 .addPath(
                         new BezierLine(new Pose(9.000, 55.000),Constants.autoCloseBLUEShoot)
                 )
-                .setLinearHeadingInterpolation(Math.toRadians(135), Math.toRadians(180))
+                .setLinearHeadingInterpolation(Math.toRadians(115), Math.toRadians(180))
                 .build();
 
 
@@ -257,7 +260,7 @@ public class blue15 extends OpMode {
         collectBalls1 = follower
                 .pathBuilder()
                 .addPath(
-                        new BezierLine(Constants.autoCloseBLUEShoot, new Pose(20.000, 83.000))
+                        new BezierLine(Constants.autoCloseBLUEShoot, new Pose(20.000, 82.000))
                 )
                 .setConstantHeadingInterpolation(Math.toRadians(180))
                 .build();
@@ -284,7 +287,7 @@ public class blue15 extends OpMode {
                 .addPath(
                         new BezierLine(
                                 new Pose(54.800, 36.000),
-                                new Pose(20.000, 34.000)
+                                new Pose(18.000, 33.000)
                         )
                 )
                 .setConstantHeadingInterpolation(Math.toRadians(180))
@@ -293,7 +296,7 @@ public class blue15 extends OpMode {
         shoot3 = follower
                 .pathBuilder()
                 .addPath(
-                        new BezierLine(new Pose(20.000, 34.000), new Pose(Constants.autoCloseBLUEShoot.getX(),Constants.autoCloseBLUEShoot.getY()+20))
+                        new BezierLine(new Pose(18.000, 33.000), new Pose(Constants.autoCloseBLUEShoot.getX(),Constants.autoCloseBLUEShoot.getY()+20))
                 )
                 .setTangentHeadingInterpolation()
                 .setReversed()
@@ -302,7 +305,7 @@ public class blue15 extends OpMode {
         last = follower
                 .pathBuilder()
                 .addPath(
-                        new BezierLine(Constants.autoCloseBLUEShoot, new Pose(25.000, 72.000))
+                        new BezierLine(Constants.autoCloseBLUEShoot, new Pose(25.000, 74.000))
                 )
                 .setLinearHeadingInterpolation(Math.toRadians(-128), Math.toRadians(90))
                 .build();

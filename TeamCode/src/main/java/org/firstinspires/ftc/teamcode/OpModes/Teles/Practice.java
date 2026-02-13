@@ -123,7 +123,7 @@ public class Practice extends OpMode{
         g2RTCurrent=gamepad2.right_trigger>0.5;
 
         if(g1ACurrent&&!g1ALast){
-            if(shooter.horizontalDistance>160)
+            if(shooter.horizontalDistance>105)
                 CommandScheduler.getInstance().schedule(new ShootAll(shooter,sort,intake));
             else
                 CommandScheduler.getInstance().schedule(new ShootAll3Inertia(shooter,sort,intake));

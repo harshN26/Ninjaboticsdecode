@@ -11,6 +11,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.NormalizedColorSensor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.VoltageSensor;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -83,7 +84,7 @@ public class Robot_Hardware{
 
     public static int turretPos=0;
 
-    public static RevColorSensorV3 colorin,colorout;
+    public static NormalizedColorSensor colorin,colorout;
 
     public static Servo led;
 
@@ -152,13 +153,10 @@ public class Robot_Hardware{
         limelight.pipelineSwitch(0);
         limelight.start();
 
-        colorin=hardwareMap.get(RevColorSensorV3.class, Global_Configs.colorIn);
-        colorin.enableLed(true);
-        colorin.initialize();
+        colorin=hardwareMap.get(NormalizedColorSensor.class, Global_Configs.colorIn);
 
-        colorout=hardwareMap.get(RevColorSensorV3.class, Global_Configs.colorOut);
-        colorout.enableLed(true);
-        colorin.initialize();
+
+        colorout=hardwareMap.get(NormalizedColorSensor.class, Global_Configs.colorOut);
 
         led=hardwareMap.get(Servo.class,Global_Configs.ledsName);
         telem=telemetry;

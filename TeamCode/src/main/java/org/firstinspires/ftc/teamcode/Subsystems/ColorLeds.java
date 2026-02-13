@@ -1,10 +1,13 @@
 package org.firstinspires.ftc.teamcode.Subsystems;
 
+import android.sax.StartElementListener;
+
 import com.qualcomm.robotcore.hardware.NormalizedRGBA;
 import com.seattlesolvers.solverslib.command.SubsystemBase;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
+import org.firstinspires.ftc.teamcode.Constants;
 import org.firstinspires.ftc.teamcode.Robot_Hardware;
 
 public class ColorLeds extends SubsystemBase {
@@ -45,6 +48,8 @@ public class ColorLeds extends SubsystemBase {
         dataCollection();
         cIN=processColors(in,1);
         cOUT=processColors(out,2);
+        telem.addLine("raw in: "+in.red+","+in.green+","+in.blue+","+in.alpha);
+        telem.addLine("raw out: "+out.red+","+out.green+","+out.blue+","+out.alpha);
         LEDProcessing();
         // black=0.0
         // red=0.277
@@ -59,7 +64,7 @@ public class ColorLeds extends SubsystemBase {
         // white=1.0
         switch (state) {
             case BALLS3:
-                lightColor(0.277); //red
+                lightColor(0.28); //red
                 break;
             case INTAKING:
                 lightColor(0.388); //yellow
@@ -78,11 +83,10 @@ public class ColorLeds extends SubsystemBase {
                 }
                 else{
                     update(LED.INTAKING);
-                    lightColor(0.388); //yellow
                 }
                 break;
             case OFF:
-                lightColor(0.0); //black
+                lightColor(0.0); //off
                 break;
             default:
                 lightColor(1.0); //white
@@ -95,18 +99,16 @@ public class ColorLeds extends SubsystemBase {
     public void dataCollection(){
         in=robot.colorin.getNormalizedColors();
         out=robot.colorout.getNormalizedColors();
-        inDist= robot.colorin.getDistance(DistanceUnit.MM);
-        outDist= robot.colorin.getDistance(DistanceUnit.MM);
     }
     public ARTIFACT_COLOR processColors(NormalizedRGBA rgba, int number){
-        double red= (double)rgba.red/Math.round(rgba.alpha);
-        double green= (double)rgba.green/Math.round(rgba.alpha);
-        double blue= (double)rgba.blue/Math.round(rgba.alpha);
-        telem.addData("C"+number+": ",new double[]{red,green,blue});
-        telem.addData("C"+number+" ratios: ",new double[]{green/red,blue/green});
-        if((green/red)>2.0&&green>blue){
+        double red= rgba.red/rgba.alpha;
+        double green= rgba.green/rgba.alpha;
+        double blue= rgba.blue/rgba.alpha;
+        telem.addLine("C"+number+": "+red+", "+green+", "+blue);
+        telem.addData("C"+number+" ratios: ",+green/red+", "+blue/green);
+        if((green/red)> Constants.CGreen&&green>blue){
             return ARTIFACT_COLOR.GREEN;
-        } else if ((blue/green)>1.3&&blue>red) {
+        } else if ((blue/green)>Constants.CPurple&&blue>red) {
             return ARTIFACT_COLOR.PURPLE;
         }
         return ARTIFACT_COLOR.NONE;
