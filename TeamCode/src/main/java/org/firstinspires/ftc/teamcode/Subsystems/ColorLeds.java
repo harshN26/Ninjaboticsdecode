@@ -46,10 +46,8 @@ public class ColorLeds extends SubsystemBase {
 
     public void loop() {
         dataCollection();
-        cIN=processColors(in,1);
-        cOUT=processColors(out,2);
-        telem.addLine("raw in: "+in.red+","+in.green+","+in.blue+","+in.alpha);
-        telem.addLine("raw out: "+out.red+","+out.green+","+out.blue+","+out.alpha);
+        cIN=processColorsIN(in,1);
+        cOUT=processColorsOUT(out,2);
         LEDProcessing();
         // black=0.0
         // red=0.277
@@ -100,15 +98,28 @@ public class ColorLeds extends SubsystemBase {
         in=robot.colorin.getNormalizedColors();
         out=robot.colorout.getNormalizedColors();
     }
-    public ARTIFACT_COLOR processColors(NormalizedRGBA rgba, int number){
+    public ARTIFACT_COLOR processColorsIN(NormalizedRGBA rgba, int number){
         double red= rgba.red/rgba.alpha;
         double green= rgba.green/rgba.alpha;
         double blue= rgba.blue/rgba.alpha;
-        telem.addLine("C"+number+": "+red+", "+green+", "+blue);
+
         telem.addData("C"+number+" ratios: ",+green/red+", "+blue/green);
-        if((green/red)> Constants.CGreen&&green>blue){
+        if((green/red)> Constants.CGreenIN&&green>blue){
             return ARTIFACT_COLOR.GREEN;
-        } else if ((blue/green)>Constants.CPurple&&blue>red) {
+        } else if ((blue/green)>Constants.CPurpleIN&&blue>red) {
+            return ARTIFACT_COLOR.PURPLE;
+        }
+        return ARTIFACT_COLOR.NONE;
+    }
+    public ARTIFACT_COLOR processColorsOUT(NormalizedRGBA rgba, int number){
+        double red= rgba.red/rgba.alpha;
+        double green= rgba.green/rgba.alpha;
+        double blue= rgba.blue/rgba.alpha;
+
+        telem.addData("C"+number+" ratios: ",+green/red+", "+blue/green);
+        if((green/red)> Constants.CGreenOUT&&green>blue){
+            return ARTIFACT_COLOR.GREEN;
+        } else if ((blue/green)>Constants.CPurpleOUT&&blue>red) {
             return ARTIFACT_COLOR.PURPLE;
         }
         return ARTIFACT_COLOR.NONE;
@@ -128,7 +139,6 @@ public class ColorLeds extends SubsystemBase {
 
 
     public void telem(){
-        telem.addLine("all 3: "+ (state==LED.BALLS3));
-
+        telem.addLine("state: "+ state);
     }
 }

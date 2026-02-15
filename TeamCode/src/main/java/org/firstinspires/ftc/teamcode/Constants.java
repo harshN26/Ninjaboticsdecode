@@ -110,8 +110,11 @@ public class Constants {
     public static final int filterN=3;
 
     public static double turretOffsetX=0, turretOffsetY=-1.125;
-    public static double CPurple=1.3;
-    public static double CGreen=2.0;
+    public static double CPurpleIN=1.3;
+    public static double CGreenIN=2.0;
+
+    public static double CPurpleOUT=1.3;
+    public static double CGreenOUT=2.0;
 
 
 
