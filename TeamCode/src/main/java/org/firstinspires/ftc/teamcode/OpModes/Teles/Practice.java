@@ -46,7 +46,7 @@ public class Practice extends OpMode{
     public boolean g2XLast=false,g2YLast=false,g2BLast=false,g2ALast=false, g2LBLast=false, g2RBLast=false;
     public boolean g2XCurrent,g2YCurrent,g2BCurrent,g2ACurrent, g2LBCurrent, g2RBCurrent;
 
-    public boolean g2LTLast=false,g2LTCurrent, g1LTLast=false,g1LTCurrent, g2RTLast=false,g2RTCurrent;
+    public boolean g2LTLast=false,g2LTCurrent, g1LTLast=false,g1LTCurrent, g2RTLast=false,g2RTCurrent,g1RTLast=false,g1RTCurrent;
 
     public double drive_mult_pow=1.0;
 
@@ -78,6 +78,7 @@ public class Practice extends OpMode{
 
 
         ll=new LLPort(telemetry,robot);
+
 
 
 
@@ -119,11 +120,12 @@ public class Practice extends OpMode{
         g2RBCurrent= gamepad2.right_bumper;
         g2LBCurrent= gamepad2.left_bumper;
         g2LTCurrent=gamepad2.left_trigger>0.5;
-        g1LTCurrent=gamepad1.left_trigger>0.5;
+        g1LTCurrent=gamepad1.left_trigger>0.1;
         g2RTCurrent=gamepad2.right_trigger>0.5;
+        g1RTCurrent=gamepad1.right_trigger>0.1;
 
         if(g1ACurrent&&!g1ALast){
-            if(shooter.horizontalDistance>105)
+            if(shooter.horizontalDistance>120)
                 CommandScheduler.getInstance().schedule(new ShootAll(shooter,sort,intake));
             else
                 CommandScheduler.getInstance().schedule(new ShootAll3Inertia(shooter,sort,intake));
@@ -143,11 +145,11 @@ public class Practice extends OpMode{
             shooter.turretEnable=!shooter.turretEnable;
         }
 
-        if(g1LBCurrent&&!g1LBLast){
+        if(g1LTCurrent&&!g1LTLast){
             CommandScheduler.getInstance().schedule(new InstantCommand(()->intake.update(Intake.INTAKE_STATE.OUT)));
             CommandScheduler.getInstance().schedule(new InstantCommand(()->sort.update(ChamberSort.CHAMBER_STATE.OUT)));
         }
-        else if(g1RBCurrent&&!g1RBLast){
+        else if(g1RTCurrent&&!g1RTLast){
             CommandScheduler.getInstance().schedule(new InstantCommand(()->intake.update(Intake.INTAKE_STATE.IN)));
             CommandScheduler.getInstance().schedule(new InstantCommand(()->sort.update(ChamberSort.CHAMBER_STATE.IN)));
         }
@@ -155,7 +157,7 @@ public class Practice extends OpMode{
             CommandScheduler.getInstance().schedule(new InstantCommand(()->intake.update(Intake.INTAKE_STATE.IN)));
             CommandScheduler.getInstance().schedule(new InstantCommand(()->sort.update(ChamberSort.CHAMBER_STATE.UP)));
         }
-        else if (intake.state != Intake.INTAKE_STATE.STOP&&!(g1RBCurrent||g2XCurrent||g1LBCurrent)&&!robot.firing){
+        else if (intake.state != Intake.INTAKE_STATE.STOP&&!(g1RTCurrent||g2XCurrent||g1LTCurrent)&&!robot.firing){
             CommandScheduler.getInstance().schedule(new InstantCommand(()->intake.update(Intake.INTAKE_STATE.STOP)));
             CommandScheduler.getInstance().schedule(new InstantCommand(()->sort.update(ChamberSort.CHAMBER_STATE.STOP)));
         }
@@ -176,7 +178,7 @@ public class Practice extends OpMode{
             )));
         }
 
-        if(g1LTCurrent){
+        if(g1LBCurrent){
             drive_mult_pow=0.28;
         }else{
             drive_mult_pow=1.0;
@@ -193,11 +195,11 @@ public class Practice extends OpMode{
         }else if(gamepad2.dpad_down&&shooter.hoodPos>0.0){
             shooter.hoodOffset-=0.1;
         }
-        if(shooter.hoodPosC>1.0){
-            shooter.hoodOffset-=0.01;
-        }else if(shooter.hoodPosC<0.0){
-            shooter.hoodOffset+=0.01;
-        }
+//        if(shooter.hoodPosC>1.0){
+//            shooter.hoodOffset-=0.01;
+//        }else if(shooter.hoodPosC<0.0){
+//            shooter.hoodOffset+=0.01;
+//        }
 
 
 
@@ -271,6 +273,7 @@ public class Practice extends OpMode{
         g2LTLast=g2LTCurrent;
         g1LTLast=g1LTCurrent;
         g2RTLast=g2RTCurrent;
+        g1RTLast=g1RTCurrent;
     }
     public void stop(){
 //        robot.end();

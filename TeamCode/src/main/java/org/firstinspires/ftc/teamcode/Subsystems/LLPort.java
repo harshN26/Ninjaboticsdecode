@@ -51,22 +51,23 @@ public class LLPort {
     public void loop(){
 
 
-        robot.limelight.updateRobotOrientation(Math.toDegrees(robot.heading));
-
-        LLResult result=robot.limelight.getLatestResult();
-
-
-        if((resultValid = result!=null &&
-                result.isValid() &&
-                result.getFiducialResults().size()>0 &&
-                result.getFiducialResults().get(0).getFiducialId()==robot.aprilTagID)
-        ){
-            tx=result.getFiducialResults().get(0).getTargetXDegrees();
-            if((TurretShooter.state==FIRE||TurretShooter.state==AUTOCLOSE||TurretShooter.state==AUTOFAR)&&robot.x==0){
-                takeover=true;
-            }
-        }
-        else tx=0.0;
+//        robot.limelight.updateRobotOrientation(Math.toDegrees(robot.heading));
+//
+//        LLResult result=robot.limelight.getLatestResult();
+//
+//
+//        if((resultValid = result!=null &&
+//                result.isValid() &&
+//                result.getFiducialResults().size()>0 &&
+//                result.getFiducialResults().get(0).getFiducialId()==robot.aprilTagID)
+//        ){
+//            tx=result.getFiducialResults().get(0).getTargetXDegrees();
+//            if((TurretShooter.state==FIRE||TurretShooter.state==AUTOCLOSE||TurretShooter.state==AUTOFAR)&&robot.x==0){
+//                takeover=true;
+//            }
+//        }
+//        else
+        tx=0.0;
     }
     public static double getRotation() {
 
