@@ -245,17 +245,17 @@ public class blue15 extends OpMode {
                 .addPath(
                         new BezierLine(
                                 new Pose(10.00, 62.000),
-                                new Pose(7.000, 54.000)
+                                new Pose(10.000, 54.000)
                         )
                 )
-                .setLinearHeadingInterpolation(Math.toRadians(150), Math.toRadians(115))
+                .setLinearHeadingInterpolation(Math.toRadians(150), Math.toRadians(150))
                 .build();
         shootFromGate=follower
                 .pathBuilder()
                 .addPath(
                         new BezierCurve(new Pose(11.000, 54.000),new Pose(35,60),Constants.autoCloseBLUEShoot)
                 )
-                .setLinearHeadingInterpolation(Math.toRadians(115), Math.toRadians(180))
+                .setLinearHeadingInterpolation(Math.toRadians(150), Math.toRadians(180))
                 .build();
 
 
