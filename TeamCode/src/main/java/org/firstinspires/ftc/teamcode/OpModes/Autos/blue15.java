@@ -104,7 +104,7 @@ public class blue15 extends OpMode {
                             new InstantCommand(()->timer.reset()),
                             new ParallelRaceGroup(
                                     new ShootAll3Inertia(shooter,sort,intake),
-                                    new WaitUntilCommand(()->timer.milliseconds()>2000)
+                                    new WaitUntilCommand(()->timer.milliseconds()>1500)
                             ),
                             new InstantCommand(()->shooter.update(TurretShooter.shooterState.IDLE)),
 
@@ -120,7 +120,7 @@ public class blue15 extends OpMode {
                             new InstantCommand(()->timer.reset()),
                             new ParallelRaceGroup(
                                     new ShootAll3Inertia(shooter,sort,intake),
-                                    new WaitUntilCommand(()->timer.milliseconds()>1800)
+                                    new WaitUntilCommand(()->timer.milliseconds()>1000)
                             ),
                             new InstantCommand(()->shooter.update(TurretShooter.shooterState.IDLE)),
 
@@ -132,7 +132,7 @@ public class blue15 extends OpMode {
 
                             new InstantCommand(()->follower.followPath(collectBallsGate)),
                             new WaitUntilCommand(()->!follower.isBusy()),
-                            new WaitCommand(600),
+                            new WaitCommand(700),
 
                             new InstantCommand(()->follower.followPath(shootFromGate)),
                             new InstantCommand(()->shooter.update(TurretShooter.shooterState.AUTOCLOSE)),
@@ -140,7 +140,7 @@ public class blue15 extends OpMode {
                             new InstantCommand(()->timer.reset()),
                             new ParallelRaceGroup(
                                     new ShootAll3Inertia(shooter,sort,intake),
-                                    new WaitUntilCommand(()->timer.milliseconds()>1800)
+                                    new WaitUntilCommand(()->timer.milliseconds()>1000)
                             ),
                             new InstantCommand(()->shooter.update(TurretShooter.shooterState.IDLE)),
 
@@ -157,7 +157,7 @@ public class blue15 extends OpMode {
                             new InstantCommand(()->timer.reset()),
                             new ParallelRaceGroup(
                                     new ShootAll3Inertia(shooter,sort,intake),
-                                    new WaitUntilCommand(()->timer.milliseconds()>1800)
+                                    new WaitUntilCommand(()->timer.milliseconds()>1000)
                             ),
                             new InstantCommand(()->shooter.update(TurretShooter.shooterState.IDLE)),
 
@@ -172,7 +172,7 @@ public class blue15 extends OpMode {
                             new InstantCommand(()->timer.reset()),
                             new ParallelRaceGroup(
                                     new ShootAll3Inertia(shooter,sort,intake),
-                                    new WaitUntilCommand(()->timer.milliseconds()>1800)
+                                    new WaitUntilCommand(()->timer.milliseconds()>1000)
                             ),
                             new InstantCommand(()-> shooter.update(TurretShooter.shooterState.IDLE)),
 
