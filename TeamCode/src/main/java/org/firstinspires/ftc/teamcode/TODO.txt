@@ -1,6 +1,8 @@
 
 -- turret tuning -> the turret is oscillating a lot when trying to reach 0
 
+-- tune rpm so that it reaches the right rpm faster
+
 -- led tuning
 
 -- auto 1.5k base rpm and tele 1k base rpm
