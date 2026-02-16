@@ -80,8 +80,8 @@ public class blue15 extends OpMode {
         follower.setStartingPose(robot.pose);
         follower.update();
 
-        shooter.offsetConstant=-7;
-//        shooter.hoodOffset-=0.3;
+//        shooter.offsetConstant=-2;
+        shooter.hoodOffset-=0.1;
 
 
         initPaths();
@@ -130,11 +130,11 @@ public class blue15 extends OpMode {
                             new InstantCommand(()->sort.update(ChamberSort.CHAMBER_STATE.IN)),
                             new WaitUntilCommand(()->!follower.isBusy()),
 
-                            new WaitCommand(150),
+                            new WaitCommand(100),
 
                             new InstantCommand(()->follower.followPath(collectBallsGate)),
                             new WaitUntilCommand(()->!follower.isBusy()),
-                            new WaitCommand(1000),
+                            new WaitCommand(1500),
 
 
                             new InstantCommand(()->follower.followPath(shootFromGate)),
@@ -211,11 +211,12 @@ public class blue15 extends OpMode {
                         new BezierCurve(
                                 Constants.autoCloseBLUEShoot,
                                 new Pose(65.000, 57.000),
-                                new Pose(20.000, 55.000)
+                                new Pose(18.000, 55.000)
                         )
                 )
                 .setLinearHeadingInterpolation(Math.toRadians(190), Math.toRadians(180))
                 .setBrakingStrength(2)
+                .setVelocityConstraint(50)
                 .build();
 
         shoot2 = follower
@@ -233,7 +234,7 @@ public class blue15 extends OpMode {
                         new BezierCurve(
                                 Constants.autoCloseBLUEShoot,
                                 new Pose(30.00, 60.000),
-                                new Pose(10.00, 62.000)
+                                new Pose(12.00, 62.000)
                         )
                 )
                 .setLinearHeadingInterpolation(Math.toRadians(175), Math.toRadians(150))
@@ -244,18 +245,23 @@ public class blue15 extends OpMode {
                 .pathBuilder()
                 .addPath(
                         new BezierLine(
-                                new Pose(10.00, 62.000),
-                                new Pose(10.000, 54.000)
+                                new Pose(12.00, 62.000),
+                                new Pose(9.000, 56.000)
                         )
                 )
-                .setLinearHeadingInterpolation(Math.toRadians(150), Math.toRadians(150))
+                .setLinearHeadingInterpolation(Math.toRadians(150), Math.toRadians(137))
                 .build();
         shootFromGate=follower
                 .pathBuilder()
                 .addPath(
-                        new BezierCurve(new Pose(11.000, 54.000),new Pose(35,60),Constants.autoCloseBLUEShoot)
+                        new BezierCurve(new Pose(9.000, 56.000),
+                                new Pose(10,58),
+                                new Pose(35,60),
+                                Constants.autoCloseBLUEShoot)
                 )
-                .setLinearHeadingInterpolation(Math.toRadians(150), Math.toRadians(180))
+                .setLinearHeadingInterpolation(Math.toRadians(137), Math.toRadians(180))
+//                .setTangentHeadingInterpolation()
+//                .setReversed()
                 .build();
 
 

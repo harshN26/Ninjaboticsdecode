@@ -54,7 +54,7 @@ public class Constants {
 
 
 
-    public static double[] pidCoeffs_turret ={0.0125,0.012,0.001};;
+    public static double[] pidCoeffs_turret ={0.0127,0.011,0.0008};;
     public static final int tolerance_turret=5;
 
     public static double tolerance_shooter=150;
@@ -110,11 +110,11 @@ public class Constants {
     public static final int filterN=3;
 
     public static double turretOffsetX=-0.25, turretOffsetY=-1.125;
-    public static double CPurpleIN=1.3;
-    public static double CGreenIN=2.0;
+    public static double CPurpleIN=1.2;
+    public static double CGreenIN=2.3;
 
-    public static double CPurpleOUT=1.3;
-    public static double CGreenOUT=2.0;
+    public static double CPurpleOUT=0.95;
+    public static double CGreenOUT=1.68;
 
 
 
