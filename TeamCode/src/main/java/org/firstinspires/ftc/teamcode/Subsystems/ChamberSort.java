@@ -26,7 +26,7 @@ public class ChamberSort extends SubsystemBase {
 
     public void setPowerAll(double pow){
 
-//        robot.sort1.setPower(pow);
+        robot.sort1.setPower(pow);
     }
 
     public void loop(){
