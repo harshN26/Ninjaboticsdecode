@@ -270,10 +270,10 @@ public class blue15 extends OpMode {
         collectBalls1 = follower
                 .pathBuilder()
                 .addPath(
-                        new BezierLine(Constants.autoCloseBLUEShoot, new Pose(22.000, 82.000))
+                        new BezierLine(Constants.autoCloseBLUEShoot, new Pose(23.000, 82.000))
                 )
                 .setConstantHeadingInterpolation(Math.toRadians(180))
-                .setBrakingStrength(5)
+                .setBrakingStrength(2)
                 .build();
         shoot1 = follower
                 .pathBuilder()
@@ -312,7 +312,7 @@ public class blue15 extends OpMode {
                 )
                 .setTangentHeadingInterpolation()
                 .setReversed()
-                .setBrakingStrength(3)
+                .setBrakingStrength(2)
                 .build();
 
         last = follower
