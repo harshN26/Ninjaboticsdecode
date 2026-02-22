@@ -33,7 +33,7 @@ public class Constants {
 
     public static final Pose redGoal=new Pose(144,144);
     public static final Pose blueGoal=new Pose(0,144);
-    public static double zGoal=40; //in
+    public static double zGoal=42; //in
 
     public static double shooterHeight=14;//in
     public static final double shooterWheelRadius=1.5;//in
@@ -47,15 +47,15 @@ public class Constants {
     public static double MAX_WHEEL_RPM = 5000.0;
 
 
-    public static double EFFECTIVE_RPM_FACTOR = 0.11;
+    public static double EFFECTIVE_RPM_FACTOR = 0.1;
 
     public static double ShooterDistanceSlope=12.5;
 
 
 
 
-    public static double[] pidCoeffs_turret ={0.02,0.012,0.0007};
-    public static final int tolerance_turret=5;
+    public static double[] pidCoeffs_turret ={0.012,0.007,0.0013};;
+    public static final int tolerance_turret=3;
 
     public static double tolerance_shooter=150;
 

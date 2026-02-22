@@ -17,6 +17,7 @@ import com.seattlesolvers.solverslib.command.SequentialCommandGroup;
 import com.seattlesolvers.solverslib.command.WaitCommand;
 import com.seattlesolvers.solverslib.command.WaitUntilCommand;
 
+import org.firstinspires.ftc.teamcode.Commands.multipartCommands.ShootAll3Inertia;
 import org.firstinspires.ftc.teamcode.Commands.multipartCommands.ShootAllAUTOCLOSE;
 import org.firstinspires.ftc.teamcode.Constants;
 import org.firstinspires.ftc.teamcode.Robot_Hardware;
@@ -97,12 +98,12 @@ public class ball_auto_18_red extends OpMode {
                         new InstantCommand(()-> intake.update(Intake.INTAKE_STATE.IN)),
                         new InstantCommand(()->sort.update(ChamberSort.CHAMBER_STATE.IN)),
                         new WaitCommand(500),
-                        new InstantCommand(()->shooter.update(TurretShooter.shooterState.AUTOCLOSE)),
+                        new InstantCommand(()->shooter.update(TurretShooter.shooterState.FIRE)),
                         new WaitUntilCommand(()->!follower.isBusy()),
                         new InstantCommand(()->timer.reset()),
                         new ParallelRaceGroup(
-                                new ShootAllAUTOCLOSE(shooter,sort,intake),
-                                new WaitUntilCommand(()->timer.milliseconds()>1500)
+                                new ShootAll3Inertia(shooter,sort,intake),
+                                new WaitUntilCommand(()->timer.milliseconds()>1700)
                         ),
                         new InstantCommand(()->shooter.update(TurretShooter.shooterState.IDLE)),
 
@@ -113,12 +114,12 @@ public class ball_auto_18_red extends OpMode {
                         new InstantCommand(()->sort.update(ChamberSort.CHAMBER_STATE.IN)),
                         new WaitUntilCommand(()->!follower.isBusy()),
                         new InstantCommand(()->follower.followPath(shoot2)),
-                        new InstantCommand(()->shooter.update(TurretShooter.shooterState.AUTOCLOSE)),
+                        new InstantCommand(()->shooter.update(TurretShooter.shooterState.FIRE)),
                         new WaitUntilCommand(()->!follower.isBusy()&&shooter.isInRange()),
                         new InstantCommand(()->timer.reset()),
                         new ParallelRaceGroup(
-                                new ShootAllAUTOCLOSE(shooter,sort,intake),
-                                new WaitUntilCommand(()->timer.milliseconds()>1500)
+                                new ShootAll3Inertia(shooter,sort,intake),
+                                new WaitUntilCommand(()->timer.milliseconds()>1700)
                         ),
                         new InstantCommand(()->shooter.update(TurretShooter.shooterState.IDLE)),
 
@@ -130,14 +131,34 @@ public class ball_auto_18_red extends OpMode {
 
                         new InstantCommand(()->follower.followPath(collectBallsGate)),
                         new WaitUntilCommand(()->!follower.isBusy()),
+                        new WaitCommand(1000),
 
                         new InstantCommand(()->follower.followPath(shootFromGate)),
-                        new InstantCommand(()->shooter.update(TurretShooter.shooterState.AUTOCLOSE)),
+                        new InstantCommand(()->shooter.update(TurretShooter.shooterState.FIRE)),
                         new WaitUntilCommand(()->!follower.isBusy()&&shooter.isInRange()),
                         new InstantCommand(()->timer.reset()),
                         new ParallelRaceGroup(
-                                new ShootAllAUTOCLOSE(shooter,sort,intake),
-                                new WaitUntilCommand(()->timer.milliseconds()>1500)
+                                new ShootAll3Inertia(shooter,sort,intake),
+                                new WaitUntilCommand(()->timer.milliseconds()>1700)
+                        ),
+                        new InstantCommand(()->shooter.update(TurretShooter.shooterState.IDLE)),
+
+                        new InstantCommand(()->follower.followPath(openGate)),
+                        new WaitUntilCommand(()->!follower.isBusy()),
+                        new InstantCommand(()-> intake.update(Intake.INTAKE_STATE.IN)),
+                        new InstantCommand(()->sort.update(ChamberSort.CHAMBER_STATE.IN)),
+
+                        new InstantCommand(()->follower.followPath(collectBallsGate)),
+                        new WaitUntilCommand(()->!follower.isBusy()),
+                        new WaitCommand(1000),
+
+                        new InstantCommand(()->follower.followPath(shootFromGate)),
+                        new InstantCommand(()->shooter.update(TurretShooter.shooterState.FIRE)),
+                        new WaitUntilCommand(()->!follower.isBusy()&&shooter.isInRange()),
+                        new InstantCommand(()->timer.reset()),
+                        new ParallelRaceGroup(
+                                new ShootAll3Inertia(shooter,sort,intake),
+                                new WaitUntilCommand(()->timer.milliseconds()>1700)
                         ),
                         new InstantCommand(()->shooter.update(TurretShooter.shooterState.IDLE)),
 
@@ -149,12 +170,12 @@ public class ball_auto_18_red extends OpMode {
                         new InstantCommand(()->sort.update(ChamberSort.CHAMBER_STATE.IN)),
                         new WaitUntilCommand(()->!follower.isBusy()),
                         new InstantCommand(()->follower.followPath(shoot1)),
-                        new InstantCommand(()->shooter.update(TurretShooter.shooterState.AUTOCLOSE)),
+                        new InstantCommand(()->shooter.update(TurretShooter.shooterState.FIRE)),
                         new WaitUntilCommand(()->!follower.isBusy()&&shooter.isInRange()),
                         new InstantCommand(()->timer.reset()),
                         new ParallelRaceGroup(
-                                new ShootAllAUTOCLOSE(shooter,sort,intake),
-                                new WaitUntilCommand(()->timer.milliseconds()>1500)
+                                new ShootAll3Inertia(shooter,sort,intake),
+                                new WaitUntilCommand(()->timer.milliseconds()>1700)
                         ),
                         new InstantCommand(()->shooter.update(TurretShooter.shooterState.IDLE)),
 
@@ -164,12 +185,12 @@ public class ball_auto_18_red extends OpMode {
                         new InstantCommand(()->sort.update(ChamberSort.CHAMBER_STATE.IN)),
                         new WaitUntilCommand(()->!follower.isBusy()),
                         new InstantCommand(()->follower.followPath(shoot3)),
-                        new InstantCommand(()->shooter.update(TurretShooter.shooterState.AUTOCLOSE)),
+                        new InstantCommand(()->shooter.update(TurretShooter.shooterState.FIRE)),
                         new WaitUntilCommand(()->!follower.isBusy()&&shooter.isInRange()),
                         new InstantCommand(()->timer.reset()),
                         new ParallelRaceGroup(
-                                new ShootAllAUTOCLOSE(shooter,sort,intake),
-                                new WaitUntilCommand(()->timer.milliseconds()>1500)
+                                new ShootAll3Inertia(shooter,sort,intake),
+                                new WaitUntilCommand(()->timer.milliseconds()>1700)
                         ),
                         new InstantCommand(()->shooter.update(TurretShooter.shooterState.IDLE)),
 
@@ -207,7 +228,7 @@ public class ball_auto_18_red extends OpMode {
                         new BezierCurve(
                                 Constants.autoCloseREDShoot,
                                 new Pose(85.000, 58.000),
-                                new Pose(115.000, 58.000)
+                                new Pose(120.000, 58.000)
                         )
                 )
                 .setLinearHeadingInterpolation(Math.toRadians(-10), Math.toRadians(0))
@@ -216,7 +237,7 @@ public class ball_auto_18_red extends OpMode {
         shoot2 = follower
                 .pathBuilder()
                 .addPath(
-                        new BezierLine(new Pose(115.000, 58.000), Constants.autoCloseREDShoot)
+                        new BezierLine(new Pose(120.000, 58.000), Constants.autoCloseREDShoot)
                 )
                 .setVelocityConstraint(0.8)
                 .setLinearHeadingInterpolation(Math.toRadians(0), Math.toRadians(15))
@@ -228,8 +249,8 @@ public class ball_auto_18_red extends OpMode {
                 .addPath(
                         new BezierCurve(
                                 Constants.autoCloseREDShoot,
-                                new Pose(120.500, 63.000),
-                                new Pose(134.500, 57.000)
+                                new Pose(120.500, 57.000),
+                                new Pose(134.500, 58.000)
                         )
                 )
                 .setLinearHeadingInterpolation(Math.toRadians(15), Math.toRadians(30))
@@ -239,8 +260,8 @@ public class ball_auto_18_red extends OpMode {
                 .pathBuilder()
                 .addPath(
                         new BezierLine(
-                                new Pose(134.500, 57.000),
-                                new Pose(137.000, 55.000)
+                                new Pose(134.500, 58.000),
+                                new Pose(137.000, 53.000)
                         )
                 )
                 .setLinearHeadingInterpolation(Math.toRadians(30), Math.toRadians(45))
@@ -248,7 +269,7 @@ public class ball_auto_18_red extends OpMode {
         shootFromGate=follower
                 .pathBuilder()
                 .addPath(
-                        new BezierLine(new Pose(135.000, 55.000),Constants.autoCloseREDShoot)
+                        new BezierLine(new Pose(135.000, 53.000),Constants.autoCloseREDShoot)
                 )
                 .setVelocityConstraint(0.8)
                 .setLinearHeadingInterpolation(Math.toRadians(45), Math.toRadians(0))

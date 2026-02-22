@@ -130,6 +130,7 @@ public class red15 extends OpMode {
 
                             new InstantCommand(()->follower.followPath(collectBallsGate)),
                             new WaitUntilCommand(()->!follower.isBusy()),
+                            new WaitCommand(1000),
 
                             new InstantCommand(()->follower.followPath(shootFromGate)),
                             new InstantCommand(()->shooter.update(TurretShooter.shooterState.AUTOCLOSE)),

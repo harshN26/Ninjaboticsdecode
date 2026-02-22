@@ -76,14 +76,14 @@ public class Constants {
             .strafeEncoderDirection(GoBildaPinpointDriver.EncoderDirection.REVERSED);
 
     public static PathConstraints pathConstraints = new PathConstraints(
-            0.8,
+            0.7,
             0.1,
             0.1,
             0.007,
             100,
-            0.8,
+            2,
             10,
-            1.1
+            1
     );
 
     public static Follower createFollower(HardwareMap hardwareMap) {
