@@ -127,7 +127,7 @@ public class Practice extends OpMode{
 
         if(g1ACurrent&&!g1ALast){
             if(shooter.horizontalDistance>150) //120
-                CommandScheduler.getInstance().schedule(new ShootAll3InertiaFAR(shooter,sort,intake));
+                CommandScheduler.getInstance().schedule(new ShootAll(shooter,sort,intake));
             else
                 CommandScheduler.getInstance().schedule(new ShootAll3Inertia(shooter,sort,intake));
         }
