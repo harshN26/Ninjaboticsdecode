@@ -43,7 +43,7 @@ public class Constants {
 
 
 
-    public static double MIN_WHEEL_RPM = 2325.0;
+    public static double MIN_WHEEL_RPM = 2250.0;
     public static double MAX_WHEEL_RPM = 5000.0;
 
 
@@ -54,7 +54,7 @@ public class Constants {
 
 
 
-    public static double[] pidCoeffs_turret ={0.012,0.007,0.0013};;
+    public static double[] pidCoeffs_turret ={0.018,0.015,0.0006};;
     public static final int tolerance_turret=3;
 
     public static double tolerance_shooter=150;
@@ -63,8 +63,8 @@ public class Constants {
 
     public static final double TICKS_PER_REV_Turret = 537.7;
 
-    public static double shooter_kp=0.00017;
-    public static double shooter_kv=0.0002;
+    public static double shooter_kp=0.004;
+    public static double shooter_kv=0.00025;
     public static double shooter_ks=0.0;
 
 

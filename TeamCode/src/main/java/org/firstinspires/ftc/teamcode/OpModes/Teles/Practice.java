@@ -17,6 +17,7 @@ import com.seattlesolvers.solverslib.command.ParallelCommandGroup;
 import org.firstinspires.ftc.teamcode.Commands.BasicCommands.StartAll;
 import org.firstinspires.ftc.teamcode.Commands.multipartCommands.ShootAll;
 import org.firstinspires.ftc.teamcode.Commands.multipartCommands.ShootAll3Inertia;
+import org.firstinspires.ftc.teamcode.Commands.multipartCommands.ShootAll3InertiaFAR;
 import org.firstinspires.ftc.teamcode.Commands.multipartCommands.ShootOnce;
 import org.firstinspires.ftc.teamcode.Subsystems.LLPort;
 import org.firstinspires.ftc.teamcode.Robot_Hardware;
@@ -125,8 +126,8 @@ public class Practice extends OpMode{
         g1RTCurrent=gamepad1.right_trigger>0.1;
 
         if(g1ACurrent&&!g1ALast){
-            if(shooter.horizontalDistance>120)
-                CommandScheduler.getInstance().schedule(new ShootAll(shooter,sort,intake));
+            if(shooter.horizontalDistance>150) //120
+                CommandScheduler.getInstance().schedule(new ShootAll3InertiaFAR(shooter,sort,intake));
             else
                 CommandScheduler.getInstance().schedule(new ShootAll3Inertia(shooter,sort,intake));
         }

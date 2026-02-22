@@ -76,7 +76,8 @@ public class ball9FarRED extends OpMode {
         follower = org.firstinspires.ftc.teamcode.pedroPathing.Constants.createFollower(hardwareMap);
         follower.setStartingPose(robot.pose);
         follower.update();
-//        shooter.offsetConstant=-30;
+        shooter.offsetConstant=-15;
+        shooter.hoodOffset=-1.0;
 
         initPaths();
 
@@ -96,7 +97,7 @@ public class ball9FarRED extends OpMode {
                         new InstantCommand(()->timer.reset()),
                         new ParallelRaceGroup(
                                 new ShootAllAUTOFAR(shooter,sort,intake),
-                                new WaitUntilCommand(()->timer.milliseconds()>1500)
+                                new WaitUntilCommand(()->timer.milliseconds()>2500)
                         ),
 
 
@@ -111,7 +112,7 @@ public class ball9FarRED extends OpMode {
                         new InstantCommand(()->timer.reset()),
                         new ParallelRaceGroup(
                                 new ShootAllAUTOCLOSE(shooter,sort,intake),
-                                new WaitUntilCommand(()->timer.milliseconds()>1500)
+                                new WaitUntilCommand(()->timer.milliseconds()>2500)
                         ),
 
 
@@ -133,7 +134,7 @@ public class ball9FarRED extends OpMode {
                         new InstantCommand(()->robot.autoPoseResetApproval=true),
                         new ParallelRaceGroup(
                                 new ShootAllAUTOFAR(shooter,sort,intake),
-                                new WaitUntilCommand(()->timer.milliseconds()>1500)
+                                new WaitUntilCommand(()->timer.milliseconds()>2500)
                         ),
                         new InstantCommand(()->robot.autoPoseResetApproval=false),
 
@@ -152,7 +153,7 @@ public class ball9FarRED extends OpMode {
                         new InstantCommand(()->robot.autoPoseResetApproval=true),
                         new ParallelRaceGroup(
                                 new ShootAllAUTOFAR(shooter,sort,intake),
-                                new WaitUntilCommand(()->timer.milliseconds()>1500)
+                                new WaitUntilCommand(()->timer.milliseconds()>2500)
                         ),
                         new InstantCommand(()->robot.autoPoseResetApproval=false),
                         new InstantCommand(()-> shooter.update(TurretShooter.shooterState.IDLE)),

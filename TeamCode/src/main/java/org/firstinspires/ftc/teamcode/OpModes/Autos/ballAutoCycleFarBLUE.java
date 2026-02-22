@@ -16,6 +16,7 @@ import com.seattlesolvers.solverslib.command.SequentialCommandGroup;
 import com.seattlesolvers.solverslib.command.WaitCommand;
 import com.seattlesolvers.solverslib.command.WaitUntilCommand;
 
+import org.firstinspires.ftc.teamcode.Commands.multipartCommands.ShootAll3InertiaFAR;
 import org.firstinspires.ftc.teamcode.Commands.multipartCommands.ShootAllAUTOFAR;
 import org.firstinspires.ftc.teamcode.Constants;
 import org.firstinspires.ftc.teamcode.Robot_Hardware;
@@ -72,7 +73,7 @@ public class ballAutoCycleFarBLUE extends OpMode {
         follower = org.firstinspires.ftc.teamcode.pedroPathing.Constants.createFollower(hardwareMap);
         follower.setStartingPose(robot.pose);
         follower.update();
-//        shooter.offsetConstant=17;
+        shooter.offsetConstant=5;
 
 
         initPaths();
@@ -92,8 +93,8 @@ public class ballAutoCycleFarBLUE extends OpMode {
                         new WaitUntilCommand(()->!follower.isBusy()&&shooter.isInRange()),
                         new InstantCommand(()->timer.reset()),
                         new ParallelRaceGroup(
-                                new ShootAllAUTOFAR(shooter,sort,intake),
-                                new WaitUntilCommand(()->timer.milliseconds()>1500)
+                                new ShootAll3InertiaFAR(shooter,sort,intake),
+                                new WaitUntilCommand(()->timer.milliseconds()>2500)
                         ),
                         //Collect balls1
                         new InstantCommand(()->follower.followPath(collectBalls1)),
@@ -111,7 +112,7 @@ public class ballAutoCycleFarBLUE extends OpMode {
                         new InstantCommand(()->robot.autoPoseResetApproval=true),
                         new ParallelRaceGroup(
                                 new ShootAllAUTOFAR(shooter,sort,intake),
-                                new WaitUntilCommand(()->timer.milliseconds()>1500)
+                                new WaitUntilCommand(()->timer.milliseconds()>2500)
                         ),
                         new InstantCommand(()->robot.autoPoseResetApproval=false),
 
@@ -130,7 +131,7 @@ public class ballAutoCycleFarBLUE extends OpMode {
                         new InstantCommand(()->robot.autoPoseResetApproval=true),
                         new ParallelRaceGroup(
                                 new ShootAllAUTOFAR(shooter,sort,intake),
-                                new WaitUntilCommand(()->timer.milliseconds()>1500)
+                                new WaitUntilCommand(()->timer.milliseconds()>2500)
                         ),
                         new InstantCommand(()->robot.autoPoseResetApproval=false),
                         new InstantCommand(()-> shooter.update(TurretShooter.shooterState.IDLE)),
@@ -148,7 +149,7 @@ public class ballAutoCycleFarBLUE extends OpMode {
                         new InstantCommand(()->robot.autoPoseResetApproval=true),
                         new ParallelRaceGroup(
                                 new ShootAllAUTOFAR(shooter,sort,intake),
-                                new WaitUntilCommand(()->timer.milliseconds()>1500)
+                                new WaitUntilCommand(()->timer.milliseconds()>2500)
                         ),
 
 
@@ -170,7 +171,7 @@ public class ballAutoCycleFarBLUE extends OpMode {
                         new InstantCommand(()->robot.autoPoseResetApproval=true),
                         new ParallelRaceGroup(
                                 new ShootAllAUTOFAR(shooter,sort,intake),
-                                new WaitUntilCommand(()->timer.milliseconds()>1500)
+                                new WaitUntilCommand(()->timer.milliseconds()>2500)
                         ),
                         new InstantCommand(()->robot.autoPoseResetApproval=false),
                         new InstantCommand(()-> shooter.update(TurretShooter.shooterState.IDLE)),

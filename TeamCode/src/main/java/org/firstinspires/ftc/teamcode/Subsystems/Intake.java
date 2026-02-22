@@ -10,7 +10,7 @@ public class Intake extends SubsystemBase {
     Robot_Hardware robot;
     Telemetry telem;
 
-    public enum INTAKE_STATE{IN,STOP,OUT}
+    public enum INTAKE_STATE{IN,STOP,OUT,INSLOW}
 
     public static INTAKE_STATE state=INTAKE_STATE.STOP;
     public Intake(Robot_Hardware hardware, Telemetry telemetry){
@@ -30,6 +30,8 @@ public class Intake extends SubsystemBase {
                 case OUT:robot.intake.setPower(-0.5);
                     break;
                 case STOP:robot.intake.setPower(0);
+                    break;
+                case INSLOW:robot.intake.setPower(0.5);
                     break;
             }
         }else{
