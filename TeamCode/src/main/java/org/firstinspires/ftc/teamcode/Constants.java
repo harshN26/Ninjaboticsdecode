@@ -114,7 +114,7 @@ public class Constants {
     public static double CGreenIN=2.3;
 
     public static double CPurpleOUT=0.95;
-    public static double CGreenOUT=1.68;
+    public static double CGreenOUT=1.7;
 
     public static double SOTM=0.005;
 
