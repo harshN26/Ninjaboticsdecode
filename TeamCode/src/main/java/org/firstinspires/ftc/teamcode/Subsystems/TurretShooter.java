@@ -186,13 +186,13 @@ public class TurretShooter extends SubsystemBase {
 
 
 
-    private double[] calculateShot2(double xTarget, double yTarget){
-        double dy = yTarget - robot.turretY-robot.yVelo*Constants.SOTM;
-        double dx = xTarget - robot.turretX-robot.xVelo*Constants.SOTM;
+    private double[] calculateShot2(double xTarget, double yTarget,double turretY,double turretX, double yVelo, double xVelo,double robotHeading){
+        double dy = yTarget - turretY-yVelo*Constants.SOTM;
+        double dx = xTarget - turretX-xVelo*Constants.SOTM;
         horizontalDistance = Math.hypot(dx, dy);
         double fieldAngle = Math.atan2(dy, dx);
 
-        double turretCurrAngle = robot.heading - Math.PI; //change math.pi here only depending on turret zero offset. if the offset is 0 (turret zero faces forward), remove Math.PI
+        double turretCurrAngle = robotHeading - Math.PI; //change math.pi here only depending on turret zero offset. if the offset is 0 (turret zero faces forward), remove Math.PI
 //        while (turretCurrAngle <= Math.toRadians(-180)) {
 //            turretCurrAngle += 2 * Math.PI;
 //        }
@@ -263,7 +263,7 @@ public class TurretShooter extends SubsystemBase {
 
         pidTurret.setPID(Constants.pidCoeffs_turret[0],Constants.pidCoeffs_turret[1],Constants.pidCoeffs_turret[2]);
 
-        double [] results= calculateShot2(robot.goal.getX(),robot.goal.getY());
+        double [] results= calculateShot2(robot.goal.getX(),robot.goal.getY(),robot.turretY,robot.turretX,robot.yVelo,robot.xVelo,robot.heading);
         switch (state) {
             case FIRE:
                 // active tracking and everything, we are ready for shooting and waiting for balls to enter
@@ -325,6 +325,7 @@ public class TurretShooter extends SubsystemBase {
                 LLPort.takeover=false;
                 break;
             case AUTOCLOSE:
+                results= calculateShot2(robot.goal.getX(),robot.goal.getY(),robot.endPoseAutoShoot.getY(),robot.endPoseAutoShoot.getX(),0,0,robot.endPoseAutoShoot.getHeading());
                 set_targetRPM_shooter((int)results[0]);
 //                setHoodTarget((int)results[2]);
                 setHoodTarget(Constants.hoodMinPos);
@@ -385,7 +386,7 @@ public class TurretShooter extends SubsystemBase {
         }
 
         telem(); 
-        telemP();
+//        telemP();
     }
 
     public void telem() {

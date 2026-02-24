@@ -62,7 +62,7 @@ public class Robot_Hardware{
 
     public static Pose goal,pose=Constants.redGoalStartingPose,resetPose=Constants.redResetPose;
 
-
+    public static Pose endPoseAutoShoot=new Pose(0,0,0);
     public static boolean autoPoseResetApproval=false;
 
 
@@ -154,14 +154,10 @@ public class Robot_Hardware{
         limelight.start();
 
         colorin=hardwareMap.get(NormalizedColorSensor.class, Global_Configs.colorIn);
-
-
         colorout=hardwareMap.get(NormalizedColorSensor.class, Global_Configs.colorOut);
 
         led=hardwareMap.get(Servo.class,Global_Configs.ledsName);
         telem=telemetry;
-
-
 
 
         voltageSensor=hardwareMap.voltageSensor.iterator().next();
@@ -224,6 +220,9 @@ public class Robot_Hardware{
             turretY = y + (Constants.turretOffsetX * Math.sin(heading) + Constants.turretOffsetY * Math.cos(heading));
 //            telem.addLine("goal"+ y);
 //            telem.addLine("pose"+ x);
+            if(follower.isBusy()&&currGameState==GameState.AUTO) {
+                endPoseAutoShoot = follower.getCurrentPathChain().lastPath().endPose();
+            }
 
         }catch (Exception ignored){
             telem.addLine("New follower error: "+ignored);
