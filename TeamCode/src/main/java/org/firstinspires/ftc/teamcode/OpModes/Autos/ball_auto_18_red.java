@@ -104,7 +104,7 @@ public class ball_auto_18_red extends OpMode {
                         new InstantCommand(()->timer.reset()),
                         new ParallelRaceGroup(
                                 new ShootAll3InertiaAUTOCLOSE(shooter,sort,intake),
-                                new WaitUntilCommand(()->timer.milliseconds()>1700)
+                                new WaitUntilCommand(()->timer.milliseconds()>1000)
                         ),
                         new InstantCommand(()->shooter.update(TurretShooter.shooterState.IDLE)),
 
@@ -120,7 +120,7 @@ public class ball_auto_18_red extends OpMode {
                         new InstantCommand(()->timer.reset()),
                         new ParallelRaceGroup(
                                 new ShootAll3InertiaAUTOCLOSE(shooter,sort,intake),
-                                new WaitUntilCommand(()->timer.milliseconds()>1700)
+                                new WaitUntilCommand(()->timer.milliseconds()>1000)
                         ),
                         new InstantCommand(()->shooter.update(TurretShooter.shooterState.IDLE)),
 
@@ -140,7 +140,7 @@ public class ball_auto_18_red extends OpMode {
                         new InstantCommand(()->timer.reset()),
                         new ParallelRaceGroup(
                                 new ShootAll3InertiaAUTOCLOSE(shooter,sort,intake),
-                                new WaitUntilCommand(()->timer.milliseconds()>1700)
+                                new WaitUntilCommand(()->timer.milliseconds()>1000)
                         ),
                         new InstantCommand(()->shooter.update(TurretShooter.shooterState.IDLE)),
 
@@ -159,7 +159,7 @@ public class ball_auto_18_red extends OpMode {
                         new InstantCommand(()->timer.reset()),
                         new ParallelRaceGroup(
                                 new ShootAll3InertiaAUTOCLOSE(shooter,sort,intake),
-                                new WaitUntilCommand(()->timer.milliseconds()>1700)
+                                new WaitUntilCommand(()->timer.milliseconds()>1000)
                         ),
                         new InstantCommand(()->shooter.update(TurretShooter.shooterState.IDLE)),
 
@@ -176,7 +176,7 @@ public class ball_auto_18_red extends OpMode {
                         new InstantCommand(()->timer.reset()),
                         new ParallelRaceGroup(
                                 new ShootAll3InertiaAUTOCLOSE(shooter,sort,intake),
-                                new WaitUntilCommand(()->timer.milliseconds()>1700)
+                                new WaitUntilCommand(()->timer.milliseconds()>1000)
                         ),
                         new InstantCommand(()->shooter.update(TurretShooter.shooterState.IDLE)),
 
@@ -191,7 +191,7 @@ public class ball_auto_18_red extends OpMode {
                         new InstantCommand(()->timer.reset()),
                         new ParallelRaceGroup(
                                 new ShootAll3InertiaAUTOCLOSE(shooter,sort,intake),
-                                new WaitUntilCommand(()->timer.milliseconds()>1700)
+                                new WaitUntilCommand(()->timer.milliseconds()>1000)
                         ),
                         new InstantCommand(()->shooter.update(TurretShooter.shooterState.IDLE)),
 
