@@ -175,7 +175,10 @@ public class turret_tracking_tester extends OpMode{
 
 
         if (g1BCurrent&&!g1BLast) {
-            follower.setPose(robot.resetPose);
+            follower.setPose(robot.resetPoseClose);
+        }
+        if(g1XCurrent&&!g1XLast){
+            follower.setPose(robot.resetPoseFar);
         }
 
         if(g2RTCurrent&&!g2RTLast&&g2LTCurrent&&!g2LTLast){
@@ -183,13 +186,15 @@ public class turret_tracking_tester extends OpMode{
                 case RED:
                     robot.alliance=Robot_Hardware.AllianceColor.BLUE;
                     robot.goal= org.firstinspires.ftc.teamcode.Constants.blueGoal;
-                    robot.resetPose=org.firstinspires.ftc.teamcode.Constants.blueResetPose;
+                    robot.resetPoseClose=org.firstinspires.ftc.teamcode.Constants.blueResetPoseClose;
+                    robot.resetPoseFar=org.firstinspires.ftc.teamcode.Constants.blueResetPoseFar;
                     robot.aprilTagID=20;
                     break;
                 case BLUE:
                     robot.alliance=Robot_Hardware.AllianceColor.RED;
                     robot.goal= org.firstinspires.ftc.teamcode.Constants.redGoal;
-                    robot.resetPose=org.firstinspires.ftc.teamcode.Constants.redResetPose;
+                    robot.resetPoseClose=org.firstinspires.ftc.teamcode.Constants.redResetPoseClose;
+                    robot.resetPoseFar=org.firstinspires.ftc.teamcode.Constants.redResetPoseFar;
                     robot.aprilTagID=24;
                     break;
                 default:
@@ -199,22 +204,22 @@ public class turret_tracking_tester extends OpMode{
 
 
 
-        g1ALast=  g1ACurrent;
-        g1XLast=  g1XCurrent;
-        g1BLast=  g1BCurrent;
-        g1YLast=  g1YCurrent;
-        g1RBLast=  g1RBCurrent;
-        g1LBLast=  g1LBCurrent;
+        g1ALast =  g1ACurrent;
+        g1XLast =  g1XCurrent;
+        g1BLast =  g1BCurrent;
+        g1YLast =  g1YCurrent;
+        g1RBLast =  g1RBCurrent;
+        g1LBLast =  g1LBCurrent;
 
-        g2ALast=  g2ACurrent;
-        g2XLast=  g2XCurrent;
-        g2BLast=  g2BCurrent;
-        g2YLast=  g2YCurrent;
-        g2RBLast=  g2RBCurrent;
-        g2LBLast=  g2LBCurrent;
-        g2LTLast=g2LTCurrent;
-        g1LTLast=g1LTCurrent;
-        g2RTLast=g2RTCurrent;
+        g2ALast =  g2ACurrent;
+        g2XLast =  g2XCurrent;
+        g2BLast =  g2BCurrent;
+        g2YLast =  g2YCurrent;
+        g2RBLast =  g2RBCurrent;
+        g2LBLast =  g2LBCurrent;
+        g2LTLast = g2LTCurrent;
+        g1LTLast = g1LTCurrent;
+        g2RTLast = g2RTCurrent;
     }
     public void stop(){
 //        robot.end();

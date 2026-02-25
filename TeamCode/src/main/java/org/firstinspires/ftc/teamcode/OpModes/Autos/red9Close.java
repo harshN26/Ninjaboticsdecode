@@ -56,7 +56,8 @@ public class red9Close extends OpMode {
         CommandScheduler.getInstance().reset();
         telemetry =  new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
         robot.alliance = Robot_Hardware.AllianceColor.RED;
-        robot.resetPose=Constants.redResetPose;
+        robot.resetPoseClose=Constants.redResetPoseClose;
+        robot.resetPoseFar=Constants.redResetPoseFar;
         robot.currGameState= Robot_Hardware.GameState.AUTO;
         robot.pose= Constants.redGoalStartingPose;
         robot.startPose=Constants.redGoalStartingPose;

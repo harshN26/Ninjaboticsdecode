@@ -234,7 +234,10 @@ public class Practice extends OpMode{
 
 
         if (g1BCurrent&&!g1BLast) {
-            follower.setPose(robot.resetPose);
+            follower.setPose(robot.resetPoseClose);
+        }
+        if(g1XCurrent&&!g1XLast){
+            follower.setPose(robot.resetPoseFar);
         }
 
         if(g2RTCurrent&&!g2RTLast&&g2LTCurrent&&!g2LTLast){
@@ -242,13 +245,15 @@ public class Practice extends OpMode{
                 case RED:
                     robot.alliance=Robot_Hardware.AllianceColor.BLUE;
                     robot.goal= org.firstinspires.ftc.teamcode.Constants.blueGoal;
-                    robot.resetPose=org.firstinspires.ftc.teamcode.Constants.blueResetPose;
+                    robot.resetPoseClose=org.firstinspires.ftc.teamcode.Constants.blueResetPoseClose;
+                    robot.resetPoseFar=org.firstinspires.ftc.teamcode.Constants.blueResetPoseFar;
                     robot.aprilTagID=20;
                     break;
                 case BLUE:
                     robot.alliance=Robot_Hardware.AllianceColor.RED;
                     robot.goal= org.firstinspires.ftc.teamcode.Constants.redGoal;
-                    robot.resetPose=org.firstinspires.ftc.teamcode.Constants.redResetPose;
+                    robot.resetPoseClose=org.firstinspires.ftc.teamcode.Constants.redResetPoseClose;
+                    robot.resetPoseFar=org.firstinspires.ftc.teamcode.Constants.redResetPoseFar;
                     robot.aprilTagID=24;
                     break;
                 default:

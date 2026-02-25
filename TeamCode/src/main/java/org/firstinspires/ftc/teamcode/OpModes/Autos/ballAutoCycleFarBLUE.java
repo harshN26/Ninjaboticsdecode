@@ -54,7 +54,8 @@ public class ballAutoCycleFarBLUE extends OpMode {
         CommandScheduler.getInstance().reset();
         telemetry =  new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
         robot.alliance = Robot_Hardware.AllianceColor.BLUE;
-        robot.resetPose=Constants.blueResetPose;
+        robot.resetPoseClose=Constants.blueResetPoseClose;
+        robot.resetPoseFar=Constants.blueResetPoseFar;
         robot.currGameState= Robot_Hardware.GameState.AUTO;
         robot.pose= Constants.blueBackStartingPose;
         robot.startPose=Constants.blueBackStartingPose;

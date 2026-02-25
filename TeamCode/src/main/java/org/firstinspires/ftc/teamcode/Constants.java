@@ -86,8 +86,11 @@ public class Constants {
     public static final Pose blueBackStartingPose=new Pose(55,9,Math.toRadians(90));
 
 
-    public static final Pose blueResetPose=new Pose(106.5,33.2,Math.toRadians(-90));
-    public static final Pose redResetPose=new Pose(37.5,33.2,Math.toRadians(-90));
+    public static final Pose blueResetPoseClose=new Pose(13,112,Math.toRadians(-90));
+    public static final Pose redResetPoseClose=new Pose(131,112,Math.toRadians(-90));
+
+    public static final Pose blueResetPoseFar=new Pose(13,112,Math.toRadians(-90));
+    public static final Pose redResetPoseFar=new Pose(131,112,Math.toRadians(-90));
 
 
 

@@ -14,7 +14,7 @@ import org.firstinspires.ftc.teamcode.Subsystems.*;
 public class StartAll extends CommandBase {
 
     Follower drive;
-    Pose resetPose;
+    Pose resetPoseClose,resetPoseFar;
     TurretShooter shooter;
     Intake intake;
     ChamberSort chamberSort;
@@ -27,12 +27,15 @@ public class StartAll extends CommandBase {
         chamberSort=chamber;
         try {
             if (Robot_Hardware.getInstance().alliance == Robot_Hardware.AllianceColor.RED) {
-                resetPose = Constants.redResetPose;
+                resetPoseClose = Constants.redResetPoseClose;
+                resetPoseFar = Constants.redResetPoseFar;
             } else {
-                resetPose = Constants.blueResetPose;
+                resetPoseClose = Constants.blueResetPoseClose;
+                resetPoseFar = Constants.blueResetPoseFar;
             }
         }catch(Exception e){
-            resetPose=Constants.blueResetPose;
+            resetPoseClose=Constants.redResetPoseClose;
+            resetPoseFar=Constants.redResetPoseFar;
         }
         addRequirements(turretShooter,in,chamber);
 

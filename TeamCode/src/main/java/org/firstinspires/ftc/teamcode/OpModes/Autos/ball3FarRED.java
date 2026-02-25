@@ -53,7 +53,8 @@ public class ball3FarRED extends OpMode {
         CommandScheduler.getInstance().reset();
         telemetry =  new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
         robot.alliance = Robot_Hardware.AllianceColor.RED;
-        robot.resetPose=Constants.redResetPose;
+        robot.resetPoseClose=Constants.redResetPoseClose;
+        robot.resetPoseFar=Constants.redResetPoseFar;
         robot.currGameState= Robot_Hardware.GameState.AUTO;
         robot.pose= Constants.redBackStartingPose;
         robot.startPose=Constants.redBackStartingPose;

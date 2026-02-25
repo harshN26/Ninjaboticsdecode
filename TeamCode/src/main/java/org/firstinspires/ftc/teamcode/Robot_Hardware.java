@@ -60,7 +60,7 @@ public class Robot_Hardware{
 
     public static AllianceColor alliance=AllianceColor.RED;
 
-    public static Pose goal,pose=Constants.redGoalStartingPose,resetPose=Constants.redResetPose;
+    public static Pose goal,pose=Constants.redGoalStartingPose,resetPoseClose=Constants.redResetPoseClose,resetPoseFar=Constants.redResetPoseFar;
 
     public static Pose endPoseAutoShoot=new Pose(0,0,0);
     public static boolean autoPoseResetApproval=false;
