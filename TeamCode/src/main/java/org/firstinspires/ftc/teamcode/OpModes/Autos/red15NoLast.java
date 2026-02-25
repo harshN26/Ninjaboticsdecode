@@ -17,8 +17,6 @@ import com.seattlesolvers.solverslib.command.SequentialCommandGroup;
 import com.seattlesolvers.solverslib.command.WaitCommand;
 import com.seattlesolvers.solverslib.command.WaitUntilCommand;
 
-import org.firstinspires.ftc.teamcode.Commands.multipartCommands.ShootAll3Inertia;
-import org.firstinspires.ftc.teamcode.Commands.multipartCommands.ShootAll3InertiaAUTOCLOSE;
 import org.firstinspires.ftc.teamcode.Commands.multipartCommands.ShootAllAUTOCLOSE;
 import org.firstinspires.ftc.teamcode.Constants;
 import org.firstinspires.ftc.teamcode.Robot_Hardware;
@@ -29,8 +27,8 @@ import org.firstinspires.ftc.teamcode.Subsystems.TurretShooter;
 import org.firstinspires.ftc.teamcode.Subsystems.ColorLeds;
 
 //@Disabled
-@Autonomous(name="red18")
-public class ball_auto_18_red extends OpMode {
+@Autonomous(name="red15NoLast")
+public class red15NoLast extends OpMode {
     Robot_Hardware robot=Robot_Hardware.getInstance();
     ElapsedTime timer;
 
@@ -99,11 +97,11 @@ public class ball_auto_18_red extends OpMode {
                         new InstantCommand(()-> intake.update(Intake.INTAKE_STATE.IN)),
                         new InstantCommand(()->sort.update(ChamberSort.CHAMBER_STATE.IN)),
                         new WaitCommand(500),
-                        new InstantCommand(()->shooter.update(TurretShooter.shooterState.FIRE)),
+                        new InstantCommand(()->shooter.update(TurretShooter.shooterState.AUTOCLOSE)),
                         new WaitUntilCommand(()->!follower.isBusy()),
                         new InstantCommand(()->timer.reset()),
                         new ParallelRaceGroup(
-                                new ShootAll3InertiaAUTOCLOSE(shooter,sort,intake),
+                                new ShootAllAUTOCLOSE(shooter,sort,intake),
                                 new WaitUntilCommand(()->timer.milliseconds()>1700)
                         ),
                         new InstantCommand(()->shooter.update(TurretShooter.shooterState.IDLE)),
@@ -115,16 +113,16 @@ public class ball_auto_18_red extends OpMode {
                         new InstantCommand(()->sort.update(ChamberSort.CHAMBER_STATE.IN)),
                         new WaitUntilCommand(()->!follower.isBusy()),
                         new InstantCommand(()->follower.followPath(shoot2)),
-                        new InstantCommand(()->shooter.update(TurretShooter.shooterState.FIRE)),
+                        new InstantCommand(()->shooter.update(TurretShooter.shooterState.AUTOCLOSE)),
                         new WaitUntilCommand(()->!follower.isBusy()&&shooter.isInRange()),
                         new InstantCommand(()->timer.reset()),
                         new ParallelRaceGroup(
-                                new ShootAll3InertiaAUTOCLOSE(shooter,sort,intake),
+                                new ShootAllAUTOCLOSE(shooter,sort,intake),
                                 new WaitUntilCommand(()->timer.milliseconds()>1700)
                         ),
                         new InstantCommand(()->shooter.update(TurretShooter.shooterState.IDLE)),
 
-
+                        //gate
                         new InstantCommand(()->follower.followPath(openGate)),
                         new WaitUntilCommand(()->!follower.isBusy()),
                         new InstantCommand(()-> intake.update(Intake.INTAKE_STATE.IN)),
@@ -135,30 +133,11 @@ public class ball_auto_18_red extends OpMode {
                         new WaitCommand(1000),
 
                         new InstantCommand(()->follower.followPath(shootFromGate)),
-                        new InstantCommand(()->shooter.update(TurretShooter.shooterState.FIRE)),
+                        new InstantCommand(()->shooter.update(TurretShooter.shooterState.AUTOCLOSE)),
                         new WaitUntilCommand(()->!follower.isBusy()&&shooter.isInRange()),
                         new InstantCommand(()->timer.reset()),
                         new ParallelRaceGroup(
-                                new ShootAll3InertiaAUTOCLOSE(shooter,sort,intake),
-                                new WaitUntilCommand(()->timer.milliseconds()>1700)
-                        ),
-                        new InstantCommand(()->shooter.update(TurretShooter.shooterState.IDLE)),
-
-                        new InstantCommand(()->follower.followPath(openGate)),
-                        new WaitUntilCommand(()->!follower.isBusy()),
-                        new InstantCommand(()-> intake.update(Intake.INTAKE_STATE.IN)),
-                        new InstantCommand(()->sort.update(ChamberSort.CHAMBER_STATE.IN)),
-
-                        new InstantCommand(()->follower.followPath(collectBallsGate)),
-                        new WaitUntilCommand(()->!follower.isBusy()),
-                        new WaitCommand(1000),
-
-                        new InstantCommand(()->follower.followPath(shootFromGate)),
-                        new InstantCommand(()->shooter.update(TurretShooter.shooterState.FIRE)),
-                        new WaitUntilCommand(()->!follower.isBusy()&&shooter.isInRange()),
-                        new InstantCommand(()->timer.reset()),
-                        new ParallelRaceGroup(
-                                new ShootAll3InertiaAUTOCLOSE(shooter,sort,intake),
+                                new ShootAllAUTOCLOSE(shooter,sort,intake),
                                 new WaitUntilCommand(()->timer.milliseconds()>1700)
                         ),
                         new InstantCommand(()->shooter.update(TurretShooter.shooterState.IDLE)),
@@ -171,26 +150,31 @@ public class ball_auto_18_red extends OpMode {
                         new InstantCommand(()->sort.update(ChamberSort.CHAMBER_STATE.IN)),
                         new WaitUntilCommand(()->!follower.isBusy()),
                         new InstantCommand(()->follower.followPath(shoot1)),
-                        new InstantCommand(()->shooter.update(TurretShooter.shooterState.FIRE)),
+                        new InstantCommand(()->shooter.update(TurretShooter.shooterState.AUTOCLOSE)),
                         new WaitUntilCommand(()->!follower.isBusy()&&shooter.isInRange()),
                         new InstantCommand(()->timer.reset()),
                         new ParallelRaceGroup(
-                                new ShootAll3InertiaAUTOCLOSE(shooter,sort,intake),
+                                new ShootAllAUTOCLOSE(shooter,sort,intake),
                                 new WaitUntilCommand(()->timer.milliseconds()>1700)
                         ),
                         new InstantCommand(()->shooter.update(TurretShooter.shooterState.IDLE)),
 
-                        //ball line 3
-                        new InstantCommand(()->follower.followPath(collectBalls3)),
-                        new InstantCommand(()->intake.update(Intake.INTAKE_STATE.IN)),
-                        new InstantCommand(()->sort.update(ChamberSort.CHAMBER_STATE.IN)),
+                        //gate
+                        new InstantCommand(()->follower.followPath(openGate)),
                         new WaitUntilCommand(()->!follower.isBusy()),
-                        new InstantCommand(()->follower.followPath(shoot3)),
-                        new InstantCommand(()->shooter.update(TurretShooter.shooterState.FIRE)),
+                        new InstantCommand(()-> intake.update(Intake.INTAKE_STATE.IN)),
+                        new InstantCommand(()->sort.update(ChamberSort.CHAMBER_STATE.IN)),
+
+                        new InstantCommand(()->follower.followPath(collectBallsGate)),
+                        new WaitUntilCommand(()->!follower.isBusy()),
+                        new WaitCommand(1000),
+
+                        new InstantCommand(()->follower.followPath(shootFromGate)),
+                        new InstantCommand(()->shooter.update(TurretShooter.shooterState.AUTOCLOSE)),
                         new WaitUntilCommand(()->!follower.isBusy()&&shooter.isInRange()),
                         new InstantCommand(()->timer.reset()),
                         new ParallelRaceGroup(
-                                new ShootAll3InertiaAUTOCLOSE(shooter,sort,intake),
+                                new ShootAllAUTOCLOSE(shooter,sort,intake),
                                 new WaitUntilCommand(()->timer.milliseconds()>1700)
                         ),
                         new InstantCommand(()->shooter.update(TurretShooter.shooterState.IDLE)),
@@ -334,6 +318,7 @@ public class ball_auto_18_red extends OpMode {
                 )
                 .setLinearHeadingInterpolation(Math.toRadians(-52), Math.toRadians(90))
                 .build();
+
     }
     public void init_loop(){
         telemetry.addLine("red goal");
