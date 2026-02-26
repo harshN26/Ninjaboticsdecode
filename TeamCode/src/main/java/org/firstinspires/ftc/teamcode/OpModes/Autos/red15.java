@@ -79,8 +79,8 @@ public class red15 extends OpMode {
         follower.setStartingPose(robot.pose);
         follower.update();
 
-//        shooter.offsetConstant=15;
-        shooter.hoodOffset-=0.1;
+//        shooter.offsetConstant=10;
+//        shooter.hoodOffset-=0.1;
 
         initPaths();
 
@@ -231,7 +231,7 @@ public class red15 extends OpMode {
                         new BezierCurve(
                                 Constants.autoCloseREDShoot,
                                 new Pose(117.500, 55.000),
-                                new Pose(132.500, 57.000)
+                                new Pose(133.500, 57.000)
                         )
                 )
                 .setLinearHeadingInterpolation(Math.toRadians(15), Math.toRadians(30))
@@ -303,7 +303,7 @@ public class red15 extends OpMode {
                 )
                 .setTangentHeadingInterpolation()
                 .setVelocityConstraint(0.6)
-                .setBrakingStrength(0.3)
+                .setBrakingStrength(0.6)
                 .setReversed()
                 .build();
 

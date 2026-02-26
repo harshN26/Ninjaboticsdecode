@@ -43,27 +43,27 @@ public class Constants {
 
 
 
-    public static double MIN_WHEEL_RPM = 2250.0;
+    public static double MIN_WHEEL_RPM = 2230.0;
     public static double MAX_WHEEL_RPM = 5000.0;
 
 
     public static double EFFECTIVE_RPM_FACTOR = 0.1;
 
-    public static double ShooterDistanceSlope=12.5;
+    public static double ShooterDistanceSlope=12.25;
 
 
 
 
-    public static double[] pidCoeffs_turret ={0.015,0.012,0.0006};;
+    public static double[] pidCoeffs_turret ={0.015,0.012,0.0007};;
     public static final int tolerance_turret=3;
 
-    public static double tolerance_shooter=150;
+    public static double tolerance_shooter=100;
 
     public static final double TICKS_PER_REV_Shooter = 28;
 
     public static final double TICKS_PER_REV_Turret = 537.7;
 
-    public static double shooter_kp=0.004;
+    public static double shooter_kp=0.0045;
     public static double shooter_kv=0.00025;
     public static double shooter_ks=0.0;
 
@@ -89,15 +89,15 @@ public class Constants {
     public static final Pose blueResetPoseClose=new Pose(13,112,Math.toRadians(-90));
     public static final Pose redResetPoseClose=new Pose(131,112,Math.toRadians(-90));
 
-    public static final Pose blueResetPoseFar=new Pose(13,112,Math.toRadians(-90));
-    public static final Pose redResetPoseFar=new Pose(131,112,Math.toRadians(-90));
+    public static final Pose blueResetPoseFar=new Pose(63,7,Math.toRadians(180));
+    public static final Pose redResetPoseFar=new Pose(81,7,Math.toRadians(0));
 
 
 
     public static final Pose autoCloseBLUEShoot=new Pose(55.000, 85.000);
-    public static final Pose autoFarBLUEShoot=new Pose(54.000, 20.000);
-    public static final Pose autoCloseREDShoot=new Pose(90.000, 85.000);
-    public static final Pose autoFarREDShoot=new Pose(90.000, 13.000);
+    public static final Pose autoFarBLUEShoot=new Pose(54.000, 15.000);
+    public static final Pose autoCloseREDShoot=new Pose(89.000, 85.000);
+    public static final Pose autoFarREDShoot=new Pose(90.000, 15.000);
 
 
 
