@@ -313,7 +313,8 @@ public class blue15 extends OpMode {
                 )
                 .setTangentHeadingInterpolation()
                 .setReversed()
-                .setBrakingStart(0.3)
+                .setVelocityConstraint(0.6)
+                .setBrakingStrength(0.6)
                 .build();
 
         last = follower

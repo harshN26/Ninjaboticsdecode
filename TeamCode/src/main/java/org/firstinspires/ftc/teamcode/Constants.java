@@ -63,7 +63,7 @@ public class Constants {
 
     public static final double TICKS_PER_REV_Turret = 537.7;
 
-    public static double shooter_kp=0.0045;
+    public static double shooter_kp=0.0042;
     public static double shooter_kv=0.00025;
     public static double shooter_ks=0.0;
 
