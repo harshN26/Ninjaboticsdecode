@@ -16,7 +16,7 @@ public class Constants {
 
     //TODO: add all positions and update
     public static final int ShooterResetRPM =0;
-    public static final int ShooterIdleRPM =1000;
+    public static final int ShooterIdleRPM =1500;
     public static final int ShooterStopRPM =0;
 
     public static final double hoodMaxPos =0.6;
@@ -43,13 +43,13 @@ public class Constants {
 
 
 
-    public static double MIN_WHEEL_RPM = 2230.0;
+    public static double MIN_WHEEL_RPM = 2300.0;
     public static double MAX_WHEEL_RPM = 5000.0;
 
 
-    public static double EFFECTIVE_RPM_FACTOR = 0.1;
+    public static double EFFECTIVE_RPM_FACTOR = 0.11;
 
-    public static double ShooterDistanceSlope=12.25;
+    public static double ShooterDistanceSlope=12;
 
 
 
@@ -63,8 +63,8 @@ public class Constants {
 
     public static final double TICKS_PER_REV_Turret = 537.7;
 
-    public static double shooter_kp=0.0042;
-    public static double shooter_kv=0.00025;
+    public static double shooter_kp=0.004;
+    public static double shooter_kv=0.00026;
     public static double shooter_ks=0.0;
 
 

@@ -17,6 +17,7 @@ import com.seattlesolvers.solverslib.command.SequentialCommandGroup;
 import com.seattlesolvers.solverslib.command.WaitCommand;
 import com.seattlesolvers.solverslib.command.WaitUntilCommand;
 
+import org.firstinspires.ftc.teamcode.Commands.multipartCommands.ShootAll3InertiaFAR;
 import org.firstinspires.ftc.teamcode.Commands.multipartCommands.ShootAllAUTOFAR;
 import org.firstinspires.ftc.teamcode.Constants;
 import org.firstinspires.ftc.teamcode.Robot_Hardware;
@@ -76,7 +77,7 @@ public class ball9FarBLUE extends OpMode {
         follower = org.firstinspires.ftc.teamcode.pedroPathing.Constants.createFollower(hardwareMap);
         follower.setStartingPose(robot.pose);
         follower.update();
-        shooter.offsetConstant=17;
+//        shooter.offsetConstant=17;
         shooter.hoodOffset=-1.0;
 
         initPaths();
@@ -97,8 +98,8 @@ public class ball9FarBLUE extends OpMode {
                         new WaitCommand(500),
                         new InstantCommand(()->timer.reset()),
                         new ParallelRaceGroup(
-                                new ShootAllAUTOFAR(shooter,sort,intake),
-                                new WaitUntilCommand(()->timer.milliseconds()>1500)
+                                new ShootAll3InertiaFAR(shooter,sort,intake),
+                                new WaitUntilCommand(()->timer.milliseconds()>2500)
                         ),
 
 
@@ -116,8 +117,8 @@ public class ball9FarBLUE extends OpMode {
                         new InstantCommand(()->robot.autoPoseResetApproval=true),
                         new WaitCommand(500),
                         new ParallelRaceGroup(
-                                new ShootAllAUTOFAR(shooter,sort,intake),
-                                new WaitUntilCommand(()->timer.milliseconds()>1500)
+                                new ShootAll3InertiaFAR(shooter,sort,intake),
+                                new WaitUntilCommand(()->timer.milliseconds()>2500)
                         ),
                         new InstantCommand(()->robot.autoPoseResetApproval=false),
 
@@ -139,8 +140,8 @@ public class ball9FarBLUE extends OpMode {
                         new InstantCommand(()->timer.reset()),
                         new InstantCommand(()->robot.autoPoseResetApproval=true),
                         new ParallelRaceGroup(
-                                new ShootAllAUTOFAR(shooter,sort,intake),
-                                new WaitUntilCommand(()->timer.milliseconds()>1500)
+                                new ShootAll3InertiaFAR(shooter,sort,intake),
+                                new WaitUntilCommand(()->timer.milliseconds()>2500)
                         ),
                         new InstantCommand(()->robot.autoPoseResetApproval=false),
 
@@ -158,8 +159,8 @@ public class ball9FarBLUE extends OpMode {
                         new InstantCommand(()->timer.reset()),
                         new InstantCommand(()->robot.autoPoseResetApproval=true),
                         new ParallelRaceGroup(
-                                new ShootAllAUTOFAR(shooter,sort,intake),
-                                new WaitUntilCommand(()->timer.milliseconds()>1500)
+                                new ShootAll3InertiaFAR(shooter,sort,intake),
+                                new WaitUntilCommand(()->timer.milliseconds()>2500)
                         ),
                         new InstantCommand(()->robot.autoPoseResetApproval=false),
                         new InstantCommand(()-> shooter.update(TurretShooter.shooterState.IDLE)),
@@ -191,8 +192,8 @@ public class ball9FarBLUE extends OpMode {
                 .addPath(
                         new BezierCurve(
                                 Constants.autoFarBLUEShoot,
-                                new Pose(54,34),
-                                new Pose(20.000, 42.000)
+                                new Pose(56,45),
+                                new Pose(18.000, 42.000)
                         )
                 )
                 .setLinearHeadingInterpolation(Math.toRadians(180), Math.toRadians(180))
@@ -203,6 +204,8 @@ public class ball9FarBLUE extends OpMode {
                         new BezierLine(new Pose(20,42),Constants.autoFarBLUEShoot)
                 )
                 .setLinearHeadingInterpolation(Math.toRadians(180), Math.toRadians(180))
+                .setBrakingStart(0.3)
+                .setVelocityConstraint(0.6)
                 .build();
 
         collectBalls1 = follower
