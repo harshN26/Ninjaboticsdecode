@@ -121,6 +121,7 @@ public class red15 extends OpMode {
                                     new ShootAllAUTOCLOSE(shooter,sort,intake),
                                     new WaitUntilCommand(()->timer.milliseconds()>1700)
                             ),
+//                            new InstantCommand(()->shooter.offsetConstant=-10),
                             new InstantCommand(()->shooter.update(TurretShooter.shooterState.IDLE)),
 
 
