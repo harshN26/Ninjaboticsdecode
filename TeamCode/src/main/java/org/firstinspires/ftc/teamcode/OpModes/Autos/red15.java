@@ -232,7 +232,7 @@ public class red15 extends OpMode {
                         new BezierCurve(
                                 Constants.autoCloseREDShoot,
                                 new Pose(117.500, 55.000),
-                                new Pose(133.500, 59.000)
+                                new Pose(133.500, 57.000)
                         )
                 )
                 .setLinearHeadingInterpolation(Math.toRadians(15), Math.toRadians(30))

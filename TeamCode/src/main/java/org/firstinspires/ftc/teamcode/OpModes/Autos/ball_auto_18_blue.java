@@ -82,7 +82,7 @@ public class ball_auto_18_blue extends OpMode {
         follower.update();
 
 //        shooter.offsetConstant=-10;
-        shooter.hoodOffset-=0.1;
+//        shooter.hoodOffset-=0.1;
 
 
         initPaths();
@@ -225,19 +225,21 @@ public class ball_auto_18_blue extends OpMode {
                 .addPath(
                         new BezierCurve(
                                 Constants.autoCloseBLUEShoot,
-                                new Pose(59.000, 57.000),
-                                new Pose(18.000, 57.000)
+                                new Pose(65.000, 56.000),
+                                new Pose(20.000, 55.000)
                         )
                 )
                 .setLinearHeadingInterpolation(Math.toRadians(190), Math.toRadians(180))
+                .setBrakingStrength(2)
+                .setVelocityConstraint(30)
                 .build();
 
         shoot2 = follower
                 .pathBuilder()
                 .addPath(
-                        new BezierLine(new Pose(18.000, 57.000), Constants.autoCloseBLUEShoot)
+                        new BezierLine(new Pose(20.000, 58.000), Constants.autoCloseBLUEShoot)
                 )
-                .setLinearHeadingInterpolation(Math.toRadians(180), Math.toRadians(180))
+                .setLinearHeadingInterpolation(Math.toRadians(180), Math.toRadians(175))
                 .build();
 
 
@@ -246,29 +248,35 @@ public class ball_auto_18_blue extends OpMode {
                 .addPath(
                         new BezierCurve(
                                 Constants.autoCloseBLUEShoot,
-                                new Pose(24.500, 63.000),
-                                new Pose(12.500, 64.000)
+                                new Pose(30.00, 60.000),
+                                new Pose(13.50, 61.000)
                         )
                 )
-                .setLinearHeadingInterpolation(Math.toRadians(180), Math.toRadians(150))
+                .setLinearHeadingInterpolation(Math.toRadians(175), Math.toRadians(135))
+                .setBrakingStrength(2)
                 .build();
 
         collectBallsGate=follower
                 .pathBuilder()
                 .addPath(
                         new BezierLine(
-                                new Pose(12.500, 64.000),
-                                new Pose(9.000, 57.000)
+                                new Pose(13.50, 61.000),
+                                new Pose(9.000, 55.000)
                         )
                 )
-                .setLinearHeadingInterpolation(Math.toRadians(150), Math.toRadians(135))
+                .setLinearHeadingInterpolation(Math.toRadians(135), Math.toRadians(147))
                 .build();
         shootFromGate=follower
                 .pathBuilder()
                 .addPath(
-                        new BezierLine(new Pose(9.000, 57.000),Constants.autoCloseBLUEShoot)
+                        new BezierCurve(new Pose(7.000, 56.000),
+                                new Pose(7,63),
+                                new Pose(35,60),
+                                Constants.autoCloseBLUEShoot)
                 )
-                .setLinearHeadingInterpolation(Math.toRadians(135), Math.toRadians(180))
+                .setLinearHeadingInterpolation(Math.toRadians(147), Math.toRadians(180))
+//                .setTangentHeadingInterpolation()
+//                .setReversed()
                 .build();
 
 
@@ -276,14 +284,15 @@ public class ball_auto_18_blue extends OpMode {
         collectBalls1 = follower
                 .pathBuilder()
                 .addPath(
-                        new BezierLine(Constants.autoCloseBLUEShoot, new Pose(19.000, 83.000))
+                        new BezierLine(Constants.autoCloseBLUEShoot, new Pose(22.000, 82.000))
                 )
                 .setConstantHeadingInterpolation(Math.toRadians(180))
+                .setBrakingStrength(5)
                 .build();
         shoot1 = follower
                 .pathBuilder()
                 .addPath(
-                        new BezierLine(new Pose(19.000, 83.000), Constants.autoCloseBLUEShoot)
+                        new BezierLine(new Pose(22.000, 83.000), Constants.autoCloseBLUEShoot)
                 )
                 .setLinearHeadingInterpolation(Math.toRadians(180), Math.toRadians(270))
                 .build();
@@ -303,27 +312,31 @@ public class ball_auto_18_blue extends OpMode {
                 .addPath(
                         new BezierLine(
                                 new Pose(54.800, 36.000),
-                                new Pose(19.000, 35.000)
+                                new Pose(18.000, 36.000)
                         )
                 )
                 .setConstantHeadingInterpolation(Math.toRadians(180))
+                .setBrakingStart(2)
                 .build();
 
         shoot3 = follower
                 .pathBuilder()
                 .addPath(
-                        new BezierLine(new Pose(20.000, 34.000), new Pose(Constants.autoCloseBLUEShoot.getX(),Constants.autoCloseBLUEShoot.getY()+20))
+                        new BezierLine(new Pose(18.000, 34.000), new Pose(Constants.autoCloseBLUEShoot.getX(),Constants.autoCloseBLUEShoot.getY()))
                 )
-                .setConstantHeadingInterpolation(Math.toRadians(180))
+                .setTangentHeadingInterpolation()
                 .setReversed()
+                .setVelocityConstraint(0.6)
+                .setBrakingStrength(0.6)
                 .build();
 
         last = follower
                 .pathBuilder()
                 .addPath(
-                        new BezierLine(Constants.autoCloseBLUEShoot, new Pose(25.000, 72.000))
+                        new BezierLine(Constants.autoCloseBLUEShoot, new Pose(25.000, 74.000))
                 )
                 .setLinearHeadingInterpolation(Math.toRadians(-128), Math.toRadians(90))
+
                 .build();
 
     }

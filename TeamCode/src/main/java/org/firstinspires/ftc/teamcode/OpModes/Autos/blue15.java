@@ -248,7 +248,7 @@ public class blue15 extends OpMode {
                 .addPath(
                         new BezierLine(
                                 new Pose(13.50, 61.000),
-                                new Pose(7.000, 55.000)
+                                new Pose(9.000, 55.000)
                         )
                 )
                 .setLinearHeadingInterpolation(Math.toRadians(135), Math.toRadians(147))
