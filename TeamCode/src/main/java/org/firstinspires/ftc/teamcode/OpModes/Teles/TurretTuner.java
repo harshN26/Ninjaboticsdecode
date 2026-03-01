@@ -28,7 +28,7 @@ public class TurretTuner extends LinearOpMode {
         pid=new PIDController(0,0,0);
         turretMotor=hardwareMap.get(DcMotor.class, Global_Configs.turretName);
         sensor=hardwareMap.get(RevTouchSensor.class, Global_Configs.turretZeroName);
-        turretMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        turretMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
         telem= PanelsTelemetry.INSTANCE.getTelemetry();
 
 

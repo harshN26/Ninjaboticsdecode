@@ -213,7 +213,7 @@ public class red15NoLast extends OpMode {
                 .addPath(
                         new BezierCurve(
                                 Constants.autoCloseREDShoot,
-                                new Pose(85.000, 56.000),
+                                new Pose(85.000, 54.000),
                                 new Pose(125.000, 55.000)
                         )
                 )
@@ -236,7 +236,7 @@ public class red15NoLast extends OpMode {
                         new BezierCurve(
                                 Constants.autoCloseREDShoot,
                                 new Pose(117.500, 55.000),
-                                new Pose(132.500, 57.000)
+                                new Pose(133.500, 59.000)
                         )
                 )
                 .setLinearHeadingInterpolation(Math.toRadians(15), Math.toRadians(30))
@@ -247,7 +247,7 @@ public class red15NoLast extends OpMode {
                 .addPath(
                         new BezierLine(
                                 new Pose(132.500, 57.000),
-                                new Pose(135.000, 55.000)
+                                new Pose(136.000, 55.000)
                         )
                 )
                 .setLinearHeadingInterpolation(Math.toRadians(30), Math.toRadians(45))
@@ -255,7 +255,7 @@ public class red15NoLast extends OpMode {
         shootFromGate=follower
                 .pathBuilder()
                 .addPath(
-                        new BezierCurve(new Pose(138.000, 55.000), new Pose(117,53),Constants.autoCloseREDShoot)
+                        new BezierCurve(new Pose(136.000, 55.000), new Pose(117,53),Constants.autoCloseREDShoot)
                 )
                 .setVelocityConstraint(0.8)
                 .setLinearHeadingInterpolation(Math.toRadians(45), Math.toRadians(-30))
@@ -308,7 +308,7 @@ public class red15NoLast extends OpMode {
                 )
                 .setTangentHeadingInterpolation()
                 .setVelocityConstraint(0.6)
-                .setBrakingStrength(0.3)
+                .setBrakingStrength(0.6)
                 .setReversed()
                 .build();
 
