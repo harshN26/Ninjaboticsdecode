@@ -74,6 +74,7 @@ public class ball3FarBLUE extends OpMode {
         follower.setStartingPose(robot.pose);
         follower.update();
 //        shooter.offsetConstant=17;
+        shooter.offsetConstant=5;
 
 
         initPaths();
@@ -117,7 +118,9 @@ public class ball3FarBLUE extends OpMode {
                 .addPath(
                         new BezierLine(robot.pose, Constants.autoFarBLUEShoot)
                 )
-                .setConstantHeadingInterpolation(Math.toRadians(90))
+                .setLinearHeadingInterpolation(Math.toRadians(90), Math.toRadians(180))
+                .setBrakingStart(0.3)
+                .setVelocityConstraint(0.6)
                 .build();
 
 
@@ -127,7 +130,7 @@ public class ball3FarBLUE extends OpMode {
                 .addPath(
                         new BezierLine(Constants.autoFarBLUEShoot, new Pose(38.000, 17.000))
                 )
-                .setConstantHeadingInterpolation(Math.toRadians(90))
+                .setLinearHeadingInterpolation(Math.toRadians(180),Math.toRadians(90))
                 .build();
 
 

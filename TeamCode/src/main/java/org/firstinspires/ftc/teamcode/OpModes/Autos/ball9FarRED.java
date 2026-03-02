@@ -112,7 +112,7 @@ public class ball9FarRED extends OpMode {
                         new WaitUntilCommand(()->!follower.isBusy()&&shooter.isInRange()),
                         new InstantCommand(()->timer.reset()),
                         new ParallelRaceGroup(
-                                new ShootAllAUTOCLOSE(shooter,sort,intake),
+                                new ShootAllAUTOFAR(shooter,sort,intake),
                                 new WaitUntilCommand(()->timer.milliseconds()>2500)
                         ),
 

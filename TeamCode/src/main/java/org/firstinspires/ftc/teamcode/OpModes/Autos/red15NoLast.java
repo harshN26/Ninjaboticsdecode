@@ -134,6 +134,7 @@ public class red15NoLast extends OpMode {
                         new WaitCommand(1000),
 
                         new InstantCommand(()->follower.followPath(shootFromGate)),
+                        new InstantCommand(()->shooter.offsetConstant-=10),
                         new InstantCommand(()->shooter.update(TurretShooter.shooterState.AUTOCLOSE)),
                         new WaitUntilCommand(()->!follower.isBusy()&&shooter.isInRange()),
                         new InstantCommand(()->timer.reset()),
@@ -142,25 +143,7 @@ public class red15NoLast extends OpMode {
                                 new WaitUntilCommand(()->timer.milliseconds()>1700)
                         ),
                         new InstantCommand(()->shooter.update(TurretShooter.shooterState.IDLE)),
-
-
-
-                        //ball line 1
-                        new InstantCommand(()->follower.followPath(collectBalls1)),
-                        new InstantCommand(()->intake.update(Intake.INTAKE_STATE.IN)),
-                        new InstantCommand(()->sort.update(ChamberSort.CHAMBER_STATE.IN)),
-                        new WaitUntilCommand(()->!follower.isBusy()),
-                        new InstantCommand(()->follower.followPath(shoot1)),
-                        new InstantCommand(()->shooter.update(TurretShooter.shooterState.AUTOCLOSE)),
-                        new WaitUntilCommand(()->!follower.isBusy()&&shooter.isInRange()),
-                        new InstantCommand(()->timer.reset()),
-                        new ParallelRaceGroup(
-                                new ShootAllAUTOCLOSE(shooter,sort,intake),
-                                new WaitUntilCommand(()->timer.milliseconds()>1700)
-                        ),
-                        new InstantCommand(()->shooter.update(TurretShooter.shooterState.IDLE)),
-
-                        //gate
+//gate
                         new InstantCommand(()->follower.followPath(openGate)),
                         new WaitUntilCommand(()->!follower.isBusy()),
                         new InstantCommand(()-> intake.update(Intake.INTAKE_STATE.IN)),
@@ -179,6 +162,24 @@ public class red15NoLast extends OpMode {
                                 new WaitUntilCommand(()->timer.milliseconds()>1700)
                         ),
                         new InstantCommand(()->shooter.update(TurretShooter.shooterState.IDLE)),
+
+
+                        //ball line 1
+                        new InstantCommand(()->follower.followPath(collectBalls1)),
+                        new InstantCommand(()->intake.update(Intake.INTAKE_STATE.IN)),
+                        new InstantCommand(()->sort.update(ChamberSort.CHAMBER_STATE.IN)),
+                        new WaitUntilCommand(()->!follower.isBusy()),
+                        new InstantCommand(()->follower.followPath(shoot1)),
+                        new InstantCommand(()->shooter.update(TurretShooter.shooterState.AUTOCLOSE)),
+                        new WaitUntilCommand(()->!follower.isBusy()&&shooter.isInRange()),
+                        new InstantCommand(()->timer.reset()),
+                        new ParallelRaceGroup(
+                                new ShootAllAUTOCLOSE(shooter,sort,intake),
+                                new WaitUntilCommand(()->timer.milliseconds()>1700)
+                        ),
+                        new InstantCommand(()->shooter.update(TurretShooter.shooterState.IDLE)),
+
+
 
 
                         new InstantCommand(()->follower.followPath(nextToGate)),

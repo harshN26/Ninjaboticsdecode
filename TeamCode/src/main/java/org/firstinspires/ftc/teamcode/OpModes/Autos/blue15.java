@@ -81,7 +81,7 @@ public class blue15 extends OpMode {
         follower.setStartingPose(robot.pose);
         follower.update();
 
-        shooter.offsetConstant=-10;
+//        shooter.offsetConstant=-10;
 //        shooter.hoodOffset-=0.15;
 
 
@@ -235,7 +235,7 @@ public class blue15 extends OpMode {
                 .addPath(
                         new BezierCurve(
                                 Constants.autoCloseBLUEShoot,
-                                new Pose(30.00, 60.000),
+                                new Pose(30.00, 58.000),
                                 new Pose(13.50, 61.000)
                         )
                 )
@@ -248,7 +248,7 @@ public class blue15 extends OpMode {
                 .addPath(
                         new BezierLine(
                                 new Pose(13.50, 61.000),
-                                new Pose(9.000, 55.000)
+                                new Pose(10.000, 55.000)
                         )
                 )
                 .setLinearHeadingInterpolation(Math.toRadians(135), Math.toRadians(147))
@@ -292,14 +292,14 @@ public class blue15 extends OpMode {
                 .addPath(
                         new BezierLine(
                                 Constants.autoCloseBLUEShoot,
-                                new Pose(54.800, 36.000)
+                                new Pose(54.800, 35.000)
                         )
                 )
                 .setLinearHeadingInterpolation(Math.toRadians(270), Math.toRadians(180))
                 .addPath(
                         new BezierLine(
-                                new Pose(54.800, 36.000),
-                                new Pose(18.000, 36.000)
+                                new Pose(54.800, 34.000),
+                                new Pose(18.000, 35.000)
                         )
                 )
                 .setConstantHeadingInterpolation(Math.toRadians(180))

@@ -79,7 +79,7 @@ public class red15 extends OpMode {
         follower.setStartingPose(robot.pose);
         follower.update();
 
-        shooter.offsetConstant=10;
+//        shooter.offsetConstant=-15;
 //        shooter.hoodOffset-=0.1;
 
         initPaths();
@@ -109,6 +109,7 @@ public class red15 extends OpMode {
 
 
                             //ball line 2
+//                            new InstantCommand(()->shooter.offsetConstant=30),
                             new InstantCommand(()->follower.followPath(collectBalls2)),
                             new InstantCommand(()->intake.update(Intake.INTAKE_STATE.IN)),
                             new InstantCommand(()->sort.update(ChamberSort.CHAMBER_STATE.IN)),
@@ -117,6 +118,7 @@ public class red15 extends OpMode {
                             new InstantCommand(()->shooter.update(TurretShooter.shooterState.AUTOCLOSE)),
                             new WaitUntilCommand(()->!follower.isBusy()&&shooter.isInRange()),
                             new InstantCommand(()->timer.reset()),
+
                             new ParallelRaceGroup(
                                     new ShootAllAUTOCLOSE(shooter,sort,intake),
                                     new WaitUntilCommand(()->timer.milliseconds()>1700)
@@ -132,7 +134,8 @@ public class red15 extends OpMode {
 
                             new InstantCommand(()->follower.followPath(collectBallsGate)),
                             new WaitUntilCommand(()->!follower.isBusy()),
-                            new WaitCommand(1000),
+                            new WaitCommand(1200),
+
 
                             new InstantCommand(()->follower.followPath(shootFromGate)),
                             new InstantCommand(()->shooter.update(TurretShooter.shooterState.AUTOCLOSE)),
@@ -209,8 +212,8 @@ public class red15 extends OpMode {
                 .addPath(
                         new BezierCurve(
                                 Constants.autoCloseREDShoot,
-                                new Pose(85.000, 54.000),
-                                new Pose(125.000, 55.000)
+                                new Pose(80.000, 54.000),
+                                new Pose(130.000, 55.000)
                         )
                 )
                 .setLinearHeadingInterpolation(Math.toRadians(-30), Math.toRadians(0))
@@ -231,8 +234,8 @@ public class red15 extends OpMode {
                 .addPath(
                         new BezierCurve(
                                 Constants.autoCloseREDShoot,
-                                new Pose(117.500, 55.000),
-                                new Pose(133.500, 57.000)
+                                new Pose(112.500, 55.000),
+                                new Pose(132.00, 56.000)
                         )
                 )
                 .setLinearHeadingInterpolation(Math.toRadians(15), Math.toRadians(30))
@@ -242,8 +245,8 @@ public class red15 extends OpMode {
                 .pathBuilder()
                 .addPath(
                         new BezierLine(
-                                new Pose(132.500, 57.000),
-                                new Pose(136.000, 55.000)
+                                new Pose(132.00, 56.000),
+                                new Pose(136.000, 54.000)
                         )
                 )
                 .setLinearHeadingInterpolation(Math.toRadians(30), Math.toRadians(45))
@@ -262,14 +265,14 @@ public class red15 extends OpMode {
         collectBalls1 = follower
                 .pathBuilder()
                 .addPath(
-                        new BezierLine(Constants.autoCloseREDShoot, new Pose(127.000, 81.000))
+                        new BezierLine(Constants.autoCloseREDShoot, new Pose(130.000, 79.000))
                 )
                 .setConstantHeadingInterpolation(Math.toRadians(0))
                 .build();
         shoot1 = follower
                 .pathBuilder()
                 .addPath(
-                        new BezierLine(new Pose(127.000, 81.000), Constants.autoCloseREDShoot)
+                        new BezierLine(new Pose(130.000, 81.000), Constants.autoCloseREDShoot)
                 )
                 .setVelocityConstraint(0.8)
                 .setLinearHeadingInterpolation(Math.toRadians(0), Math.toRadians(-90))
@@ -290,7 +293,7 @@ public class red15 extends OpMode {
                 .addPath(
                         new BezierLine(
                                 new Pose(90.800, 32.000),
-                                new Pose(124.000, 32.000)
+                                new Pose(130.000, 32.000)
                         )
                 )
                 .setConstantHeadingInterpolation(Math.toRadians(0))
@@ -300,7 +303,7 @@ public class red15 extends OpMode {
         shoot3 = follower
                 .pathBuilder()
                 .addPath(
-                        new BezierLine(new Pose(124.000, 36.000), Constants.autoCloseREDShoot)
+                        new BezierLine(new Pose(130.000, 36.000), Constants.autoCloseREDShoot)
                 )
                 .setTangentHeadingInterpolation()
                 .setVelocityConstraint(0.6)

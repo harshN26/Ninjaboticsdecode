@@ -136,46 +136,13 @@ public class ballAutoCycleFarBLUE extends OpMode {
                         ),
                         new InstantCommand(()->robot.autoPoseResetApproval=false),
                         new InstantCommand(()-> shooter.update(TurretShooter.shooterState.IDLE)),
-                        new InstantCommand(()->follower.followPath(collectBalls)),
-                        new InstantCommand(()->sort.update(ChamberSort.CHAMBER_STATE.IN)),
-                        new InstantCommand(()->shooter.update(TurretShooter.shooterState.IDLE)),
-                        new InstantCommand(()->intake.update(Intake.INTAKE_STATE.IN)),
-                        new WaitUntilCommand(()->!follower.isBusy()),
 
-
-                        new InstantCommand(()->follower.followPath(backToShoot)),
-                        new InstantCommand(()->shooter.update(TurretShooter.shooterState.AUTOFAR)),
-                        new WaitUntilCommand(()->!follower.isBusy()&&shooter.isInRange()),
-                        new InstantCommand(()->timer.reset()),
-                        new InstantCommand(()->robot.autoPoseResetApproval=true),
-                        new ParallelRaceGroup(
-                                new ShootAllAUTOFAR(shooter,sort,intake),
-                                new WaitUntilCommand(()->timer.milliseconds()>2500)
-                        ),
 
 
 
 
                         new InstantCommand(()->robot.autoPoseResetApproval=false),
-                        new InstantCommand(()-> shooter.update(TurretShooter.shooterState.IDLE)),
-                        new InstantCommand(()->follower.followPath(collectBalls)),
-                        new InstantCommand(()->sort.update(ChamberSort.CHAMBER_STATE.IN)),
-                        new InstantCommand(()->shooter.update(TurretShooter.shooterState.IDLE)),
-                        new InstantCommand(()->intake.update(Intake.INTAKE_STATE.IN)),
-                        new WaitUntilCommand(()->!follower.isBusy()),
 
-
-                        new InstantCommand(()->follower.followPath(backToShoot)),
-                        new InstantCommand(()->shooter.update(TurretShooter.shooterState.AUTOFAR)),
-                        new WaitUntilCommand(()->!follower.isBusy()&&shooter.isInRange()),
-                        new InstantCommand(()->timer.reset()),
-                        new InstantCommand(()->robot.autoPoseResetApproval=true),
-                        new ParallelRaceGroup(
-                                new ShootAllAUTOFAR(shooter,sort,intake),
-                                new WaitUntilCommand(()->timer.milliseconds()>2500)
-                        ),
-                        new InstantCommand(()->robot.autoPoseResetApproval=false),
-                        new InstantCommand(()-> shooter.update(TurretShooter.shooterState.IDLE)),
 
 
                         new InstantCommand(()->intake.update(Intake.INTAKE_STATE.IN)),
@@ -197,6 +164,8 @@ public class ballAutoCycleFarBLUE extends OpMode {
                         new BezierLine(robot.pose, Constants.autoFarBLUEShoot)
                 )
                 .setLinearHeadingInterpolation(Math.toRadians(90), Math.toRadians(180))
+                .setBrakingStart(0.3)
+                .setVelocityConstraint(0.6)
                 .build();
 
         collectBalls1 = follower
@@ -205,6 +174,8 @@ public class ballAutoCycleFarBLUE extends OpMode {
                         new BezierLine(Constants.autoFarBLUEShoot, new Pose(12.000, 20.000))
                 )
                 .setLinearHeadingInterpolation(Math.toRadians(180), Math.toRadians(210))
+                .setBrakingStart(0.3)
+                .setVelocityConstraint(0.6)
                 .build();
         collectBalls1P2 = follower
                 .pathBuilder()
@@ -220,6 +191,8 @@ public class ballAutoCycleFarBLUE extends OpMode {
                         new BezierLine(new Pose(16.000, 20.000), Constants.autoFarBLUEShoot)
                 )
                 .setLinearHeadingInterpolation(Math.toRadians(180), Math.toRadians(225))
+                .setBrakingStart(0.3)
+                .setVelocityConstraint(0.6)
                 .build();
         backToShoot1 = follower
                 .pathBuilder()
@@ -227,6 +200,8 @@ public class ballAutoCycleFarBLUE extends OpMode {
                         new BezierLine(new Pose(16.000, 14.000), Constants.autoFarBLUEShoot)
                 )
                 .setLinearHeadingInterpolation(Math.toRadians(210), Math.toRadians(225))
+                .setBrakingStart(0.3)
+                .setVelocityConstraint(0.6)
                 .build();
 
         collectBalls = follower
@@ -235,6 +210,8 @@ public class ballAutoCycleFarBLUE extends OpMode {
                         new BezierLine(Constants.autoFarBLUEShoot, new Pose(12.000, 20.000))
                 )
                 .setLinearHeadingInterpolation(Math.toRadians(225), Math.toRadians(180))
+                .setBrakingStart(0.3)
+                .setVelocityConstraint(0.6)
                 .build();
 
         park = follower
