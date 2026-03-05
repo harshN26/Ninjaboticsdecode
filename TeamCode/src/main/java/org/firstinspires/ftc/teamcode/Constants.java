@@ -16,12 +16,12 @@ public class Constants {
 
     //TODO: add all positions and update
     public static final int ShooterResetRPM =0;
-    public static final int ShooterIdleRPM =1500;
+    public static int ShooterIdleRPM =1500;
     public static final int ShooterStopRPM =0;
 
-    public static final double hoodMaxPos =0.6;
+    public static double hoodMaxPos =0.6;
     public static double hoodMinPos =0.1;
-    public static final double hoodResetPos =0.2;
+    public static double hoodResetPos =0.2;
     public static final double hoodTolerance=0.02;
 
     public static double shooterMinAngle=15;//deg
@@ -120,6 +120,16 @@ public class Constants {
     public static double CGreenOUT=1.7;
 
     public static double SOTM=0.005;
+
+
+    public static double FlickSideClose=0.0;
+    public static double FlickSideOpen=0.0;
+    public static double PushOpen=0.0;
+    public static double PushClose=0.0;
+    public static double kickstandRetract=0.0;
+    public static double kickstandDeploy=0.0;
+
+
 
 
 

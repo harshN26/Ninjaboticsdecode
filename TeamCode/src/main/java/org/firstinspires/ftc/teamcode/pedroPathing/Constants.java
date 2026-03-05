@@ -25,7 +25,7 @@ public class Constants {
 
     public static FollowerConstants followerConstants = new FollowerConstants()
             .mass(10)
-            .forwardZeroPowerAcceleration(-49.7)
+            .forwardZeroPowerAcceleration(-59.7)
             .lateralZeroPowerAcceleration(-59.94349)
             .centripetalScaling(0.0003)
             .translationalPIDFCoefficients(new PIDFCoefficients(0.07,0.000075,0.002,0.02))
@@ -77,7 +77,7 @@ public class Constants {
 
     public static PathConstraints pathConstraints = new PathConstraints(
             0.8,
-            0.1,
+            0.8,
             0.1,
             0.007,
             100,

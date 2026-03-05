@@ -34,7 +34,7 @@ public class Robot_Hardware{
     public DcMotorEx intake;
 
     public CRServo sort1;
-    public Servo push, ramp, flickSide, flickUp, hood1, hood2;
+    public Servo push, ramp, flickSide, flickUp, hood1, hood2, kickstand;
 
     public VoltageSensor voltageSensor;
 
@@ -145,7 +145,11 @@ public class Robot_Hardware{
         hood2=hwMap.get(Servo.class, Global_Configs.hood2Name);
         hood2.setDirection(Servo.Direction.REVERSE);
 
+        kickstand=hwMap.get(Servo.class, Global_Configs.kickstandName);
+//        kickstand.setDirection(Servo.Direction.REVERSE);
+
         turretZero=hardwareMap.get(RevTouchSensor.class,Global_Configs.turretZeroName);
+
 
 
         limelight=hardwareMap.get(Limelight3A.class,Global_Configs.limelightName);
@@ -250,3 +254,4 @@ public class Robot_Hardware{
     }
 
 }
+

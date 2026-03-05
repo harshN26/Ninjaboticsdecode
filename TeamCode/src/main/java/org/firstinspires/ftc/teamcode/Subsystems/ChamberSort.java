@@ -14,7 +14,10 @@ public class ChamberSort extends SubsystemBase {
 
     public enum CHAMBER_STATE{IN,STOP,OUT, UP, LAST, IDLE}
 
+    public enum SORT_STATE{THROUGHPUT,SHIFTIN,HOLD}
+
     public CHAMBER_STATE state=CHAMBER_STATE.STOP;
+    public SORT_STATE sort_state=SORT_STATE.THROUGHPUT;
     public ChamberSort(Robot_Hardware hardware, Telemetry telemetry){
         robot=hardware;
         telem=telemetry;
@@ -22,6 +25,10 @@ public class ChamberSort extends SubsystemBase {
 
     public void update(CHAMBER_STATE newState){
         state=newState;
+    }
+
+    public void updateSort(SORT_STATE newState){
+        sort_state=newState;
     }
 
     public void setPowerAll(double pow){
@@ -63,6 +70,25 @@ public class ChamberSort extends SubsystemBase {
             setPowerAll(1.0);
             robot.ramp.setPosition(Constants.rampUp);
             robot.flickUp.setPosition(0.0);
+        }
+
+
+
+        switch(sort_state){
+            case THROUGHPUT:
+                robot.flickSide.setPosition(Constants.FlickSideClose);
+                robot.push.setPosition(Constants.PushClose);
+                break;
+            case HOLD:
+                robot.flickSide.setPosition(Constants.FlickSideOpen);
+                robot.push.setPosition(Constants.PushClose);
+                break;
+            case SHIFTIN:
+                robot.flickSide.setPosition(Constants.FlickSideOpen);
+                robot.push.setPosition(Constants.PushOpen);
+                break;
+            default:
+                sort_state=SORT_STATE.THROUGHPUT;
         }
 
 
