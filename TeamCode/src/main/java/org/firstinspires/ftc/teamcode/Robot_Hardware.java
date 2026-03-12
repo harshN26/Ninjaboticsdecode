@@ -145,17 +145,18 @@ public class Robot_Hardware{
         hood2=hwMap.get(Servo.class, Global_Configs.hood2Name);
         hood2.setDirection(Servo.Direction.REVERSE);
 
-        kickstand=hwMap.get(Servo.class, Global_Configs.kickstandName);
+//        kickstand=hwMap.get(Servo.class, Global_Configs.kickstandName);
 //        kickstand.setDirection(Servo.Direction.REVERSE);
+//        kickstand.setPosition(Constants.kickstandRetract);
 
         turretZero=hardwareMap.get(RevTouchSensor.class,Global_Configs.turretZeroName);
 
 
 
-        limelight=hardwareMap.get(Limelight3A.class,Global_Configs.limelightName);
-        limelight.setPollRateHz(250);
-        limelight.pipelineSwitch(0);
-        limelight.start();
+//        limelight=hardwareMap.get(Limelight3A.class,Global_Configs.limelightName);
+//        limelight.setPollRateHz(250);
+//        limelight.pipelineSwitch(0);
+//        limelight.start();
 
         colorin=hardwareMap.get(NormalizedColorSensor.class, Global_Configs.colorIn);
         colorout=hardwareMap.get(NormalizedColorSensor.class, Global_Configs.colorOut);

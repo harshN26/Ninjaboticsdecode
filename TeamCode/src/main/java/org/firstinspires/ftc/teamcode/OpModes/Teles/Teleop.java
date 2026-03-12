@@ -17,8 +17,8 @@ import com.seattlesolvers.solverslib.command.ParallelCommandGroup;
 import org.firstinspires.ftc.teamcode.Commands.BasicCommands.StartAll;
 import org.firstinspires.ftc.teamcode.Commands.multipartCommands.ShootAll;
 import org.firstinspires.ftc.teamcode.Commands.multipartCommands.ShootAll3Inertia;
-import org.firstinspires.ftc.teamcode.Commands.multipartCommands.ShootAll3InertiaFAR;
 import org.firstinspires.ftc.teamcode.Commands.multipartCommands.ShootOnce;
+import org.firstinspires.ftc.teamcode.Subsystems.Kickstand;
 import org.firstinspires.ftc.teamcode.Subsystems.LLPort;
 import org.firstinspires.ftc.teamcode.Robot_Hardware;
 import org.firstinspires.ftc.teamcode.Subsystems.ChamberSort;
@@ -30,7 +30,7 @@ import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
 
 
 @TeleOp(name="tele", group="P3")
-public class Practice extends OpMode{
+public class Teleop extends OpMode{
     Robot_Hardware robot=Robot_Hardware.getInstance();
     ElapsedTime timer;
 
@@ -41,6 +41,8 @@ public class Practice extends OpMode{
     LLPort ll;
 
     TurretShooter shooter;
+
+    Kickstand kickstand;
 
     public boolean g1XLast=false,g1YLast=false,g1BLast=false,g1ALast=false, g1LBLast=false, g1RBLast=false;
     public boolean g1XCurrent,g1YCurrent,g1BCurrent,g1ACurrent, g1LBCurrent, g1RBCurrent;
@@ -66,6 +68,7 @@ public class Practice extends OpMode{
         intake=new Intake(robot, telemetry);
         shooter=new TurretShooter(robot, telemetry);
         led=new ColorLeds(robot,telemetry);
+        kickstand=new Kickstand(robot,telemetry);
 
         follower = Constants.createFollower(hardwareMap);
 

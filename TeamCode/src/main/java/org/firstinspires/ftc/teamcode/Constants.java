@@ -63,7 +63,7 @@ public class Constants {
 
     public static final double TICKS_PER_REV_Turret = 537.7;
 
-    public static double shooter_kp=0.0048;
+    public static double shooter_kp=0.0045;
     public static double shooter_kv=0.00026;
     public static double shooter_ks=0.0;
 
@@ -126,8 +126,8 @@ public class Constants {
     public static double FlickSideOpen=0.0;
     public static double PushOpen=0.0;
     public static double PushClose=0.0;
-    public static double kickstandRetract=0.0;
-    public static double kickstandDeploy=0.0;
+    public static double kickstandRetract=1.0;
+    public static double kickstandDeploy=0.5;
 
 
 
