@@ -31,7 +31,7 @@ public class Intake extends SubsystemBase {
                     break;
                 case STOP:robot.intake.setPower(0);
                     break;
-                case INCLOSE:robot.intake.setPower(0.9);
+                case INCLOSE:robot.intake.setPower(1.0);
                     break;
                 case INSLOW:robot.intake.setPower(0.3);
                     break;

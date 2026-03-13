@@ -351,9 +351,10 @@ public class TurretShooter extends SubsystemBase {
 
         double turretPow;
 
-        turretPow=pidTurret.calculate(turretCurrPos,turretTarget);
+        turretPow=pidTurret.calculate(turretCurrPos,turretTarget)*0.8;
         shooterPow= Constants.shooter_kp * (targetRPM_shooter-currentRPM_shooter) + Constants.shooter_kv * targetRPM_shooter + Math.signum(targetRPM_shooter-currentRPM_shooter) * Constants.shooter_ks;
         shooterPow*=12/robot.voltage;
+
 
         if(targetRPM_shooter==0){
             shooterPow=0.0;
@@ -386,7 +387,7 @@ public class TurretShooter extends SubsystemBase {
         }
 
         telem(); 
-//        telemP();
+        telemP();
     }
 
     public void telem() {

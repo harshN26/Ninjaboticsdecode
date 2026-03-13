@@ -100,12 +100,12 @@ public class ball_auto_18_blue extends OpMode {
                         new InstantCommand(()->follower.followPath(path1)),
                         new InstantCommand(()-> intake.update(Intake.INTAKE_STATE.IN)),
                         new WaitCommand(500),
-                        new InstantCommand(()->shooter.update(TurretShooter.shooterState.AUTOCLOSE)),
+                        new InstantCommand(()->shooter.update(TurretShooter.shooterState.FIRENOTURRET)),
                         new WaitUntilCommand(()->!follower.isBusy()),
                         new InstantCommand(()->timer.reset()),
                         new ParallelRaceGroup(
                                 new ShootAll3InertiaAUTOCLOSE(shooter,sort,intake),
-                                new WaitUntilCommand(()->timer.milliseconds()>1000)
+                                new WaitUntilCommand(()->timer.milliseconds()>1700)
                         ),
                         new InstantCommand(()->shooter.update(TurretShooter.shooterState.IDLE)),
 
@@ -116,12 +116,12 @@ public class ball_auto_18_blue extends OpMode {
                         new InstantCommand(()->sort.update(ChamberSort.CHAMBER_STATE.IN)),
                         new WaitUntilCommand(()->!follower.isBusy()),
                         new InstantCommand(()->follower.followPath(shoot2)),
-                        new InstantCommand(()->shooter.update(TurretShooter.shooterState.AUTOCLOSE)),
+                        new InstantCommand(()->shooter.update(TurretShooter.shooterState.FIRENOTURRET)),
                         new WaitUntilCommand(()->!follower.isBusy()&&shooter.isInRange()),
                         new InstantCommand(()->timer.reset()),
                         new ParallelRaceGroup(
                                 new ShootAll3InertiaAUTOCLOSE(shooter,sort,intake),
-                                new WaitUntilCommand(()->timer.milliseconds()>1000)
+                                new WaitUntilCommand(()->timer.milliseconds()>1700)
                         ),
                         new InstantCommand(()->shooter.update(TurretShooter.shooterState.IDLE)),
 
@@ -135,12 +135,12 @@ public class ball_auto_18_blue extends OpMode {
                         new WaitUntilCommand(()->!follower.isBusy()),
 
                         new InstantCommand(()->follower.followPath(shootFromGate)),
-                        new InstantCommand(()->shooter.update(TurretShooter.shooterState.AUTOCLOSE)),
+                        new InstantCommand(()->shooter.update(TurretShooter.shooterState.FIRENOTURRET)),
                         new WaitUntilCommand(()->!follower.isBusy()&&shooter.isInRange()),
                         new InstantCommand(()->timer.reset()),
                         new ParallelRaceGroup(
                                 new ShootAll3InertiaAUTOCLOSE(shooter,sort,intake),
-                                new WaitUntilCommand(()->timer.milliseconds()>1000)
+                                new WaitUntilCommand(()->timer.milliseconds()>1700)
                         ),
                         new InstantCommand(()->shooter.update(TurretShooter.shooterState.IDLE)),
 
@@ -153,12 +153,12 @@ public class ball_auto_18_blue extends OpMode {
                         new WaitUntilCommand(()->!follower.isBusy()),
 
                         new InstantCommand(()->follower.followPath(shootFromGate)),
-                        new InstantCommand(()->shooter.update(TurretShooter.shooterState.AUTOCLOSE)),
+                        new InstantCommand(()->shooter.update(TurretShooter.shooterState.FIRENOTURRET)),
                         new WaitUntilCommand(()->!follower.isBusy()&&shooter.isInRange()),
                         new InstantCommand(()->timer.reset()),
                         new ParallelRaceGroup(
                                 new ShootAll3InertiaAUTOCLOSE(shooter,sort,intake),
-                                new WaitUntilCommand(()->timer.milliseconds()>1000)
+                                new WaitUntilCommand(()->timer.milliseconds()>1700)
                         ),
                         new InstantCommand(()->shooter.update(TurretShooter.shooterState.IDLE)),
 
@@ -170,12 +170,12 @@ public class ball_auto_18_blue extends OpMode {
                         new InstantCommand(()->sort.update(ChamberSort.CHAMBER_STATE.IN)),
                         new WaitUntilCommand(()->!follower.isBusy()),
                         new InstantCommand(()->follower.followPath(shoot1)),
-                        new InstantCommand(()->shooter.update(TurretShooter.shooterState.AUTOCLOSE)),
+                        new InstantCommand(()->shooter.update(TurretShooter.shooterState.FIRENOTURRET)),
                         new WaitUntilCommand(()->!follower.isBusy()&&shooter.isInRange()),
                         new InstantCommand(()->timer.reset()),
                         new ParallelRaceGroup(
                                 new ShootAll3InertiaAUTOCLOSE(shooter,sort,intake),
-                                new WaitUntilCommand(()->timer.milliseconds()>1000)
+                                new WaitUntilCommand(()->timer.milliseconds()>1700)
                         ),
                         new InstantCommand(()->shooter.update(TurretShooter.shooterState.IDLE)),
 
@@ -185,12 +185,12 @@ public class ball_auto_18_blue extends OpMode {
                         new InstantCommand(()->sort.update(ChamberSort.CHAMBER_STATE.IN)),
                         new WaitUntilCommand(()->!follower.isBusy()),
                         new InstantCommand(()->follower.followPath(shoot3)),
-                        new InstantCommand(()->shooter.update(TurretShooter.shooterState.AUTOCLOSE)),
+                        new InstantCommand(()->shooter.update(TurretShooter.shooterState.FIRENOTURRET)),
                         new WaitUntilCommand(()->!follower.isBusy()&&shooter.isInRange()),
                         new InstantCommand(()->timer.reset()),
                         new ParallelRaceGroup(
                                 new ShootAll3InertiaAUTOCLOSE(shooter,sort,intake),
-                                new WaitUntilCommand(()->timer.milliseconds()>1000)
+                                new WaitUntilCommand(()->timer.milliseconds()>1700)
                         ),
                         new InstantCommand(()-> shooter.update(TurretShooter.shooterState.IDLE)),
 
@@ -239,7 +239,7 @@ public class ball_auto_18_blue extends OpMode {
                 .addPath(
                         new BezierLine(new Pose(20.000, 58.000), Constants.autoCloseBLUEShoot)
                 )
-                .setLinearHeadingInterpolation(Math.toRadians(180), Math.toRadians(175))
+                .setLinearHeadingInterpolation(Math.toRadians(180), Math.toRadians(190))
                 .build();
 
 
@@ -252,7 +252,7 @@ public class ball_auto_18_blue extends OpMode {
                                 new Pose(13.50, 61.000)
                         )
                 )
-                .setLinearHeadingInterpolation(Math.toRadians(175), Math.toRadians(135))
+                .setLinearHeadingInterpolation(Math.toRadians(190), Math.toRadians(135))
                 .setBrakingStrength(2)
                 .build();
 
@@ -274,7 +274,7 @@ public class ball_auto_18_blue extends OpMode {
                                 new Pose(35,60),
                                 Constants.autoCloseBLUEShoot)
                 )
-                .setLinearHeadingInterpolation(Math.toRadians(147), Math.toRadians(180))
+                .setLinearHeadingInterpolation(Math.toRadians(147), Math.toRadians(190))
 //                .setTangentHeadingInterpolation()
 //                .setReversed()
                 .build();
@@ -286,7 +286,7 @@ public class ball_auto_18_blue extends OpMode {
                 .addPath(
                         new BezierLine(Constants.autoCloseBLUEShoot, new Pose(22.000, 82.000))
                 )
-                .setConstantHeadingInterpolation(Math.toRadians(180))
+                .setLinearHeadingInterpolation(Math.toRadians(180), Math.toRadians(180))
                 .setBrakingStrength(5)
                 .build();
         shoot1 = follower
@@ -294,7 +294,7 @@ public class ball_auto_18_blue extends OpMode {
                 .addPath(
                         new BezierLine(new Pose(22.000, 83.000), Constants.autoCloseBLUEShoot)
                 )
-                .setLinearHeadingInterpolation(Math.toRadians(180), Math.toRadians(270))
+                .setLinearHeadingInterpolation(Math.toRadians(180), Math.toRadians(190))
                 .build();
 
 
@@ -308,7 +308,7 @@ public class ball_auto_18_blue extends OpMode {
                                 new Pose(54.800, 36.000)
                         )
                 )
-                .setLinearHeadingInterpolation(Math.toRadians(270), Math.toRadians(180))
+                .setLinearHeadingInterpolation(Math.toRadians(190), Math.toRadians(180))
                 .addPath(
                         new BezierLine(
                                 new Pose(54.800, 36.000),
@@ -324,7 +324,7 @@ public class ball_auto_18_blue extends OpMode {
                 .addPath(
                         new BezierLine(new Pose(18.000, 34.000), new Pose(Constants.autoCloseBLUEShoot.getX(),Constants.autoCloseBLUEShoot.getY()))
                 )
-                .setTangentHeadingInterpolation()
+                .setLinearHeadingInterpolation(Math.toRadians(180), Math.toRadians(190))
                 .setReversed()
                 .setVelocityConstraint(0.6)
                 .setBrakingStrength(0.6)
@@ -335,7 +335,7 @@ public class ball_auto_18_blue extends OpMode {
                 .addPath(
                         new BezierLine(Constants.autoCloseBLUEShoot, new Pose(25.000, 74.000))
                 )
-                .setLinearHeadingInterpolation(Math.toRadians(-128), Math.toRadians(90))
+                .setLinearHeadingInterpolation(Math.toRadians(190), Math.toRadians(90))
 
                 .build();
 

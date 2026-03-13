@@ -30,7 +30,7 @@ public class Constants {
             .centripetalScaling(0.0003)
             .translationalPIDFCoefficients(new PIDFCoefficients(0.07,0.000075,0.002,0.02))
             .headingPIDFCoefficients(new PIDFCoefficients(1.5,0.2,0.04,0.01))
-            .drivePIDFCoefficients(new FilteredPIDFCoefficients(0.0105,0.0012,0.0005,0.7,0));
+            .drivePIDFCoefficients(new FilteredPIDFCoefficients(0.0105,0.0012,0.0005,0.3,0));
     //.drivePIDFCoefficients(new FilteredPIDFCoefficients(0.001,0.005,0.0004,0.7,0));
 
 
@@ -44,8 +44,8 @@ public class Constants {
             .leftRearMotorDirection(DcMotorSimple.Direction.REVERSE)
             .rightFrontMotorDirection(DcMotorSimple.Direction.FORWARD)
             .rightRearMotorDirection(DcMotorSimple.Direction.FORWARD)
-            .xVelocity(60.92097787589588)
-            .yVelocity(60.29183977)
+            .xVelocity(65.92097787589588)
+            .yVelocity(65.29183977)
             .useVoltageCompensation(true);
 
 
@@ -76,12 +76,12 @@ public class Constants {
             .strafeEncoderDirection(GoBildaPinpointDriver.EncoderDirection.REVERSED);
 
     public static PathConstraints pathConstraints = new PathConstraints(
-            0.8,
-            0.8,
+            0.6,
+            1.0,
             0.1,
             0.007,
-            100,
-            2,
+            80,
+            1,
             10,
             0.75
     );

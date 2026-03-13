@@ -36,7 +36,7 @@ public class IntakeTester extends LinearOpMode {
         while(opModeIsActive()){
 
 
-            turretMotor.setPower(1.0);
+            turretMotor.setPower(-1.0);
 
 
 

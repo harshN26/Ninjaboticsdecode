@@ -54,7 +54,7 @@ public class Constants {
 
 
 
-    public static double[] pidCoeffs_turret ={0.017,0.015,0.0007};;
+    public static double[] pidCoeffs_turret ={0.015,0.01,0.0008};
     public static final int tolerance_turret=6;
 
     public static double tolerance_shooter=100;
@@ -63,7 +63,7 @@ public class Constants {
 
     public static final double TICKS_PER_REV_Turret = 537.7;
 
-    public static double shooter_kp=0.0045;
+    public static double shooter_kp=0.004;
     public static double shooter_kv=0.00026;
     public static double shooter_ks=0.0;
 

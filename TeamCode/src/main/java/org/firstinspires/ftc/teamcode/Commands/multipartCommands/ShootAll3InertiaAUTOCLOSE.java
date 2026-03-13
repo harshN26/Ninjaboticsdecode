@@ -15,10 +15,10 @@ public class ShootAll3InertiaAUTOCLOSE extends SequentialCommandGroup {
     public ShootAll3InertiaAUTOCLOSE(TurretShooter shooter, ChamberSort chamberSort, Intake intake){
         super(
             new SequentialCommandGroup(
-                    new InstantCommand(()->shooter.update(TurretShooter.shooterState.AUTOCLOSE)),
+                    new InstantCommand(()->shooter.update(TurretShooter.shooterState.FIRENOTURRET)),
                     new InstantCommand(()-> Robot_Hardware.getInstance().firing=true),
                     new WaitUntilCommand(()->shooter.inRange),
-                    new InstantCommand(()->intake.update(Intake.INTAKE_STATE.IN)),
+                    new InstantCommand(()->intake.update(Intake.INTAKE_STATE.INCLOSE)),
                     new InstantCommand(()->chamberSort.update(ChamberSort.CHAMBER_STATE.UP)),
                     new WaitUntilCommand(()-> !shooter.inRange),
                     new WaitUntilCommand(()->shooter.inRange),
