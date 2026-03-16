@@ -17,6 +17,7 @@ import com.seattlesolvers.solverslib.command.ParallelCommandGroup;
 import org.firstinspires.ftc.teamcode.Commands.BasicCommands.StartAll;
 import org.firstinspires.ftc.teamcode.Commands.multipartCommands.ShootAll;
 import org.firstinspires.ftc.teamcode.Commands.multipartCommands.ShootAll3Inertia;
+import org.firstinspires.ftc.teamcode.Commands.multipartCommands.ShootAll3InertiaFAR;
 import org.firstinspires.ftc.teamcode.Commands.multipartCommands.ShootOnce;
 import org.firstinspires.ftc.teamcode.Subsystems.Kickstand;
 import org.firstinspires.ftc.teamcode.Subsystems.LLPort;
@@ -191,6 +192,11 @@ public class Teleop extends OpMode{
         if(gamepad2.dpad_left){
             shooter.offsetConstant-=8;
         }else if(gamepad2.dpad_right){
+            shooter.offsetConstant+=8;
+        }
+        if(gamepad2.dpad_left&&g2RTCurrent){
+            shooter.offsetConstant-=8;
+        }else if(gamepad2.dpad_right&&g2RTCurrent){
             shooter.offsetConstant+=8;
         }
 

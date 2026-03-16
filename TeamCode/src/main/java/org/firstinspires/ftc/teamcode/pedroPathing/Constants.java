@@ -25,8 +25,8 @@ public class Constants {
 
     public static FollowerConstants followerConstants = new FollowerConstants()
             .mass(10)
-            .forwardZeroPowerAcceleration(-59.7)
-            .lateralZeroPowerAcceleration(-59.94349)
+            .forwardZeroPowerAcceleration(-49.7)
+            .lateralZeroPowerAcceleration(-49.94349)
             .centripetalScaling(0.0003)
             .translationalPIDFCoefficients(new PIDFCoefficients(0.07,0.000075,0.002,0.02))
             .headingPIDFCoefficients(new PIDFCoefficients(1.5,0.2,0.04,0.01))
@@ -76,11 +76,11 @@ public class Constants {
             .strafeEncoderDirection(GoBildaPinpointDriver.EncoderDirection.REVERSED);
 
     public static PathConstraints pathConstraints = new PathConstraints(
-            0.6,
+            0.65,
             1.0,
             0.1,
             0.007,
-            80,
+            200,
             1,
             10,
             0.75

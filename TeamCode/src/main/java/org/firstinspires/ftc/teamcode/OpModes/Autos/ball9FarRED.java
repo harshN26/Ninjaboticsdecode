@@ -77,7 +77,7 @@ public class ball9FarRED extends OpMode {
         follower = org.firstinspires.ftc.teamcode.pedroPathing.Constants.createFollower(hardwareMap);
         follower.setStartingPose(robot.pose);
         follower.update();
-        shooter.offsetConstant=-15;
+        shooter.offsetConstant=15;
         shooter.hoodOffset=-1.0;
 
         initPaths();

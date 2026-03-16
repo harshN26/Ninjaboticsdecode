@@ -117,7 +117,7 @@ public class ball3FarRED extends OpMode {
                 .addPath(
                         new BezierLine(robot.pose, Constants.autoFarREDShoot)
                 )
-                .setConstantHeadingInterpolation(Math.toRadians(90))
+                .setLinearHeadingInterpolation(Math.toRadians(90), Math.toRadians(0))
                 .build();
 
 
@@ -127,7 +127,7 @@ public class ball3FarRED extends OpMode {
                 .addPath(
                         new BezierLine(Constants.autoFarREDShoot, new Pose(106.000, 17.000))
                 )
-                .setConstantHeadingInterpolation(Math.toRadians(90))
+                .setLinearHeadingInterpolation(Math.toRadians(0), Math.toRadians(90))
                 .build();
 
 

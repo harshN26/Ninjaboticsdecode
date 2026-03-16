@@ -16,6 +16,7 @@ import com.seattlesolvers.solverslib.command.SequentialCommandGroup;
 import com.seattlesolvers.solverslib.command.WaitCommand;
 import com.seattlesolvers.solverslib.command.WaitUntilCommand;
 
+import org.firstinspires.ftc.teamcode.Commands.multipartCommands.ShootAll;
 import org.firstinspires.ftc.teamcode.Commands.multipartCommands.ShootAll3InertiaFAR;
 import org.firstinspires.ftc.teamcode.Commands.multipartCommands.ShootAllAUTOFAR;
 import org.firstinspires.ftc.teamcode.Constants;
@@ -74,7 +75,7 @@ public class ballAutoCycleFarBLUE extends OpMode {
         follower = org.firstinspires.ftc.teamcode.pedroPathing.Constants.createFollower(hardwareMap);
         follower.setStartingPose(robot.pose);
         follower.update();
-        shooter.offsetConstant=5;
+//        shooter.offsetConstant=5;
 
 
         initPaths();
@@ -94,8 +95,8 @@ public class ballAutoCycleFarBLUE extends OpMode {
                         new WaitUntilCommand(()->!follower.isBusy()&&shooter.isInRange()),
                         new InstantCommand(()->timer.reset()),
                         new ParallelRaceGroup(
-                                new ShootAll3InertiaFAR(shooter,sort,intake),
-                                new WaitUntilCommand(()->timer.milliseconds()>2500)
+                                new ShootAllAUTOFAR(shooter,sort,intake),
+                                new WaitUntilCommand(()->timer.milliseconds()>4000)
                         ),
                         //Collect balls1
                         new InstantCommand(()->follower.followPath(collectBalls1)),
@@ -192,7 +193,7 @@ public class ballAutoCycleFarBLUE extends OpMode {
                 )
                 .setLinearHeadingInterpolation(Math.toRadians(180), Math.toRadians(225))
                 .setBrakingStart(0.3)
-                .setVelocityConstraint(0.6)
+                .setVelocityConstraint(0.4)
                 .build();
         backToShoot1 = follower
                 .pathBuilder()
@@ -201,7 +202,7 @@ public class ballAutoCycleFarBLUE extends OpMode {
                 )
                 .setLinearHeadingInterpolation(Math.toRadians(210), Math.toRadians(225))
                 .setBrakingStart(0.3)
-                .setVelocityConstraint(0.6)
+                .setVelocityConstraint(0.4)
                 .build();
 
         collectBalls = follower
