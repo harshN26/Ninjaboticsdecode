@@ -71,7 +71,8 @@ public class Constants {
             .strafePodX(-7)
             .distanceUnit(DistanceUnit.INCH)
             .hardwareMapName("pinpoint")
-            .customEncoderResolution(4096/(((double)35/24)*Math.PI))
+            //FIXME: replace goBILDA_4_BAR_POD with goBILDA_SWINGARM_POD if swingarm
+            .encoderResolution(GoBildaPinpointDriver.GoBildaOdometryPods.goBILDA_4_BAR_POD)
             .forwardEncoderDirection(GoBildaPinpointDriver.EncoderDirection.FORWARD)
             .strafeEncoderDirection(GoBildaPinpointDriver.EncoderDirection.REVERSED);
 
